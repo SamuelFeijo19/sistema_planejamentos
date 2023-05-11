@@ -115,9 +115,8 @@
             </a>
             <div id="collapseTwo" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
                 <div class="bg-white py-2 collapse-inner rounded">
-                    <a class="collapse-item" href="">Item</a>
-                    <a class="collapse-item" href="">Item</a>
-                    <a class="collapse-item" href="">Item</a>
+                    <a class="collapse-item" href="{{route('servidores.index')}}">Ver</a>
+                    <a class="collapse-item" href="{{route('servidores.create')}}">Cadastrar</a>
                 </div>
             </div>
         </li>
@@ -282,8 +281,61 @@
 </div>
 
 <!-- Bootstrap core JavaScript-->
+<script src="{{ asset('./js/bootstrap.min.js') }}" type="text/javascript"></script>
+<script src="{{ asset('./js/sweetalert.js') }}" type="text/javascript"></script>
 <script src="{{asset('./js/dashboard/jquery.min.js')}}"></script>
 <script src="{{asset('./js/dashboard/bootstrap.bundle.min.js')}}"></script>
+<script src="https://code.jquery.com/jquery-3.6.1.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js"></script>
+@stack('js')
+<script type="text/javascript">
+    $(function () {
+        $(document).on('click', '#delete', function (e) {
+            e.preventDefault();
+            console.log($(this).attr("href"));
+            var link = $(this).attr("href");
+
+            Swal.fire({
+                title: 'Tem certeza?',
+                text: "A alteração não poderá ser desfeita!",
+                icon: 'warning',
+                showCancelButton: true,
+                confirmButtonColor: '#3085d6',
+                cancelButtonColor: '#d33',
+                cancelButtonText: 'Cancelar',
+                confirmButtonText: 'Sim, excluir evento!'
+            }).then((result) => {
+                if (result.isConfirmed) {
+                    $.ajax({
+                        // Não me recordo bem mas acho que a função "route" recebe um segundo parâmetro que é um array com os parâmetros da sua rota, você pode confirmar isso na documentação.
+                        url: link,
+                        type: 'get',
+                        success: function (response) {
+                            Swal.fire({
+                                type: 'success',
+                                title: 'Exclusão Concluída!',
+                                text: 'O evento foi excluído com sucesso.',
+                                icon: 'success',
+                            }).then((result) => {
+
+                                location.reload()
+                            })
+                        }
+                    });
+                }
+            })
+        });
+
+        @if(session()->get('type'))
+        Swal.fire({
+            type: '{{ session()->get('type') }}',
+            title: '{{ session()->get('title') }}',
+            text: '{{ session()->get('message') }}',
+            icon: '{{ session()->get('type') }}',
+        })
+        @endif
+    });
+</script>
 </body>
 
 </html>

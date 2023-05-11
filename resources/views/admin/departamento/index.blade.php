@@ -29,6 +29,9 @@
                                         <a href="{{route('departamento.edit', $departamento->id)}}">
                                             <span class="material-symbols-outlined">edit_note</span>
                                         </a>
+                                        <a href="{{route('board.index', $departamento->id)}}">
+                                            <span class="material-symbols-outlined">grid_view</span>
+                                        </a>
                                     </div>
                                 </div>
                             </div>
