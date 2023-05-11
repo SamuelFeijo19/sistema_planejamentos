@@ -1,11 +1,11 @@
-{{--@extends('layouts.dashboard.app')--}}
+@extends('layouts.dashboard.app')
 @push('css')
     <link rel="stylesheet"
           href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@48,400,0,0"/>
     <link rel="stylesheet"
           href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@48,400,0,0"/>
 @endpush
-{{--@section('content')--}}
+@section('content')
     <div class="container-fluid">
         <div style="width: 100%;">
             <div class="col col-12">
@@ -32,6 +32,9 @@
                                     <a href="{{route('secretarias.edit', $secretaria->id)}}">
                                         <span class="material-symbols-outlined">edit_note</span>
                                     </a>
+                                    <a href="{{route('departamento.index', $secretaria->id)}}">
+                                        <span class="material-symbols-outlined">groups</span>
+                                    </a>
                                 </div>
                             </div>
                         </div>
@@ -43,7 +46,7 @@
         </div>
     </div>
     <br>
-{{--@endsection--}}
+@endsection
 
 @push('js')
     <script src="{{asset('js/delete/delete.js')}}"></script>

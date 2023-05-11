@@ -1,6 +1,6 @@
-{{--@extends('')--}}
+@extends('layouts.dashboard.app')
 
-{{--@section('content')--}}
+@section('content')
     <div class="container-fluid">
         <div style="width: 100%;">
             <div class="col col-12">
@@ -40,7 +40,7 @@
             </div>
         </div>
     </div>
-{{--@endsection--}}
+@endsection
 @push('js')
     <script src="{{asset('js/delete/delete.js')}}"></script>
 @endpush

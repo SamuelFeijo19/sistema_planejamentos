@@ -1,6 +1,6 @@
-{{--@extends('')--}}
+@extends('layouts.dashboard.app')
 
-{{--@section('content')--}}
+@section('content')
 
     <div class="container-fluid">
     <div class="row">
@@ -13,13 +13,12 @@
             <form id="formulario_registro" method="post" action="{{ route('secretarias.store') }}">
                 <input type="hidden" name="'id" value="{{ $secretaria->id ?? '' }}">
                 @csrf
-
                 <div class="card">
-                    <div class="card-header text-center bg-primary" id="headingOne" style="
-                        background: linear-gradient( rgba(28,132,198,1) 2%, rgba(5,66,105,1) 0%);
+                    <div class="card-header text-center bg-dark" id="headingOne" style="
+                        ;
                     ">
                         <h5 class="mb-0">
-                            <input type="button" class="btn btn-link text-white font-weight-bold"
+                            <input type="button" class="btn btn-dark text-white font-weight-bold"
                                 value="DADOS DA SECRETARIA">
                         </h5>
                     </div>
@@ -63,4 +62,4 @@
         </div>
     </div>
 </div>
-{{--@endsection--}}
+@endsection

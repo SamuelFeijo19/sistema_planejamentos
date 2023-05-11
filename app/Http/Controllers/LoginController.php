@@ -26,7 +26,7 @@ class LoginController extends Controller
         ]);
 
         if (Auth::attempt($credentials)) {
-            return view('admin.index');
+            return view('layouts.dashboard.board');
         }else{
             return "Login falhou";
         }

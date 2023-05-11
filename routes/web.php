@@ -35,6 +35,6 @@ Route::resource('secretarias', \App\Http\Controllers\Admin\SecretariaController:
 
 //DEPARTAMENTOS
 Route::resource('departamento', \App\Http\Controllers\Admin\DepartamentoController::class)->except(['create', 'index']);
-Route::get('departamento/index/{secretaria_id}', [\App\Http\Controllers\Admin\DepartamentoController::class, 'index'])->name('conteudo.index');
-Route::get('departamento/create/{secretaria_id}', [\App\Http\Controllers\Admin\DepartamentoController::class, 'create'])->name('conteudo.create');
+Route::get('departamento/index/{secretaria_id}', [\App\Http\Controllers\Admin\DepartamentoController::class, 'index'])->name('departamento.index');
+Route::get('departamento/create/{secretaria_id}', [\App\Http\Controllers\Admin\DepartamentoController::class, 'create'])->name('departamento.create');
 
