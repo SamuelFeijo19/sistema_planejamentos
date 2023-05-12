@@ -4,14 +4,13 @@ namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
 use App\Models\Departamento;
-use App\Models\Lotacao;
 use App\Models\Servidor;
 use App\Models\Tarefa;
 use Exception;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 
-class BoardController extends Controller
+class TarefaController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -20,17 +19,11 @@ class BoardController extends Controller
      */
     public function index(Request $request, $departamento_id)
     {
-        $servidores = Servidor::with('user')
-            ->join('departamento_servidor', 'servidores.id', '=', 'departamento_servidor.servidor_id')
-            ->where('departamento_servidor.departamento_id', '=', $departamento_id)
-            ->get();
-        $departamento = DB::table('departamentos')
-            ->where('id', '=', $departamento_id)
-            ->first();
+        $tarefas = Tarefa::all();
 
-        $tarefas = Tarefa::where('departamento_id', $departamento_id)->get();
+        $tarefas->where('departamento_id', $departamento_id);
 
-        return view('layouts.dashboard.board', compact('servidores', 'departamento', 'tarefas'));
+        return view('admin.tarefas.index', compact('tarefas'));
     }
 
     /**
@@ -38,12 +31,23 @@ class BoardController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function create($secretaria_id)
+    public function create($departamento_id)
     {
         //
-        return view('admin.departamento.create', compact('secretaria_id'));
+        return view('admin.tarefa.create', compact('departamento_id'));
     }
 
+//    public function createServidor($id)
+//    {
+//        //BUSCA SOMENTE PARTICIPANTES QUE NÃO FORAM CADASTRADOS NO MESMO DEPARTAMENTO BUSCADO.
+//        $servidores = Servidor::whereNotIn('id', function ($query) use ($id) {
+//            $query->select('servidor_id')->from('departamento_servidor')->where('departamento_id', $id);
+//        })->get();
+//
+//        $departamento = Departamento::findOrFail($id);
+//
+//        return view('admin.departamento.servidor', compact('servidores', 'departamento'));
+//    }
     /**
      * Store a newly created resource in storage.
      *
@@ -56,19 +60,22 @@ class BoardController extends Controller
 
         try {
             DB::beginTransaction();
-            $departamento = Departamento::create([
-                'secretaria_id' => $request->secretaria_id,
-                'nomeDepartamento' => mb_strtoupper($request->nomeDepartamento),
-
+            $tarefa = Tarefa::create([
+                'departamento_id' => $request->departamento_id,
+                'nomeTarefa' => mb_strtoupper($request->nomeTarefa),
+                'criador_id' => auth()->user()->id,
+                'descricao' => $request->descricao,
+                'situacao' => $request->situacao,
+                'classificacao' => $request->classificacao
             ]);
             DB::commit();
             //resetar csrf token
             $request->session()->regenerateToken();
-            return "Departamento Cadastrado!";
+            return "Tarefa Cadastrada!";
         } catch (Exception $exception) {
             dd($exception);
             DB::rollBack();
-            return "Erro ao cadastrar departamento!";
+            return "Erro ao cadastrar tarefa!";
         }
     }
 

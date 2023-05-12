@@ -45,5 +45,9 @@ Route::resource('lotacoes', \App\Http\Controllers\Admin\LotacaoController::class
 // SERVIDORES
 Route::resource('servidores', \App\Http\Controllers\Admin\ServidorController::class);
 
+// TAREFAS
+Route::resource('tarefas', \App\Http\Controllers\Admin\TarefaController::class)->except(['create', 'index']);
+Route::get('tarefa/create/{departamento_id}', [\App\Http\Controllers\Admin\TarefaController::class, 'create'])->name('departamento.create');
+
 //BOARD TESTE
 Route::get('departamento/{departamento_id}/board', [\App\Http\Controllers\Admin\BoardController::class, 'index'])->name('board.index');
