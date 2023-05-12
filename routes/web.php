@@ -38,6 +38,10 @@ Route::resource('departamento', \App\Http\Controllers\Admin\DepartamentoControll
 Route::get('departamento/index/{secretaria_id}', [\App\Http\Controllers\Admin\DepartamentoController::class, 'index'])->name('departamento.index');
 Route::get('departamento/create/{secretaria_id}', [\App\Http\Controllers\Admin\DepartamentoController::class, 'create'])->name('departamento.create');
 
+//LOTACAO
+Route::get('departamentos/{id}/servidor', [\App\Http\Controllers\Admin\DepartamentoController::class, 'createServidor'])->name('departamentos.servidor.create');
+Route::resource('lotacoes', \App\Http\Controllers\Admin\LotacaoController::class);
+
 // SERVIDORES
 Route::resource('servidores', \App\Http\Controllers\Admin\ServidorController::class);
 

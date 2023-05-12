@@ -22,6 +22,9 @@
                                 </div>
                                 <div class="col d-flex justify-content-center align-items-center">
                                     <div class="text-right">
+                                        <a href="{{route('departamentos.servidor.create', $departamento->id)}}" title="ADICIONAR SERVIDOR">
+                                            <span class="material-symbols-outlined text-success">person_add</span>
+                                        </a>
                                         <a href="#" class="delete"
                                            data-route="{{route('departamento.destroy', $departamento->id)}}">
                                             <span class="material-symbols-outlined text-danger">delete</span>

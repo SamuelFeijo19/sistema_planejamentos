@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
 use App\Models\Departamento;
+use App\Models\Servidor;
 use Exception;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
@@ -17,20 +18,9 @@ class DepartamentoController extends Controller
      */
     public function index(Request $request, $secretaria_id)
     {
-        //
         $departamentos = Departamento::all();
-//        if ($request->has('search')) {
-//            $search = $request->search;
-//            $departamentos->where('nomeDepartamento', 'like', "%$search%");
-//        }
 
         $departamentos->where('secretaria_id', $secretaria_id);
-//        $departamentos = $departamentos->paginate(10);
-//
-//        if ($departamentos->count() === 0) {
-//            $mensagem = "Nenhum conteúdo cadastrado";
-//            return view('admin.departamento.index', compact('$departamentos', 'secretaria_id', 'mensagem'));
-//        }
 
         return view('admin.departamento.index', compact('departamentos'));
     }
@@ -46,6 +36,17 @@ class DepartamentoController extends Controller
         return view('admin.departamento.create', compact('secretaria_id'));
     }
 
+    public function createServidor($id)
+    {
+        //BUSCA SOMENTE PARTICIPANTES QUE NÃO FORAM CADASTRADOS NO MESMO DEPARTAMENTO BUSCADO.
+        $servidores = Servidor::whereNotIn('id', function ($query) use ($id) {
+            $query->select('servidor_id')->from('departamento_servidor')->where('departamento_id', $id);
+        })->get();
+
+        $departamento = Departamento::findOrFail($id);
+
+        return view('admin.departamento.servidor', compact('servidores', 'departamento'));
+    }
     /**
      * Store a newly created resource in storage.
      *
