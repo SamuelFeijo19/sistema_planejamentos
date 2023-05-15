@@ -20,32 +20,33 @@ class LotacaoController extends Controller
      */
     public function index(Request $request)
     {
-        $matriculasQuery = Matricula::query();
+        $lotacao = Lotacao::query();
 
-        if ($request->has('search')) {
-            $search = $request->search;
+//        if ($request->has('search')) {
+//            $search = $request->search;
+//
+//            $matriculasQuery->join('participantes', 'matriculas.participante_id', '=', 'participantes.id')
+//                ->join('users', 'participantes.user_id', '=', 'users.id')
+//                ->join('eventos', 'matriculas.evento_id', '=', 'eventos.id')
+//                ->where('name', 'like', "%$search%")
+//                ->orWhere('nomeEvento', 'like', "%$search%")
+//                ->select('matriculas.*', 'users.name');
+//        }
 
-            $matriculasQuery->join('participantes', 'matriculas.participante_id', '=', 'participantes.id')
-                ->join('users', 'participantes.user_id', '=', 'users.id')
-                ->join('eventos', 'matriculas.evento_id', '=', 'eventos.id')
-                ->where('name', 'like', "%$search%")
-                ->orWhere('nomeEvento', 'like', "%$search%")
-                ->select('matriculas.*', 'users.name');
-        }
+//        $matriculas = $matriculasQuery->paginate(7);
 
-        $matriculas = $matriculasQuery->paginate(7);
+//        if ($matriculas->count() === 0) {
+//            return redirect()->route('matriculas.index')->with(['type' => 'error', 'message' => 'Nenhuma matrícula encontrada com as informações fornecidas']);
+//        }
 
-        if ($matriculas->count() === 0) {
-            return redirect()->route('matriculas.index')->with(['type' => 'error', 'message' => 'Nenhuma matrícula encontrada com as informações fornecidas']);
-        }
-
-        return view('admin.matriculas.index', compact('matriculas'));
+        return view('admin.departamento.servidor_departamento', compact('lotacao'));
     }
 
-    public function show($id)
+    public function show($departamento_id)
     {
-        $matriculas = Matricula::findOrFail($id);
-        return view('admin.matriculas.edit', compact('matriculas'));
+        $lotacoes=Lotacao::all();
+        $lotacoes->where('departamento_id', $departamento_id);
+        return view('admin.departamento.servidor_departamento', compact('lotacoes'));
     }
 
     public function create()

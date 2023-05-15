@@ -47,6 +47,7 @@ class DepartamentoController extends Controller
 
         return view('admin.departamento.servidor', compact('servidores', 'departamento'));
     }
+
     /**
      * Store a newly created resource in storage.
      *

@@ -32,6 +32,9 @@
                                         <a href="{{route('departamento.edit', $departamento->id)}}">
                                             <span class="material-symbols-outlined">edit_note</span>
                                         </a>
+                                        <a href="{{route('lotacoes.show', $departamento->id)}}" title="LISTAR SERVIDORES">
+                                            <span class="material-symbols-outlined text-primary">groups</span>
+                                        </a>
                                         <a href="{{route('board.index', $departamento->id)}}">
                                             <span class="material-symbols-outlined">grid_view</span>
                                         </a>
