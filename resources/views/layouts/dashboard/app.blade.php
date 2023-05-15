@@ -9,6 +9,7 @@
     <meta name="description" content="">
     <link rel="stylesheet" href="{{asset('./css/dashboard/all.min.css')}}">
     <link rel="stylesheet" href="{{asset('./css/dashboard/sb-admin-2.min.css')}}">
+
     <meta name="author" content="">
 
     <title>RBPlanejamento - Dashboard</title>
@@ -108,12 +109,12 @@
         </li>
 
         <li class="nav-item">
-            <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseTwo"
+            <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseTwo2"
                aria-expanded="true" aria-controls="collapseTwo">
                 <i class="fas fa-fw fa-cog"></i>
                 <span>Servidores</span>
             </a>
-            <div id="collapseTwo" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
+            <div id="collapseTwo2" class="collapse" aria-labelledby="headingTwo2" data-parent="#accordionSidebar">
                 <div class="bg-white py-2 collapse-inner rounded">
                     <a class="collapse-item" href="{{route('servidores.index')}}">Ver</a>
                     <a class="collapse-item" href="{{route('servidores.create')}}">Cadastrar</a>

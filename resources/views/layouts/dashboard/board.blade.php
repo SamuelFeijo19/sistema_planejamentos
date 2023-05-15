@@ -1,16 +1,51 @@
 @extends('layouts.dashboard.app')
 
 @section('content')
-<h3 style="padding-left: 20px;">{{ucwords(strtolower($departamento->nomeDepartamento))}}</h3>
+    <style>
+        .float-left {
+            float: left;
+        }
 
-<div class="container-fluid mt-4 shadow-lg" style="
+        .float-right {
+            float: right;
+        }
+
+        .clearfix::after {
+            content: "";
+            clear: both;
+            display: table;
+        }
+
+        @media (max-width: 650px) {
+            .float-right {
+                width: 100%;
+                padding: 10px;
+            }
+            .btn {
+                width: 100%;
+            }
+        }
+    </style>
+
+    <div class="clearfix">
+        <div class="float-left">
+            <h3 style="padding-left: 20px;">{{ucwords(strtolower($departamento->nomeDepartamento))}}</h3>
+        </div>
+        <div class="float-right" style="padding-right: 20px;">
+            <a href="{{route('tarefa.create', $departamento->id)}}" class="btn btn-primary">
+                <span class="material-symbols-outlined align-middle">add</span>Nova Tarefa
+            </a>
+        </div>
+    </div>
+
+    @foreach($servidores as $servidor)
+        <div class="container-fluid mt-4 shadow-lg" style="
                 background: #858796;
                 padding-top: 20px;
                 width: 90%;
                 border-radius: 10px;
                 ">
 
-    @foreach($servidores as $servidor)
         <h3 class="text-light">{{$servidor->user->name}}</h3>
         <div class="row">
             <div class="col">
@@ -23,14 +58,12 @@
                         </div>
                         <br>
                         @foreach($tarefas as $tarefa)
-                            @if($tarefa->criador_id==$servidor->id)
+                            @if($tarefa->criador_id==$servidor->user->id)
                                     @if($tarefa->situacao == 0)
                                     <div class="card-body shadow-sm">
-                                        <div class="card">
-                                            <div class="card-body">
-                                                {{$tarefa->nomeTarefa}}
-                                                <span style="float: right;" class="material-symbols-outlined">
-                                                    arrow_drop_down
+                                        <div class="card {{ $tarefa->classificacao == 0 ? 'bg-success' : ($tarefa->classificacao == 1 ? 'bg-warning'  : 'bg-danger') }}">
+                                            <div class="card-body text-white"> {{$tarefa->nomeTarefa}}
+                                                <span style="float: right;" class="material-symbols-outlined"> arrow_drop_down
                                                 </span>
                                             </div>
                                         </div>
@@ -39,25 +72,27 @@
                             @endif
                         @endforeach
                     </div>
-
-                    <div class="card">
-{{--                    TAREFAS EM ANDAMENTO--}}
-                        <div class="card-header bg-success text-white">
-                            Doing
-                        </div>
-                        <br>
-                        @foreach($tarefas as $tarefa)
-                            @if($tarefa->situacao == 1)
-                                <div class="card-body shadow-sm">
-                                    <div class="card">
-                                        <div class="card-body">
-                                            {{$tarefa->nomeTarefa}}
-                                            <span style="float: right;" class="material-symbols-outlined">
-                                                    arrow_drop_down
-                                                </span>
+                        <div class="card">
+                                <h5 class="mb-0">
+                                        <div class="card-header bg-success text-white">
+                                            Doing
                                         </div>
-                                    </div>
-                                </div>
+                                </h5>
+{{--                        TAREFAS EM ANDAMENTO--}}
+
+                            <br>
+                            @foreach($tarefas as $tarefa)
+                              @if($tarefa->criador_id==$servidor->user->id)
+                                  @if($tarefa->situacao == 1)
+                                        <div class="card-body shadow-sm">
+                                            <div class="card {{ $tarefa->classificacao == 0 ? 'bg-success' : ($tarefa->classificacao == 1 ? 'bg-warning'  : 'bg-danger') }}">
+                                                <div class="card-body text-white"> {{$tarefa->nomeTarefa}}
+                                                    <span style="float: right;" class="material-symbols-outlined"> arrow_drop_down
+                                                </span>
+                                                </div>
+                                            </div>
+                                        </div>
+                                @endif
                             @endif
                         @endforeach
                     </div>
@@ -69,17 +104,17 @@
                         </div>
                         <br>
                         @foreach($tarefas as $tarefa)
-                            @if($tarefa->situacao == 2)
-                                <div class="card-body shadow-sm">
-                                    <div class="card">
-                                        <div class="card-body">
-                                            {{$tarefa->nomeTarefa}}
-                                            <span style="float: right;" class="material-symbols-outlined">
-                                                arrow_drop_down
-                                            </span>
+                            @if($tarefa->criador_id==$servidor->user->id)
+                                @if($tarefa->situacao == 2)
+                                    <div class="card-body shadow-sm">
+                                        <div class="card {{ $tarefa->classificacao == 0 ? 'bg-success' : ($tarefa->classificacao == 1 ? 'bg-warning'  : 'bg-danger') }}">
+                                            <div class="card-body text-white"> {{$tarefa->nomeTarefa}}
+                                                <span style="float: right;" class="material-symbols-outlined"> arrow_drop_down
+                                                </span>
+                                            </div>
                                         </div>
                                     </div>
-                                </div>
+                                @endif
                             @endif
                         @endforeach
                     </div>
@@ -88,6 +123,9 @@
             </div>
         </div>
         <br>
+        </div>
     @endforeach
-</div>
 @endsection
+@push('js')
+
+@endpush

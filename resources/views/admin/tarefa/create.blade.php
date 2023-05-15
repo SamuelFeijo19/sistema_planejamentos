@@ -60,7 +60,7 @@
                                     @enderror
 
                                     <div class="form-group">
-                                        <label for="classificacao">Descricao da Tarefa:</label>
+                                        <label for="classificacao">Classificação da Tarefa:</label>
                                         <select name="classificacao" for="classificacao" class="custom-select"
                                                 id="inputGroupSelect02">
                                             <option value="0" selected>Baixa Prioridade</option>
