@@ -84,6 +84,11 @@
                                                          data-parent="#accordion{{$servidor->user->id}}_{{$tarefa->id}}">
                                                         <div class="card-body border">
                                                             <p class="mb-1"><b>Sobre a Tarefa:</b> {{$tarefa->descricao}}</p>
+                                                            <p class="mb-1"><b>Atualizar Tarefa:</b>                                                         <a href="{{route('departamento.edit', $departamento->id)}}">
+                                                                    <a href="{{route('tarefas.edit', $tarefa->id)}}">
+                                                                        <span class="material-symbols-outlined">edit_note</span>
+                                                                    </a>
+                                                            </p>
                                                         </div>
                                                     </div>
                                                 </div>
@@ -131,6 +136,11 @@
                                                         <div class="card-body border">
                                                             <p class="mb-1"><b>Sobre a
                                                                     Tarefa:</b> {{$tarefa->descricao}}</p>
+                                                            <p class="mb-1"><b>Atualizar Tarefa:</b>                                                         <a href="{{route('departamento.edit', $departamento->id)}}">
+                                                                    <a href="{{route('tarefas.edit', $tarefa->id)}}">
+                                                                        <span class="material-symbols-outlined">edit_note</span>
+                                                                    </a>
+                                                            </p>
                                                         </div>
                                                     </div>
                                                 </div>
@@ -177,6 +187,11 @@
                                                         <div class="card-body border">
                                                             <p class="mb-1"><b>Sobre a
                                                                     Tarefa:</b> {{$tarefa->descricao}}</p>
+                                                            <p class="mb-1"><b>Atualizar Tarefa:</b>                                                         <a href="{{route('departamento.edit', $departamento->id)}}">
+                                                                    <a href="{{route('tarefas.edit', $tarefa->id)}}">
+                                                                        <span class="material-symbols-outlined">edit_note</span>
+                                                                    </a>
+                                                            </p>
                                                         </div>
                                                     </div>
                                                 </div>

@@ -101,8 +101,8 @@ class TarefaController extends Controller
     public function edit($id)
     {
         //
-        $departamento = Departamento::findOrFail($id);
-        return view('admin.departamento.edit', compact('departamento'));
+        $tarefa = Tarefa::findOrFail($id);
+        return view('admin.tarefa.edit', compact('tarefa'));
     }
 
     /**
@@ -117,18 +117,20 @@ class TarefaController extends Controller
         //
         try {
             DB::beginTransaction();
-            $departamento = Departamento::findOrFail($id);
-            $departamento->update([
-                'secretaria_id' => $request->secretaria_id,
-                'nomeDepartamento' => mb_strtoupper($request->nomeDepartamento),
+            $tarefa = Tarefa::findOrFail($id);
+            $tarefa->update([
+                'nomeTarefa' => mb_strtoupper($request->nomeTarefa),
+                'descricao' => $request->descricao,
+                'situacao' => $request->situacao,
+                'classificacao' => $request->classificacao
             ]);
             DB::commit();
             //resetar csrf token
             $request->session()->regenerateToken();
-            return view('admin.conteudo.index', $departamento->secretaria_id);
+            return "tarefa atualiada com sucesso";
         } catch (Exception $exception) {
             DB::rollBack();
-            return "erro ao atualizar departamento!";
+            return "erro ao atualizar tarefa!";
         }
     }
 
