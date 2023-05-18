@@ -2,6 +2,8 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Departamento;
+use App\Models\Lotacao;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
@@ -26,7 +28,11 @@ class LoginController extends Controller
         ]);
 
         if (Auth::attempt($credentials)) {
-            return view('layouts.dashboard.board');
+            $servidorId = auth()->user()->id; // Obtenha o ID do usuário logado na sessão
+//            dd($servidorId);
+            $lotacoes = Lotacao::where('servidor_id', $servidorId)->get();
+
+            return redirect()->route('dashboard.content', compact('lotacoes'));
         }else{
             return "Login falhou";
         }

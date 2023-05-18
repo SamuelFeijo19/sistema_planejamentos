@@ -55,7 +55,7 @@
     <ul class="navbar-nav bg-gradient-secondary sidebar sidebar-dark accordion" id="accordionSidebar">
 
         <!-- Sidebar - Brand -->
-        <a class="sidebar-brand d-flex align-items-center justify-content-center" href="">
+        <a class="sidebar-brand d-flex align-items-center justify-content-center" href="{{route('dashboard.content')}}">
 
             <div class="sidebar-brand-text mx-3">RBPlans</div>
         </a>
@@ -65,7 +65,7 @@
 
         <!-- Nav Item - Dashboard -->
         <li class="nav-item active">
-            <a class="nav-link" href="">
+            <a class="nav-link" href="{{route('dashboard.content')}}">
                 <i class="fa-solid fa-address-card"></i>
                 <span>Dashboard</span>
             </a>

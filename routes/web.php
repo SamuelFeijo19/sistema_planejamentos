@@ -51,3 +51,6 @@ Route::get('tarefa/create/{departamento_id}', [\App\Http\Controllers\Admin\Taref
 
 //BOARD TESTE
 Route::get('departamento/{departamento_id}/board', [\App\Http\Controllers\Admin\BoardController::class, 'index'])->name('board.index');
+
+//CONTENT
+Route::get('/dashboard/content', [\App\Http\Controllers\Admin\HomeController::class, 'content'])->name('dashboard.content');
