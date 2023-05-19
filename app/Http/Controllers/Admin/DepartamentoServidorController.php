@@ -11,7 +11,7 @@ use Exception;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 
-class Departamento_Servidor extends Controller
+class DepartamentoServidorController extends Controller
 {
     /**
      * Display a listing of the resource.
