@@ -4,7 +4,7 @@ namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
 use App\Models\Departamento;
-use App\Models\Lotacao;
+use App\Models\DepartamentoServidor;
 use App\Models\Servidor;
 use App\Models\Tarefa;
 use Exception;

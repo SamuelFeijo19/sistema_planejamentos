@@ -5,13 +5,13 @@ namespace App\Http\Controllers\Admin;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\LotacaoStoreRequest;
 use App\Models\Departamento;
-use App\Models\Lotacao;
+use App\Models\DepartamentoServidor;
 use App\Models\Servidor;
 use Exception;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 
-class LotacaoController extends Controller
+class Departamento_Servidor extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -20,7 +20,7 @@ class LotacaoController extends Controller
      */
     public function index(Request $request)
     {
-        $lotacao = Lotacao::query();
+        $lotacao = DepartamentoServidor::query();
 
 //        if ($request->has('search')) {
 //            $search = $request->search;
@@ -44,24 +44,25 @@ class LotacaoController extends Controller
 
     public function show($departamento_id)
     {
-        $lotacoes=Lotacao::all();
+        $lotacoes=DepartamentoServidor::all();
         $lotacoes->where('departamento_id', $departamento_id);
         return view('admin.departamento.servidor_departamento', compact('lotacoes'));
     }
 
-    public function create()
-    {
-        $eventos = Evento::whereDate('dataInicio', '>=', now())->get();
-
-        $participantes = Participante::all();
-        return view('admin.matriculas.create', compact('eventos', 'participantes'));
-    }
+//    public function create()
+//    {
+//        $eventos = Evento::whereDate('dataInicio', '>=', now())->get();
+//
+//        $participantes = Participante::all();
+//        return view('admin.matriculas.create', compact('eventos', 'participantes'));
+//    }
 
     public function store(LotacaoStoreRequest $request)
     {
         try {
+//            dd($request);
             DB::beginTransaction();
-            $lotacao = Lotacao::create([
+            $lotacao = DepartamentoServidor::create([
                 'servidor_id' => mb_strtoupper($request->servidor_id),
                 'departamento_id' => $request->departamento_id,
             ]);
@@ -75,32 +76,28 @@ class LotacaoController extends Controller
         }
     }
 
-    public function edit($id)
-    {
-        $eventos = Evento::all();
-        $matricula = Matricula::findOrFail($id);
-        return view('admin.matriculas.edit', compact('matricula', 'eventos'));
-    }
+//    public function edit($id)
+//    {
+//        $eventos = Evento::all();
+//        $matricula = Matricula::findOrFail($id);
+//        return view('admin.matriculas.edit', compact('matricula', 'eventos'));
+//    }
 
     public function update(Request $request, $id)
     {
         try {
             DB::beginTransaction();
-            $matricula = Matricula::findOrFail($id);
-            $eventos = Evento::all();
-            $participantes = Participante::all();
-            $matricula->update([
-                'usuario_id' => $request->participante_id,
-                'evento_id' => $request->evento_id,
-                'valida_matricula' => $request->validaMatricula,
-                'libera_certificado' => $request->liberarCertificado
+            $lotacao = DepartamentoServidor::findOrFail($id);
+            $lotacao->update([
+                'servidor_id' => mb_strtoupper($request->servidor_id),
+                'departamento_id' => $request->departamento_id,
             ]);
             DB::commit();
             $request->session()->regenerateToken();
-            return redirect()->route('matriculas.index')->with(['type' => 'success', 'message' => 'Matricula atualizada com sucesso!', 'title' => 'Sucesso!']);
+            return "Lotação atualizada com sucesso!";
         } catch (Exception $exception) {
             DB::rollBack();
-            return redirect()->route('matriculas.create')->with(['type' => 'error', 'message' => 'Erro ao tentar atualizar a matricula!', 'title' => 'Erro!']);
+            return "Falha na atualizada!";
         }
     }
 
@@ -108,13 +105,13 @@ class LotacaoController extends Controller
     {
         try {
             DB::beginTransaction();
-            Matricula::findOrFail($id)->ForceDelete();
+            DepartamentoServidor::findOrFail($id)->ForceDelete();
             DB::commit();
-            return response()->json(['msg' => 'Matrícula excluída com sucesso!'], 200);
+            return response()->json(['msg' => 'Lotação excluída com sucesso!'], 200);
         } catch (Exception $ex) {
             DB::rollBack();
             return response()->json([
-                'msg' => 'Erro ao excluir matricula!',
+                'msg' => 'Erro ao excluir Lotação!',
             ], 401);
         }
     }

@@ -3,7 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Departamento;
-use App\Models\Lotacao;
+use App\Models\DepartamentoServidor;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
@@ -30,7 +30,7 @@ class LoginController extends Controller
         if (Auth::attempt($credentials)) {
             $servidorId = auth()->user()->id; // Obtenha o ID do usuário logado na sessão
 //            dd($servidorId);
-            $lotacoes = Lotacao::where('servidor_id', $servidorId)->get();
+            $lotacoes = DepartamentoServidor::where('servidor_id', $servidorId)->get();
 
             return redirect()->route('dashboard.content', compact('lotacoes'));
         }else{

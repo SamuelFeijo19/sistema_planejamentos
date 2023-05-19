@@ -40,7 +40,7 @@ Route::get('departamento/create/{secretaria_id}', [\App\Http\Controllers\Admin\D
 
 //LOTACAO
 Route::get('departamentos/{id}/servidor', [\App\Http\Controllers\Admin\DepartamentoController::class, 'createServidor'])->name('departamentos.servidor.create');
-Route::resource('lotacoes', \App\Http\Controllers\Admin\LotacaoController::class);
+Route::resource('lotacoes', \App\Http\Controllers\Admin\Departamento_Servidor::class);
 
 // SERVIDORES
 Route::resource('servidores', \App\Http\Controllers\Admin\ServidorController::class);

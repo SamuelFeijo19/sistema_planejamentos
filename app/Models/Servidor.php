@@ -19,6 +19,6 @@ class Servidor extends Model
 
     public function lotacoes()
     {
-        return $this->hasMany(Lotacao::class, 'servidor_id', 'id');
+        return $this->hasMany(DepartamentoServidor::class, 'servidor_id', 'id');
     }
 }
