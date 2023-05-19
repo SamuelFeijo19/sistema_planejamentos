@@ -35,9 +35,9 @@
 {{--                                        <a href="{{route('lotacoes.show', $divisao->id)}}" title="LISTAR SERVIDORES">--}}
 {{--                                            <span class="material-symbols-outlined text-primary">groups</span>--}}
 {{--                                        </a>--}}
-{{--                                        <a href="{{route('board.index', $divisao->id)}}">--}}
-{{--                                            <span class="material-symbols-outlined">grid_view</span>--}}
-{{--                                        </a>--}}
+                                        <a href="{{route('boardDivisao.index', $divisao->id)}}">
+                                            <span class="material-symbols-outlined">grid_view</span>
+                                        </a>
                                     </div>
                                 </div>
                             </div>
