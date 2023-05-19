@@ -40,12 +40,12 @@ class DivisaoController extends Controller
     {
         //BUSCA SOMENTE PARTICIPANTES QUE NÃO FORAM CADASTRADOS NO MESMO DEPARTAMENTO BUSCADO.
         $servidores = Servidor::whereNotIn('id', function ($query) use ($id) {
-            $query->select('servidor_id')->from('departamento_servidor')->where('departamento_id', $id);
+            $query->select('servidor_id')->from('divisao_servidor')->where('divisao_id', $id);
         })->get();
 
-        $departamento = Departamento::findOrFail($id);
+        $divisao = Divisao::findOrFail($id);
 
-        return view('admin.departamento.servidor', compact('servidores', 'departamento'));
+        return view('admin.divisoes.servidor', compact('servidores', 'divisao'));
     }
 
     /**

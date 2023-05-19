@@ -43,9 +43,13 @@ Route::resource('divisao', \App\Http\Controllers\Admin\DivisaoController::class)
 Route::get('divisao/index/{departamento_id}', [\App\Http\Controllers\Admin\DivisaoController::class, 'index'])->name('divisao.index');
 Route::get('divisao/create/{departamento_id}', [\App\Http\Controllers\Admin\DivisaoController::class, 'create'])->name('divisao.create');
 
-//LOTACAO
+//LOTACAO DO SERVIDOR NO DEPARTAMENTO
 Route::get('departamentos/{id}/servidor', [\App\Http\Controllers\Admin\DepartamentoController::class, 'createServidor'])->name('departamentos.servidor.create');
 Route::resource('departamentoServidor', \App\Http\Controllers\Admin\DepartamentoServidorController::class);
+
+//LOTACAO DO SERVIDOR NA DIVISAO
+Route::get('divisao/{id}/servidor', [\App\Http\Controllers\Admin\DivisaoController::class, 'createServidor'])->name('divisao.servidor.create');
+Route::resource('divisaoServidor', \App\Http\Controllers\Admin\DivisaoServidorController::class);
 
 // SERVIDORES
 Route::resource('servidores', \App\Http\Controllers\Admin\ServidorController::class);

@@ -36,7 +36,7 @@
                                             <span class="material-symbols-outlined text-primary">groups</span>
                                         </a>
                                         <a href="{{route('divisao.index', $departamento->id)}}" title="LISTAR DIVISOES">
-                                            <span class="material-symbols-outlined text-primary">groups</span>
+                                            <span class="material-symbols-outlined text-primary">moving_ministry</span>
                                         </a>
                                         <a href="{{route('board.index', $departamento->id)}}">
                                             <span class="material-symbols-outlined">grid_view</span>

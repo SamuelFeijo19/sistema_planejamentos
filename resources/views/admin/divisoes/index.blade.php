@@ -22,9 +22,9 @@
                                 </div>
                                 <div class="col d-flex justify-content-center align-items-center">
                                     <div class="text-right">
-{{--                                        <a href="{{route('divisao.servidor.create', $departamento->id)}}" title="ADICIONAR SERVIDOR">--}}
-{{--                                            <span class="material-symbols-outlined text-success">person_add</span>--}}
-{{--                                        </a>--}}
+                                        <a href="{{route('divisao.servidor.create', $divisao->id)}}" title="ADICIONAR SERVIDOR">
+                                            <span class="material-symbols-outlined text-success">person_add</span>
+                                        </a>
                                         <a href="#" class="delete"
                                            data-route="{{route('divisao.destroy', $divisao->id)}}">
                                             <span class="material-symbols-outlined text-danger">delete</span>

@@ -10,7 +10,7 @@
                 <hr>
             </div>
             <div id="accordion" style="width: 80%; margin:0 auto;">
-                <form id="formulario_registro" method="post" action="{{ route('lotacoes.store') }}">
+                <form id="formulario_registro" method="post" action="{{ route('divisaoServidor.store') }}">
                     {{-- <input type="hidden" name="'id" value="{{ $matricula->id ?? ''}}"> --}}
                     @csrf
                     <div class="card">
@@ -22,7 +22,7 @@
 
                         <div id="collapseOne" class="collapse multi-collapse show" aria-labelledby="headingOne" data-parent="#accordion" >
                             <div class="card-body">
-                                <input type="hidden" name="departamento_id" value="{{$departamento->id}}">
+                                <input type="hidden" name="divisao_id" value="{{$divisao->id}}">
 
                                 <div class="row">
                                     <div class="col">

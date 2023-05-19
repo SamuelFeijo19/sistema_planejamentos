@@ -17,8 +17,13 @@ class Servidor extends Model
         return $this->belongsTo(User::class, 'user_id', 'id');
     }
 
-    public function lotacoes()
+    public function lotacaoDepartamento()
     {
         return $this->hasMany(DepartamentoServidor::class, 'servidor_id', 'id');
+    }
+
+    public function lotacaoDivisao()
+    {
+        return $this->hasMany(DivisaoServidor::class, 'servidor_id', 'id');
     }
 }
