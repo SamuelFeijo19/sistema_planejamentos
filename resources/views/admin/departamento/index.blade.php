@@ -32,7 +32,7 @@
                                         <a href="{{route('departamento.edit', $departamento->id)}}">
                                             <span class="material-symbols-outlined">edit_note</span>
                                         </a>
-                                        <a href="{{route('departamentoServidor.index', $departamento->id)}}" title="LISTAR SERVIDORES">
+                                        <a href="{{route('departamentoServidor.show', $departamento->id)}}" title="LISTAR SERVIDORES">
                                             <span class="material-symbols-outlined text-primary">groups</span>
                                         </a>
                                         <a href="{{route('divisao.index', $departamento->id)}}" title="LISTAR DIVISOES">

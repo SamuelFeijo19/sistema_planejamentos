@@ -20,16 +20,19 @@ class DepartamentoServidorController extends Controller
      */
     public function index(Request $request)
     {
-        $lotacaoDepartamento = DepartamentoServidor::query();
+        $departamento_id = $request->input('departamento_id');
 
-        return view('admin.departamento.servidor_departamento', compact('lotacaoDepartamento'));
+        $lotacoesDepartamento = DepartamentoServidor::where('departamento_id', $departamento_id)->get();
+
+        return view('admin.departamento.servidor_departamento', compact('lotacoesDepartamento'));
     }
 
     public function show($departamento_id)
     {
-        $lotacaoDepartamento=DepartamentoServidor::all();
-        $lotacaoDepartamento->where('departamento_id', $departamento_id);
-        return view('admin.departamento.servidor_departamento', compact('lotacaoDepartamento'));
+        //BUSCAR APENAS SERVIDORES QUE ESTAO VINCULADOS AO DEPARTAMENTO
+        $lotacoesDepartamento = DepartamentoServidor::where('departamento_id', $departamento_id)->get();
+
+        return view('admin.departamento.servidor_departamento', compact('lotacoesDepartamento'));
     }
 
     public function create()
