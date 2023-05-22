@@ -10,7 +10,7 @@
                 <hr>
             </div>
             <div id="accordion" style="width: 80%; margin:0 auto;">
-                <form id="formulario_registro" method="post" action="{{ route('lotacoes.store') }}">
+                <form id="formulario_registro" method="post" action="{{ route('departamentoServidor.store') }}">
                     {{-- <input type="hidden" name="'id" value="{{ $matricula->id ?? ''}}"> --}}
                     @csrf
                     <div class="card">

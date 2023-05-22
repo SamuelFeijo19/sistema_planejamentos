@@ -18,7 +18,7 @@
 
             <div class="w-100">
                 <div class="list-group">
-                    @foreach ($lotacoes as $lotacao)
+                    @foreach ($lotacoesDivisao as $lotacao)
                         <div class="list-group-item shadow-sm">
                             <div class="row">
                                 <div class="col">
@@ -34,17 +34,13 @@
                                     <small class="text-muted"><b>E-mail:
                                         </b> {{($lotacao->servidor->user->email)}}
                                     </small>
-                                    <br>
-                                    <small class="text-muted"><b>Lotacao:
-                                        </b> {{ucwords(mb_strtolower($lotacao->departamento->nomeDepartamento))}}
-                                    </small>
                                 </div>
                                 <div class="col d-flex justify-content-center align-items-center">
                                     <div class="text-right">
-                                        <a href="#" class="delete" data-route="{{route('lotacoes.destroy', $lotacao->id)}}">
+                                        <a href="#" class="delete" data-route="{{route('divisaoServidor.destroy', $lotacao->id)}}">
                                             <span class="material-symbols-outlined text-danger">delete</span>
                                         </a>
-                                        <a href="{{route('lotacoes.edit', $lotacao->id)}}">
+                                        <a href="{{route('divisaoServidor.edit', $lotacao->id)}}">
                                             <span class="material-symbols-outlined">edit_note</span>
                                         </a>
                                     </div>

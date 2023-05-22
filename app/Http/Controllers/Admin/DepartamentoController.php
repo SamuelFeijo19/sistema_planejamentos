@@ -119,7 +119,6 @@ class DepartamentoController extends Controller
     {
         try {
             DB::beginTransaction();
-
             $departamento = Departamento::findOrFail($id);
 
             $departamento->update([

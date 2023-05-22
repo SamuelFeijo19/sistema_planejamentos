@@ -1,6 +1,6 @@
-{{--@extends('')--}}
+@extends('layouts.dashboard.app')
 
-{{--@section('content')--}}
+@section('content')
 
     <main class="container" id="ajuste">
         <div class="row">
@@ -9,9 +9,10 @@
                 <hr>
             </div>
             <div class="col col-12 m-auto">
-                <form id="formulario_registro" method="post" action="{{ route('departamento.update', $departamento->id) }}">
+                <form id="formulario_registro" method="post" action="{{ route('divisao.update', $divisao->id) }}">
                     @csrf
                     @method('PUT')
+                    <input type="hidden" name="departamento_id" value="{{ $divisao->departamento_id ?? ''}}">
                     <br>
                     <div class="card">
                         <div class="card-header text-center bg-primary" id="headingOne" style="
@@ -29,11 +30,11 @@
                                     <div class="col">
 
                                         <div class="form-group">
-                                            <label for="titulo">Nome do Departamento:</label>
-                                            <input type="text" class="form-control" name="nomeDepartamento"
-                                                   id="nomeDepartamento" placeholder="Nome do Departamento:" value="{{ $departamento->nomeDepartamento }}" required>
+                                            <label for="titulo">Nome da Divisao:</label>
+                                            <input type="text" class="form-control" name="nomeDivisao"
+                                                   id="nomeDivisao" placeholder="Nome do Departamento:" value="{{ $divisao->nomeDivisao }}" required>
                                         </div>
-                                        @error('nomeDepartamento')
+                                        @error('nomeDivisao')
                                         <div class="alert alert-danger">{{ $message }}</div>
                                         @enderror
 
@@ -52,4 +53,4 @@
             </div>
         </div>
     </main>
-{{--@endsection--}}
+@endsection

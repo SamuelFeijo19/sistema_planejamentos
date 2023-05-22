@@ -1,6 +1,6 @@
-{{--@extends('')--}}
+@extends('layouts.dashboard.app')
 
-{{--@section('content')--}}
+@section('content')
 
     <main class="container" id="ajuste">
         <div class="row">
@@ -12,6 +12,7 @@
                 <form id="formulario_registro" method="post" action="{{ route('departamento.update', $departamento->id) }}">
                     @csrf
                     @method('PUT')
+                    <input type="hidden" name="secretaria_id" value="{{ $departamento->secretaria_id ?? ''}}">
                     <br>
                     <div class="card">
                         <div class="card-header text-center bg-primary" id="headingOne" style="
@@ -52,4 +53,4 @@
             </div>
         </div>
     </main>
-{{--@endsection--}}
+@endsection

@@ -1,6 +1,6 @@
-{{--@extends('')--}}
+@extends('layouts.dashboard.app')
 
-{{--@section('content')--}}
+@section('content')
 
     <div class="container-fluid">
             <div class="row">
@@ -56,4 +56,4 @@
                 </div>
             </div>
         </div>
-{{--        @endsection--}}
+        @endsection

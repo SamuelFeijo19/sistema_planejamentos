@@ -29,12 +29,12 @@
                                            data-route="{{route('divisao.destroy', $divisao->id)}}">
                                             <span class="material-symbols-outlined text-danger">delete</span>
                                         </a>
-{{--                                        <a href="{{route('departamento.edit', $divisao->id)}}">--}}
-{{--                                            <span class="material-symbols-outlined">edit_note</span>--}}
-{{--                                        </a>--}}
-{{--                                        <a href="{{route('lotacoes.show', $divisao->id)}}" title="LISTAR SERVIDORES">--}}
-{{--                                            <span class="material-symbols-outlined text-primary">groups</span>--}}
-{{--                                        </a>--}}
+                                        <a href="{{route('divisao.edit', $divisao->id)}}">
+                                            <span class="material-symbols-outlined">edit_note</span>
+                                        </a>
+                                        <a href="{{route('divisaoServidor.show', $divisao->id)}}" title="LISTAR SERVIDORES">
+                                            <span class="material-symbols-outlined text-primary">groups</span>
+                                        </a>
                                         <a href="{{route('boardDivisao.index', $divisao->id)}}">
                                             <span class="material-symbols-outlined">grid_view</span>
                                         </a>
