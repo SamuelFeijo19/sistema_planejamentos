@@ -32,10 +32,10 @@ class DivisaoTarefaController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function create($departamento_id)
+    public function create($divisao_id)
     {
         //
-        return view('admin.tarefa.create', compact('departamento_id'));
+        return view('admin.divisao_tarefa.create', compact('divisao_id'));
     }
 
 //    public function createServidor($id)
@@ -61,8 +61,8 @@ class DivisaoTarefaController extends Controller
 
         try {
             DB::beginTransaction();
-            $tarefa = Tarefa::create([
-                'departamento_id' => $request->departamento_id,
+            $tarefa = DivisaoTarefa::create([
+                'divisao_id' => $request->divisao_id,
                 'nomeTarefa' => mb_strtoupper($request->nomeTarefa),
                 'criador_id' => auth()->user()->id,
                 'descricao' => $request->descricao,
@@ -86,12 +86,12 @@ class DivisaoTarefaController extends Controller
      * @param int $id
      * @return \Illuminate\Http\Response
      */
-    public function show($id)
-    {
-        //
-        $departamento = Departamento::findOrFail($id);
-        return view('admin.departamento.show', compact('departamento'));
-    }
+//    public function show($id)
+//    {
+//        //
+//        $divisao = DivisaoTarefa::findOrFail($id);
+//        return view('admin.departamento.show', compact('divisao'));
+//    }
 
     /**
      * Show the form for editing the specified resource.
@@ -102,8 +102,8 @@ class DivisaoTarefaController extends Controller
     public function edit($id)
     {
         //
-        $tarefa = Tarefa::findOrFail($id);
-        return view('admin.tarefa.edit', compact('tarefa'));
+        $tarefa = DivisaoTarefa::findOrFail($id);
+        return view('admin.divisao_tarefa.edit', compact('tarefa'));
     }
 
     /**
@@ -118,7 +118,7 @@ class DivisaoTarefaController extends Controller
         //
         try {
             DB::beginTransaction();
-            $tarefa = Tarefa::findOrFail($id);
+            $tarefa = DivisaoTarefa::findOrFail($id);
             $tarefa->update([
                 'nomeTarefa' => mb_strtoupper($request->nomeTarefa),
                 'descricao' => $request->descricao,
@@ -146,8 +146,8 @@ class DivisaoTarefaController extends Controller
         //
         try {
             DB::beginTransaction();
-            $departamento = Departamento::findOrFail($id);
-            $departamento->delete();
+            $tarefa = DivisaoTarefa::findOrFail($id);
+            $tarefa->delete();
             DB::commit();
             return response()->json(['msg' => 'Departamento excluído com sucesso!'], 200);
         } catch (Exception $exception) {

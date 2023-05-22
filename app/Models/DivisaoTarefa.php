@@ -20,9 +20,9 @@ class DivisaoTarefa extends Model
         'classificacao'
     ];
 
-    public function departamento()
+    public function divisao()
     {
-        return $this->belongsTo(Departamento::class, 'departamento_id', 'id');
+        return $this->belongsTo(Divisao::class, 'divisao_id', 'id');
     }
 
 }

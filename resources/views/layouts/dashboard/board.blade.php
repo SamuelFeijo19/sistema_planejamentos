@@ -55,7 +55,7 @@
                         {{-- TAREFAS EM BACKLOG --}}
                         <div class="card">
                             <div id="accordion{{$servidor->user->id}}_backlog">
-                                <div class="card-header bg-primary text-white" data-toggle="collapse"
+                                <div class="card-header bg-gradient-danger text-white" data-toggle="collapse"
                                      data-target="#collapse{{$servidor->user->id}}_backlog" aria-expanded="true"
                                      aria-controls="collapse{{$servidor->user->id}}_backlog">
                                     Backlog
@@ -102,7 +102,7 @@
                         {{-- TAREFAS EM ANDAMENTO --}}
                         <div class="card">
                             <div id="accordion{{$servidor->user->id}}_doing">
-                                <div class="card-header bg-success text-white" data-toggle="collapse"
+                                <div class="card-header bg-gradient-warning text-white" data-toggle="collapse"
                                      data-target="#collapse{{$servidor->user->id}}_doing" aria-expanded="true"
                                      aria-controls="collapse{{$servidor->user->id}}_doing">
                                     Doing
@@ -154,7 +154,7 @@
                         {{-- TAREFAS EM CODE REVIEW --}}
                         <div class="card">
                             <div id="accordion{{$servidor->user->id}}_code_review">
-                                <div class="card-header bg-danger text-white" data-toggle="collapse"
+                                <div class="card-header bg-gradient-success text-white" data-toggle="collapse"
                                      data-target="#collapse{{$servidor->user->id}}_code_review" aria-expanded="true"
                                      aria-controls="collapse{{$servidor->user->id}}_code_review">
                                     Code Review

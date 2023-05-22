@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Admin;
 use App\Http\Controllers\Controller;
 use App\Models\Departamento;
 use App\Models\DepartamentoServidor;
+use App\Models\DivisaoTarefa;
 use App\Models\Servidor;
 use App\Models\Tarefa;
 use Exception;
@@ -28,9 +29,9 @@ class BoardDivisaoController extends Controller
             ->where('id', '=', $divisao_id)
             ->first();
 
-//        $tarefas = Tarefa::where('departamento_id', $divisao_id)->get();
+        $tarefas = DivisaoTarefa::where('divisao_id', $divisao_id)->get();
 
-        return view('layouts.dashboard.boardDivisao', compact('servidores', 'divisao'));
+        return view('layouts.dashboard.boardDivisao', compact('servidores', 'divisao', 'tarefas'));
     }
 
     /**
