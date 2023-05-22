@@ -8,7 +8,7 @@ use App\Models\DepartamentoServidor;
 use App\Models\Divisao;
 use App\Models\DivisaoTarefa;
 use App\Models\Servidor;
-use App\Models\Tarefa;
+use App\Models\DepartamentoTarefa;
 use Exception;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;

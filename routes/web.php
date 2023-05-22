@@ -55,8 +55,8 @@ Route::resource('divisaoServidor', \App\Http\Controllers\Admin\DivisaoServidorCo
 Route::resource('servidores', \App\Http\Controllers\Admin\ServidorController::class);
 
 // TAREFAS DEPARTAMENTO
-Route::resource('tarefas', \App\Http\Controllers\Admin\TarefaController::class)->except(['create', 'index']);
-Route::get('tarefa/create/{departamento_id}', [\App\Http\Controllers\Admin\TarefaController::class, 'create'])->name('tarefa.create');
+Route::resource('tarefas', \App\Http\Controllers\Admin\DepartamentoTarefaController::class)->except(['create', 'index']);
+Route::get('tarefa/create/{departamento_id}', [\App\Http\Controllers\Admin\DepartamentoTarefaController::class, 'create'])->name('tarefa.create');
 
 // TAREFAS DIVISAO
 Route::resource('tarefasDivisao', \App\Http\Controllers\Admin\DivisaoTarefaController::class)->except(['create', 'index']);

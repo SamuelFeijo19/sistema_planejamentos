@@ -4,12 +4,12 @@ namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
 use App\Models\Departamento;
-use App\Models\Tarefa;
+use App\Models\DepartamentoTarefa;
 use Exception;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 
-class TarefaController extends Controller
+class DepartamentoTarefaController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -42,7 +42,7 @@ class TarefaController extends Controller
 
         try {
             DB::beginTransaction();
-            $tarefa = Tarefa::create([
+            $tarefa = DepartamentoTarefa::create([
                 'departamento_id' => $request->departamento_id,
                 'nomeTarefa' => mb_strtoupper($request->nomeTarefa),
                 'criador_id' => auth()->user()->id,
@@ -81,7 +81,7 @@ class TarefaController extends Controller
     public function edit($id)
     {
         //
-        $tarefa = Tarefa::findOrFail($id);
+        $tarefa = DepartamentoTarefa::findOrFail($id);
         return view('admin.tarefa.edit', compact('tarefa'));
     }
 
@@ -97,7 +97,7 @@ class TarefaController extends Controller
         //
         try {
             DB::beginTransaction();
-            $tarefa = Tarefa::findOrFail($id);
+            $tarefa = DepartamentoTarefa::findOrFail($id);
             $tarefa->update([
                 'nomeTarefa' => mb_strtoupper($request->nomeTarefa),
                 'descricao' => $request->descricao,
