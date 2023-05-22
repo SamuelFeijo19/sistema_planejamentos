@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Admin;
 use App\Http\Controllers\Controller;
 use App\Http\Controllers\ModelNotFoundException;
 use App\Models\DepartamentoServidor;
+use App\Models\DivisaoServidor;
 use App\Models\User;
 use App\Models\Servidor;
 use App\Models\Departamento;
@@ -23,9 +24,12 @@ class HomeController extends Controller
 
         $servidorId = auth()->user()->servidor->id; // Obtenha o ID do usuário logado na sessão
 
-        $lotacoes = DepartamentoServidor::where('servidor_id', $servidorId)->get();
+        $departamentos = DepartamentoServidor::where('servidor_id', $servidorId)->get();
 
-        return view('layouts.dashboard.home', compact('lotacoes'));
+        $divisoes = DivisaoServidor::where('servidor_id', $servidorId)->get();
+
+
+        return view('layouts.dashboard.home', compact('departamentos', 'divisoes'));
     }
 
 //    public function contentUser(Request $request)
