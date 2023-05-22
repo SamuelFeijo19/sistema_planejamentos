@@ -28,13 +28,7 @@ class HomeController extends Controller
 
         $divisoes = DivisaoServidor::where('servidor_id', $servidorId)->get();
 
-
         return view('layouts.dashboard.home', compact('departamentos', 'divisoes'));
     }
-
-//    public function contentUser(Request $request)
-//    {
-//        return view('layouts.dashboard.contentUser', compact('eventos'));
-//    }
 
 }

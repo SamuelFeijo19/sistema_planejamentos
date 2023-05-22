@@ -20,75 +20,52 @@ class DepartamentoServidorController extends Controller
      */
     public function index(Request $request)
     {
-        $lotacao = DepartamentoServidor::query();
+        $lotacaoDepartamento = DepartamentoServidor::query();
 
-//        if ($request->has('search')) {
-//            $search = $request->search;
-//
-//            $matriculasQuery->join('participantes', 'matriculas.participante_id', '=', 'participantes.id')
-//                ->join('users', 'participantes.user_id', '=', 'users.id')
-//                ->join('eventos', 'matriculas.evento_id', '=', 'eventos.id')
-//                ->where('name', 'like', "%$search%")
-//                ->orWhere('nomeEvento', 'like', "%$search%")
-//                ->select('matriculas.*', 'users.name');
-//        }
-
-//        $matriculas = $matriculasQuery->paginate(7);
-
-//        if ($matriculas->count() === 0) {
-//            return redirect()->route('matriculas.index')->with(['type' => 'error', 'message' => 'Nenhuma matrícula encontrada com as informações fornecidas']);
-//        }
-
-        return view('admin.departamento.servidor_departamento', compact('lotacao'));
+        return view('admin.departamento.servidor_departamento', compact('lotacaoDepartamento'));
     }
 
     public function show($departamento_id)
     {
-        $lotacoes=DepartamentoServidor::all();
-        $lotacoes->where('departamento_id', $departamento_id);
-        return view('admin.departamento.servidor_departamento', compact('lotacoes'));
+        $lotacaoDepartamento=DepartamentoServidor::all();
+        $lotacaoDepartamento->where('departamento_id', $departamento_id);
+        return view('admin.departamento.servidor_departamento', compact('lotacaoDepartamento'));
     }
 
-//    public function create()
-//    {
-//        $eventos = Evento::whereDate('dataInicio', '>=', now())->get();
-//
-//        $participantes = Participante::all();
-//        return view('admin.matriculas.create', compact('eventos', 'participantes'));
-//    }
+    public function create()
+    {
+        //
+    }
 
     public function store(LotacaoStoreRequest $request)
     {
         try {
-//            dd($request);
             DB::beginTransaction();
-            $lotacao = DepartamentoServidor::create([
+            $lotacaoDepartamento = DepartamentoServidor::create([
                 'servidor_id' => mb_strtoupper($request->servidor_id),
                 'departamento_id' => $request->departamento_id,
             ]);
             //MATA O TOKEN PARA NÃO DAR ERRO DE DUPLICIDADE
             $request->session()->regenerateToken();
             DB::commit();
-            return 'Matricula realizada com sucesso!';
+            return 'Lotação realizada com sucesso!';
         } catch (Exception $exception) {
             DB::rollBack();
-            return 'Erro ao realizar matricula!';
+            return 'Erro ao realizar Lotação!';
         }
     }
 
-//    public function edit($id)
-//    {
-//        $eventos = Evento::all();
-//        $matricula = Matricula::findOrFail($id);
-//        return view('admin.matriculas.edit', compact('matricula', 'eventos'));
-//    }
+    public function edit($id)
+    {
+        //
+    }
 
     public function update(Request $request, $id)
     {
         try {
             DB::beginTransaction();
-            $lotacao = DepartamentoServidor::findOrFail($id);
-            $lotacao->update([
+            $lotacaoDepartamento = DepartamentoServidor::findOrFail($id);
+            $lotacaoDepartamento->update([
                 'servidor_id' => mb_strtoupper($request->servidor_id),
                 'departamento_id' => $request->departamento_id,
             ]);
@@ -97,7 +74,7 @@ class DepartamentoServidorController extends Controller
             return "Lotação atualizada com sucesso!";
         } catch (Exception $exception) {
             DB::rollBack();
-            return "Falha na atualizada!";
+            return "Falha na atualização!";
         }
     }
 
@@ -107,11 +84,11 @@ class DepartamentoServidorController extends Controller
             DB::beginTransaction();
             DepartamentoServidor::findOrFail($id)->ForceDelete();
             DB::commit();
-            return response()->json(['msg' => 'Lotação excluída com sucesso!'], 200);
+            return response()->json(['msg' => 'Lotação do servidor no departamento excluída com sucesso!'], 200);
         } catch (Exception $ex) {
             DB::rollBack();
             return response()->json([
-                'msg' => 'Erro ao excluir Lotação!',
+                'msg' => 'Erro ao excluir do servidor no departamento!',
             ], 401);
         }
     }

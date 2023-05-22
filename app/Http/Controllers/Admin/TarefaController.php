@@ -4,7 +4,6 @@ namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
 use App\Models\Departamento;
-use App\Models\Servidor;
 use App\Models\Tarefa;
 use Exception;
 use Illuminate\Http\Request;
@@ -19,11 +18,7 @@ class TarefaController extends Controller
      */
     public function index(Request $request, $departamento_id)
     {
-        $tarefas = Tarefa::all();
-
-        $tarefas->where('departamento_id', $departamento_id);
-
-        return view('admin.tarefas.index', compact('tarefas'));
+        //
     }
 
     /**
@@ -33,21 +28,9 @@ class TarefaController extends Controller
      */
     public function create($departamento_id)
     {
-        //
         return view('admin.tarefa.create', compact('departamento_id'));
     }
 
-//    public function createServidor($id)
-//    {
-//        //BUSCA SOMENTE PARTICIPANTES QUE NÃO FORAM CADASTRADOS NO MESMO DEPARTAMENTO BUSCADO.
-//        $servidores = Servidor::whereNotIn('id', function ($query) use ($id) {
-//            $query->select('servidor_id')->from('departamento_servidor')->where('departamento_id', $id);
-//        })->get();
-//
-//        $departamento = Departamento::findOrFail($id);
-//
-//        return view('admin.departamento.servidor', compact('servidores', 'departamento'));
-//    }
     /**
      * Store a newly created resource in storage.
      *
@@ -56,7 +39,6 @@ class TarefaController extends Controller
      */
     public function store(Request $request)
     {
-        //
 
         try {
             DB::beginTransaction();
@@ -88,8 +70,6 @@ class TarefaController extends Controller
     public function show($id)
     {
         //
-        $departamento = Departamento::findOrFail($id);
-        return view('admin.departamento.show', compact('departamento'));
     }
 
     /**
@@ -148,10 +128,10 @@ class TarefaController extends Controller
             $departamento = Departamento::findOrFail($id);
             $departamento->delete();
             DB::commit();
-            return response()->json(['msg' => 'Departamento excluído com sucesso!'], 200);
+            return response()->json(['msg' => 'Tarefa excluída com sucesso!'], 200);
         } catch (Exception $exception) {
             DB::rollBack();
-            return response()->json(['msg' => 'Erro ao excluir departamento!'], 500);
+            return response()->json(['msg' => 'Erro ao excluir Tarefa!'], 500);
         }
     }
 }

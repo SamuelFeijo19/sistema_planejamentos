@@ -78,15 +78,6 @@ class SecretariaController extends Controller
             return redirect()->route('secretarias.edit', $id)->with(['type' => 'error', 'message' => 'Erro ao editar secretaria!', 'title' => 'Erro!']);
         }
 
-//        $secretaria = Secretaria::findOrFail($id);
-//
-//        $secretaria->update([
-//            'nomeSecretaria' => $request->nomeSecretaria,
-//            'siglaSecretaria' => $request->siglaSecretaria,
-//        ]);
-//
-//        $msg = "Secretaria Atualizada com Sucesso";
-//        return view('admin.secretarias.edit', ['secretaria' => $secretaria, 'msg' => $msg]);
     }
     public function destroy($id)
     {

@@ -3,10 +3,7 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
-use App\Models\Departamento;
 use App\Models\DivisaoTarefa;
-use App\Models\Servidor;
-use App\Models\Tarefa;
 use Exception;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
@@ -20,11 +17,7 @@ class DivisaoTarefaController extends Controller
      */
     public function index(Request $request, $divisao_id)
     {
-        $tarefas = DivisaoTarefa::all();
-
-        $tarefas->where('divisao_id', $divisao_id);
-
-        return view('admin.tarefas.index', compact('tarefas'));
+        //
     }
 
     /**
@@ -38,17 +31,6 @@ class DivisaoTarefaController extends Controller
         return view('admin.divisao_tarefa.create', compact('divisao_id'));
     }
 
-//    public function createServidor($id)
-//    {
-//        //BUSCA SOMENTE PARTICIPANTES QUE NÃO FORAM CADASTRADOS NO MESMO DEPARTAMENTO BUSCADO.
-//        $servidores = Servidor::whereNotIn('id', function ($query) use ($id) {
-//            $query->select('servidor_id')->from('departamento_servidor')->where('departamento_id', $id);
-//        })->get();
-//
-//        $departamento = Departamento::findOrFail($id);
-//
-//        return view('admin.departamento.servidor', compact('servidores', 'departamento'));
-//    }
     /**
      * Store a newly created resource in storage.
      *
@@ -57,8 +39,6 @@ class DivisaoTarefaController extends Controller
      */
     public function store(Request $request)
     {
-        //
-
         try {
             DB::beginTransaction();
             $tarefa = DivisaoTarefa::create([
@@ -86,12 +66,10 @@ class DivisaoTarefaController extends Controller
      * @param int $id
      * @return \Illuminate\Http\Response
      */
-//    public function show($id)
-//    {
-//        //
-//        $divisao = DivisaoTarefa::findOrFail($id);
-//        return view('admin.departamento.show', compact('divisao'));
-//    }
+    public function show($id)
+    {
+        //
+    }
 
     /**
      * Show the form for editing the specified resource.
@@ -149,10 +127,10 @@ class DivisaoTarefaController extends Controller
             $tarefa = DivisaoTarefa::findOrFail($id);
             $tarefa->delete();
             DB::commit();
-            return response()->json(['msg' => 'Departamento excluído com sucesso!'], 200);
+            return response()->json(['msg' => 'tarefa excluída com sucesso!'], 200);
         } catch (Exception $exception) {
             DB::rollBack();
-            return response()->json(['msg' => 'Erro ao excluir departamento!'], 500);
+            return response()->json(['msg' => 'Erro ao excluir tarefa!'], 500);
         }
     }
 }

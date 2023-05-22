@@ -4,20 +4,18 @@ namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
 use App\Http\Requests\ServidorStoreRequest;
-use App\Mail\Admin\SenhaTemporaria;
 use App\Models\Servidor;
 use App\Models\User;
 use Exception;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Hash;
-use Illuminate\Support\Facades\Mail;
 
 class ServidorController extends Controller
 {
     public function index(Request $request)
     {
-            $servidores = Servidor::all();
+        $servidores = Servidor::all();
 
         return view('admin.servidor.index', compact('servidores'));
     }
