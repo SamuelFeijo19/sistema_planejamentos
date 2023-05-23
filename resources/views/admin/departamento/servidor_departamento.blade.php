@@ -10,11 +10,15 @@
                 <hr>
             </div>
 
-{{--        Componente do Botão de Adicionar--}}
+            {{-- Componente do Botão de Adicionar--}}
             <x-adicionar.adicionar-button link-route="#" text-button="Novo Servidor" />
 
-{{--        Componente do Botão de Pesquisa--}}
+            {{-- Componente do Botão de Pesquisa--}}
             <x-search.search-button placeholder="  Digite o nome do Servidor ..." form-action="#" />
+
+            @if(isset($mensagem))
+                <div class="alert alert-warning" style="width: 300px;">{{ $mensagem }}</div>
+            @endif
 
             <div class="w-100">
                 <div class="list-group">

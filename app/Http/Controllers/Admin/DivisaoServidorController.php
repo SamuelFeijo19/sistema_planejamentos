@@ -24,11 +24,27 @@ class DivisaoServidorController extends Controller
         return view('admin.divisoes.servidor_divisao', compact('lotacaoDivisao'));
     }
 
-    public function show($divisao_id)
+    public function show(Request $request, $divisao_id)
     {
-        $lotacoesDivisao=DivisaoServidor::all();
+        $lotacoesDivisao = DivisaoServidor::query();
+
+        if ($request->has('search')) {
+            $search = $request->search;
+            $lotacoesDivisao->whereHas('servidor.user', function ($query) use ($search) {
+                $query->where('name', 'like', "%$search%");
+            });
+        }
+
         $lotacoesDivisao->where('divisao_id', $divisao_id);
-        return view('admin.divisoes.servidor_divisao', compact('lotacoesDivisao'));
+
+        $lotacoesDivisao = $lotacoesDivisao->paginate(10);
+
+        if ($lotacoesDivisao->isEmpty()) {
+            $mensagem = "Nenhum servidor encontrao";
+            return view('admin.divisoes.servidor_divisao', compact('lotacoesDivisao', 'divisao_id', 'mensagem'));
+        }
+
+        return view('admin.divisoes.servidor_divisao', compact('lotacoesDivisao', 'divisao_id'));
     }
 
     public function create()

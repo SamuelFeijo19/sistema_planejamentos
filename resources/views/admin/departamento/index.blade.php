@@ -10,9 +10,8 @@
 
             {{--Componente do Botão de Adicionar--}}
             <x-adicionar.adicionar-button link-route="#" text-button="Nova Secretaria" />
-
             {{--Componente do Botão de Pesquisa--}}
-            <x-search.search-button placeholder="Busque por Departamentos" form-action="#" />
+            <x-search.search-button placeholder="Busque por Departamentos" form-action="{{ route('departamento.index', $secretaria_id) }}" />
 
             @if(isset($mensagem))
                 <div class="alert alert-warning" style="width: 300px;">{{ $mensagem }}</div>

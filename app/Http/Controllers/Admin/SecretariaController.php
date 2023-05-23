@@ -20,9 +20,9 @@ class SecretariaController extends Controller
         }
         $secretarias = $secretarias->paginate(10);
 //
-//        if ($secretarias->count() === 0) {
-//            return redirect()->route('secretarias.index')->with(['type' => 'error', 'message' => 'Secretaria não encontrada!']);
-//        }
+        if ($secretarias->count() === 0) {
+            return redirect()->route('secretarias.index')->with(['type' => 'error', 'message' => 'Secretaria não encontrada!']);
+        }
 
         return view('admin.secretarias.index', compact('secretarias'));
     }

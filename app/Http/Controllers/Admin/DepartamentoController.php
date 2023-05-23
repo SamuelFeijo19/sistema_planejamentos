@@ -20,9 +20,19 @@ class DepartamentoController extends Controller
      */
     public function index(Request $request, $secretaria_id)
     {
-        $departamentos = Departamento::where('secretaria_id', $secretaria_id)->get();
-
-        return view('admin.departamento.index', compact('departamentos'));
+        $departamentos = Departamento::query();
+        if($request->has('search')){
+            $search = $request->search;
+            $departamentos->where('nomeDepartamento', 'like', "%$search%");
+   }
+        $departamentos->where('secretaria_id', $secretaria_id);
+        $departamentos = $departamentos->paginate(10);
+//
+        if ($departamentos->count() === 0) {
+            $mensagem = "Nenhum conteúdo cadastrado";
+            return view('admin.departamento.index', compact('departamentos', 'secretaria_id', 'mensagem'));
+        }
+        return view('admin.departamento.index', compact('departamentos', 'secretaria_id'));
     }
 
     /**

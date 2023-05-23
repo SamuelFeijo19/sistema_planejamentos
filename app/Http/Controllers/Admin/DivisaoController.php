@@ -14,9 +14,19 @@ class DivisaoController extends Controller
 {
     public function index(Request $request, $departamento_id)
     {
-        $divisoes = Divisao::where('departamento_id', $departamento_id)->get();
+        $divisoes = Divisao::query();
+        if($request->has('search')){
+            $search = $request->search;
+            $divisoes->where('nomeDivisao', 'like', "%$search%");
+        }
+        $divisoes->where('departamento_id', $departamento_id);
+        $divisoes = $divisoes->paginate(10);
 
-        return view('admin.divisoes.index', compact('divisoes'));
+        if ($divisoes->count() === 0) {
+            $mensagem = "Nenhuma Divisão encontrada";
+            return view('admin.divisoes.index', compact('divisoes', 'departamento_id', 'mensagem'));
+        }
+        return view('admin.divisoes.index', compact('divisoes', 'departamento_id'));
     }
 
     public function create($departamento_id)

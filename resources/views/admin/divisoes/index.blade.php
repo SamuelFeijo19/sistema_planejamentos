@@ -14,6 +14,10 @@
             {{--Componente do Botão de Pesquisa--}}
             <x-search.search-button placeholder="Busque por Divisões ..." form-action="#" />
 
+            @if(isset($mensagem))
+                <div class="alert alert-warning" style="width: 300px;">{{ $mensagem }}</div>
+            @endif
+
             <div class="w-100">
                 <div class="list-group">
                     @foreach ($divisoes as $divisao)

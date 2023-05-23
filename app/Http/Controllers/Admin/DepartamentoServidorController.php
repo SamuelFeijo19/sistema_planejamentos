@@ -27,12 +27,27 @@ class DepartamentoServidorController extends Controller
         return view('admin.departamento.servidor_departamento', compact('lotacoesDepartamento'));
     }
 
-    public function show($departamento_id)
+    public function show(Request $request, $departamento_id)
     {
-        //BUSCAR APENAS SERVIDORES QUE ESTAO VINCULADOS AO DEPARTAMENTO
-        $lotacoesDepartamento = DepartamentoServidor::where('departamento_id', $departamento_id)->get();
+        $lotacoesDepartamento = DepartamentoServidor::query();
 
-        return view('admin.departamento.servidor_departamento', compact('lotacoesDepartamento'));
+        if ($request->has('search')) {
+            $search = $request->search;
+            $lotacoesDepartamento->whereHas('servidor.user', function ($query) use ($search) {
+                $query->where('name', 'like', "%$search%");
+            });
+        }
+
+        $lotacoesDepartamento->where('departamento_id', $departamento_id);
+
+        $lotacoesDepartamento = $lotacoesDepartamento->paginate(10);
+
+        if ($lotacoesDepartamento->isEmpty()) {
+            $mensagem = "Nenhum servidor encontrao";
+            return view('admin.departamento.servidor_departamento', compact('lotacoesDepartamento', 'departamento_id', 'mensagem'));
+        }
+
+        return view('admin.departamento.servidor_departamento', compact('lotacoesDepartamento', 'departamento_id'));
     }
 
     public function create()
