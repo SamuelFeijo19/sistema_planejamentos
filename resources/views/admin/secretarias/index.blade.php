@@ -13,8 +13,13 @@
                 {{-- <h4 class="alert alert-warning">Preencha corretamente todos os dados referentes ao evento que será cadastrado</h4> --}}
                 <hr>
             </div>
+            {{--Componente do Botão de Adicionar--}}
+            <x-adicionar.adicionar-button link-route="{{ route('secretarias.create') }}" text-button="Nova Secretaria" />
 
-        <div class="w-100">
+            {{--Componente do Botão de Pesquisa--}}
+            <x-search.search-button placeholder="Busque por Secretarias" form-action="{{ route('secretarias.index') }}" />
+
+            <div class="w-100">
             <div class="list-group">
                 @foreach ($secretarias as $secretaria)
                     <div class="list-group-item shadow-sm">

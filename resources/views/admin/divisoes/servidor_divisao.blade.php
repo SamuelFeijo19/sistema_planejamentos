@@ -11,10 +11,10 @@
             </div>
 
             {{--Componente do Botão de Adicionar--}}
-            {{--            <x-adicionar.adicionar-button link-route="{{ route('participantes.create') }}" text-button="Novo Participante" />--}}
+            <x-adicionar.adicionar-button link-route="#" text-button="Novo Servidor" />
 
             {{--Componente do Botão de Pesquisa--}}
-            {{--            <x-search.search-button placeholder="  Digite o nome do Participante ..." form-action="{{ route('participantes.index') }}" />--}}
+            <x-search.search-button placeholder="Busque por Servidores ..." form-action="#" />
 
             <div class="w-100">
                 <div class="list-group">
