@@ -9,7 +9,7 @@
             </div>
 
             {{--Componente do Botão de Adicionar--}}
-            <x-adicionar.adicionar-button link-route="#" text-button="Nova Divisão" />
+            <x-adicionar.adicionar-button link-route="{{route('divisao.create', $departamento_id)}}" text-button="Nova Divisão" />
 
             {{--Componente do Botão de Pesquisa--}}
             <x-search.search-button placeholder="Busque por Divisões ..." form-action="#" />

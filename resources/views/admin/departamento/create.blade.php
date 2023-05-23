@@ -1,6 +1,6 @@
-{{--@extends('')--}}
+@extends('layouts.dashboard.app')
 
-{{--@section('content')--}}
+@section('content')
     <main class="container" id="ajuste">
         <div class="row">
             <div class="col col-12">
@@ -52,4 +52,4 @@
             </div>
         </div>
     </main>
-{{--@endsection--}}
+@endsection
