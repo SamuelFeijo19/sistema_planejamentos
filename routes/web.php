@@ -45,11 +45,15 @@ Route::get('divisao/create/{departamento_id}', [\App\Http\Controllers\Admin\Divi
 
 //LOTACAO DO SERVIDOR NO DEPARTAMENTO
 Route::get('departamentos/{id}/servidor', [\App\Http\Controllers\Admin\DepartamentoController::class, 'createServidor'])->name('departamentos.servidor.create');
-Route::resource('departamentoServidor', \App\Http\Controllers\Admin\DepartamentoServidorController::class);
+
+Route::resource('departamentoServidor', \App\Http\Controllers\Admin\DepartamentoServidorController::class)->except(['create']);;
+Route::get('/departamentoServidor/create/{departamento_id}', [\App\Http\Controllers\Admin\DepartamentoServidorController::class, 'create'])->name('departamentoServidor.create');
 
 //LOTACAO DO SERVIDOR NA DIVISAO
 Route::get('divisao/{id}/servidor', [\App\Http\Controllers\Admin\DivisaoController::class, 'createServidor'])->name('divisao.servidor.create');
-Route::resource('divisaoServidor', \App\Http\Controllers\Admin\DivisaoServidorController::class);
+
+Route::resource('divisaoServidor', \App\Http\Controllers\Admin\DivisaoServidorController::class)->except(['create']);
+Route::get('/DivisaoServidor/create/{divisao_id}', [\App\Http\Controllers\Admin\DivisaoServidorController::class, 'create'])->name('divisaoServidor.create');
 
 // SERVIDORES
 Route::resource('servidores', \App\Http\Controllers\Admin\ServidorController::class);

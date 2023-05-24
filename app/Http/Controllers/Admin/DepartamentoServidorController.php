@@ -50,9 +50,17 @@ class DepartamentoServidorController extends Controller
         return view('admin.departamento.servidor_departamento', compact('lotacoesDepartamento', 'departamento_id'));
     }
 
-    public function create()
+    public function create($departamento_id)
     {
-        //
+        $departamento = Departamento::findOrFail($departamento_id);
+
+        //RETORNA SOMENTE SERVIDORES QUE NÃO ESTÃO ASSOCIADOS AO DEPARTAMENTO
+        $servidores = Servidor::whereNotIn('id', function ($query) use ($departamento_id) {
+            $query->select('servidor_id')
+                ->from('departamento_servidor')
+                ->where('departamento_id', $departamento_id);
+        })->get();
+        return view('admin.departamento_servidor.create', compact('departamento', 'servidores'));
     }
 
     public function store(LotacaoStoreRequest $request)

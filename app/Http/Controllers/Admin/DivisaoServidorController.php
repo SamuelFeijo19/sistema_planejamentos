@@ -5,6 +5,8 @@ namespace App\Http\Controllers\Admin;
 use App\Http\Controllers\Controller;
 
 use App\Models\DepartamentoServidor;
+use App\Models\Divisao;
+use App\Models\Servidor;
 use App\Models\DivisaoServidor;
 use Exception;
 use Illuminate\Http\Request;
@@ -47,9 +49,17 @@ class DivisaoServidorController extends Controller
         return view('admin.divisoes.servidor_divisao', compact('lotacoesDivisao', 'divisao_id'));
     }
 
-    public function create()
+    public function create($divisao_id)
     {
-        //
+        $divisao = Divisao::findOrFail($divisao_id);
+
+        //RETORNA SOMENTE SERVIDORES QUE NÃO ESTÃO ASSOCIADOS AO DEPARTAMENTO
+        $servidores = Servidor::whereNotIn('id', function ($query) use ($divisao_id) {
+            $query->select('servidor_id')
+                ->from('divisao_servidor')
+                ->where('divisao_id', $divisao_id);
+        })->get();
+        return view('admin.divisao_servidor.create', compact('divisao', 'servidores'));
     }
 
     public function store(Request $request)
