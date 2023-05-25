@@ -46,9 +46,9 @@
 
     <div class="clearfix">
         <div class="float-left">
-            <h3 style="padding-left:20px;">{{ucwords(strtolower($divisao->nomeDivisao))}}</h3>
+            <h3 style="padding-left:20px; color: #2d91cb;">{{ucwords(strtolower($divisao->nomeDivisao))}}</h3>
         </div>
-        <div class="float-right" style="padding-right: 20px;">
+        <div class="float-right" style="padding-right: 20px; padding-left: 10px;">
             <a href="{{route('tarefa.create', $divisao->id)}}" class="btn btn-primary">
                 <span class="material-symbols-outlined align-middle">add</span>Nova Tarefa
             </a>
@@ -56,12 +56,12 @@
     </div>
 
     <div class="container-fluid mt-4 shadow-lg" style="
-                background: #858796;
-                padding-top: 20px;
-                width: 98%;
-                height: 85%;
-                border-radius: 7px;
-                ">
+            background: rgb(45,145,203);
+            background: linear-gradient(38deg, rgba(45,145,203,1) 33%, rgba(42,139,197,1) 37%, rgba(39,136,194,1) 38%, rgba(26,122,178,1) 59%, rgba(18,107,162,1) 90%, rgba(13,98,153,1) 95%, rgba(13,98,153,1) 95%, rgba(44,134,194,1) 100%, rgba(90,188,255,1) 100%);                padding-top: 20px;
+            width: 98%;
+            height: 75%;
+            border-radius: 7px;
+            border: solid 4px white;">
 
         @foreach($servidores as $servidor)
             <div class="servidor-container float-left">

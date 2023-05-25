@@ -68,7 +68,7 @@ Route::get('tarefaDivisao/create/{divisao_id}', [\App\Http\Controllers\Admin\Div
 
 //BOARD DEPARTAMENTO
 Route::get('departamento/{departamento_id}/board', [\App\Http\Controllers\Admin\BoardController::class, 'index'])->name('board.index');
-Route::get('testeBoard', [\App\Http\Controllers\Admin\BoardController::class, 'show']);
+
 //BOARD DIVISAO
 Route::get('divisao/{divisao_id}/board', [\App\Http\Controllers\Admin\BoardDivisaoController::class, 'index'])->name('boardDivisao.index');
 

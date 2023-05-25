@@ -52,12 +52,18 @@
 <div id="wrapper">
 
     <!-- Sidebar -->
-    <ul class="navbar-nav bg-gradient-secondary sidebar sidebar-dark accordion" id="accordionSidebar">
+    <ul class="navbar-nav bg-gradient-info sidebar sidebar-dark accordion" id="accordionSidebar"
+        style="background: rgb(26,122,178);
+background: linear-gradient(187deg, rgba(26,122,178,1) 15%, rgba(26,122,178,1) 76%, rgba(54,151,212,1) 92%, rgba(90,188,255,1) 100%);
+"
+    >
 
         <!-- Sidebar - Brand -->
-        <a class="sidebar-brand d-flex align-items-center justify-content-center" href="{{route('dashboard.content')}}">
-
-            <div class="sidebar-brand-text mx-3">RBPlans</div>
+        <a class="sidebar-brand d-flex align-items-center justify-content-center" href="{{ route('dashboard.content')}}">
+            <div class="sidebar-brand-icon">
+                <img src="{{asset('img/icon2.png')}}" alt="" width="30" height="30">
+            </div>
+            <div class="sidebar-brand-text mx-1"><strong>RBP</strong>lanejamento</div>
         </a>
 
         <!-- Divider -->
@@ -107,20 +113,6 @@
             </div>
         </li>
 
-        <li class="nav-item">
-            <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseTwo2"
-               aria-expanded="true" aria-controls="collapseTwo">
-                <i class="fas fa-fw fa-cog"></i>
-                <span>Servidores</span>
-            </a>
-            <div id="collapseTwo2" class="collapse" aria-labelledby="headingTwo2" data-parent="#accordionSidebar">
-                <div class="bg-white py-2 collapse-inner rounded">
-                    <a class="collapse-item" href="{{route('servidores.index')}}">Servidores Cadastrados</a>
-                    <a class="collapse-item" href="{{route('servidores.create')}}">Novo Servidor</a>
-                </div>
-            </div>
-        </li>
-
         <!-- Nav Item - Utilities Collapse Menu -->
         <li class="nav-item">
             <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseUtilities"
@@ -136,28 +128,27 @@
             </div>
         </li>
 
-
         <!-- Divider -->
         <hr class="sidebar-divider">
 
         <!-- Heading -->
         <div class="sidebar-heading">
-            Tasks
+            usuários
         </div>
 
-        <!-- Nav Item - Pages Collapse Menu -->
-
-
-        <!-- Nav Item - Charts -->
         <li class="nav-item">
-            <a class="nav-link" href="#">
-                <i class="fas fa-fw fa-chart-area"></i>
-                <span>Tarefas</span></a>
+            <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseTwo2"
+               aria-expanded="true" aria-controls="collapseTwo">
+                <i class="fas fa-fw fa-cog"></i>
+                <span>Servidores</span>
+            </a>
+            <div id="collapseTwo2" class="collapse" aria-labelledby="headingTwo2" data-parent="#accordionSidebar">
+                <div class="bg-white py-2 collapse-inner rounded">
+                    <a class="collapse-item" href="{{route('servidores.index')}}">Servidores Cadastrados</a>
+                    <a class="collapse-item" href="{{route('servidores.create')}}">Novo Servidor</a>
+                </div>
+            </div>
         </li>
-
-        <!-- Divider -->
-        <hr class="sidebar-divider d-none d-md-block">
-
     </ul>
     <!-- End of Sidebar -->
 
@@ -170,37 +161,8 @@
             <!-- Topbar -->
             <nav class="navbar navbar-expand navbar-light bg-white topbar mb-4 static-top shadow">
 
-                <!-- Sidebar Toggle (Topbar) -->
-                <button id="sidebarToggleTop" class="btn btn-link d-md-none rounded-circle mr-3">
-                    <i class="fa fa-bars"></i>
-                </button>
-
                 <!-- Topbar Navbar -->
                 <ul class="navbar-nav ml-auto">
-
-                    <!-- Nav Item - Search Dropdown (Visible Only XS) -->
-                    <li class="nav-item dropdown no-arrow d-sm-none">
-                        <a class="nav-link dropdown-toggle" href="#" id="searchDropdown" role="button"
-                           data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                            <i class="fas fa-search fa-fw"></i>
-                        </a>
-                        <!-- Dropdown - Messages -->
-                        <div class="dropdown-menu dropdown-menu-right p-3 shadow animated--grow-in"
-                             aria-labelledby="searchDropdown">
-                            <form class="form-inline mr-auto w-100 navbar-search">
-                                <div class="input-group">
-                                    <input type="text" class="form-control bg-light border-0 small"
-                                           placeholder="Search for..." aria-label="Search"
-                                           aria-describedby="basic-addon2">
-                                    <div class="input-group-append">
-                                        <button class="btn btn-primary" type="button">
-                                            <i class="fas fa-search fa-sm"></i>
-                                        </button>
-                                    </div>
-                                </div>
-                            </form>
-                        </div>
-                    </li>
 
                     <div class="topbar-divider d-none d-sm-block"></div>
 
@@ -272,7 +234,7 @@
             <div class="modal-body">Ao sair do sistema, será necessário autenticar-se novamente.</div>
             <div class="modal-footer">
                 <button class="btn btn-secondary" type="button" data-dismiss="modal">Cancelar</button>
-                <a class="btn btn-primary" href="">Sair</a>
+                <a class="btn btn-primary" href="{{route('sair')}}">Sair</a>
             </div>
         </div>
     </div>

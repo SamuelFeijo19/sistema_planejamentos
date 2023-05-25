@@ -15,7 +15,7 @@
         </div>
         <div class="row">
             <div class="col-md-6" style="border-right: 1px solid #ccc;">
-                <h3 class="shadow" style="padding-left: 20px;">Meus Departamentos</h3>
+                <h3 style="padding-left: 20px;">Meus Departamentos</h3>
                 @foreach($departamentos as $departamento)
                     <div class="card shadow mb-3">
                         <div class="card-body">
@@ -27,7 +27,7 @@
                 @endforeach
             </div>
             <div class="col-md-6">
-                <h3 class="shadow" style="padding-left: 20px;">Minhas Divisões</h3>
+                <h3 style="padding-left: 20px;">Minhas Divisões</h3>
                 @foreach($divisoes as $divisao)
                     <div class="card shadow mb-3">
                         <div class="card-body">
@@ -44,7 +44,6 @@
 @push('js')
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
     <script>
         $(document).ready(function () {
                 // Função para buscar os dados do servidor
