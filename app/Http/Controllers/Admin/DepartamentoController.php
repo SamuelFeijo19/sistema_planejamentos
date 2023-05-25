@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
 use App\Models\Departamento;
+use App\Models\Secretaria;
 use App\Models\Servidor;
 use Exception;
 use Illuminate\Http\Request;
@@ -18,21 +19,20 @@ class DepartamentoController extends Controller
      * @param  int  $secretaria_id
      * @return \Illuminate\Http\Response
      */
-    public function index(Request $request, $secretaria_id)
+    public function index(Request $request)
     {
         $departamentos = Departamento::query();
         if($request->has('search')){
             $search = $request->search;
             $departamentos->where('nomeDepartamento', 'like', "%$search%");
-   }
-        $departamentos->where('secretaria_id', $secretaria_id);
+        }
         $departamentos = $departamentos->paginate(10);
-//
+        $secretarias = Secretaria::all();
         if ($departamentos->count() === 0) {
             $mensagem = "Nenhum conteúdo cadastrado";
-            return view('admin.departamento.index', compact('departamentos', 'secretaria_id', 'mensagem'));
+            return view('admin.departamento.lista', compact('departamentos', 'mensagem', 'secretarias'));
         }
-        return view('admin.departamento.index', compact('departamentos', 'secretaria_id'));
+        return view('admin.departamento.lista', compact('departamentos', 'secretarias'));
     }
 
     /**
@@ -100,9 +100,21 @@ class DepartamentoController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show($id)
+    public function show(Request $request, $secretaria_id)
     {
-        //
+        $departamentos = Departamento::query();
+        if($request->has('search')){
+            $search = $request->search;
+            $departamentos->where('nomeDepartamento', 'like', "%$search%");
+        }
+        $departamentos->where('secretaria_id', $secretaria_id);
+        $departamentos = $departamentos->paginate(10);
+//
+        if ($departamentos->count() === 0) {
+            $mensagem = "Nenhum conteúdo cadastrado";
+            return view('admin.departamento.index', compact('departamentos', 'secretaria_id', 'mensagem'));
+        }
+        return view('admin.departamento.index', compact('departamentos', 'secretaria_id'));
     }
 
     /**

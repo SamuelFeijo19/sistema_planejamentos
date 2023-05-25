@@ -9,9 +9,9 @@
             </div>
 
             {{--Componente do Botão de Adicionar--}}
-            <x-adicionar.adicionar-button link-route="{{ route('departamento.create', $secretaria_id) }}" text-button="Novo Departamento" />
+{{--            <x-adicionar.adicionar-button link-route="#" text-button="Novo Departamento" />--}}
             {{--Componente do Botão de Pesquisa--}}
-            <x-search.search-button placeholder="Busque por Departamentos" form-action="{{ route('departamento.index', $secretaria_id) }}" />
+            <x-search.search-button placeholder="Busque por Departamentos" form-action="{{ route('departamento.index') }}" />
 
             @if(isset($mensagem))
                 <div class="alert alert-warning" style="width: 300px;">{{ $mensagem }}</div>
@@ -24,7 +24,9 @@
                             <div class="row">
                                 <div class="col">
                                     <p class="mb-1"><b>Nome do Departamento:</b> {{ucwords(mb_strtolower($departamento->nomeDepartamento))}}</p>
+                                    <p class="mb-1"><b>Secretaria:</b> {{ucwords(mb_strtolower($departamento->secretaria->nomeSecretaria))}}</p>
                                 </div>
+                                <br>
                                 <div class="col d-flex justify-content-center align-items-center">
                                     <div class="text-right">
                                         <a href="{{route('departamentos.servidor.create', $departamento->id)}}" title="ADICIONAR SERVIDOR">
@@ -40,7 +42,7 @@
                                         <a href="{{route('departamentoServidor.show', $departamento->id)}}" title="LISTAR SERVIDORES">
                                             <span class="material-symbols-outlined text-primary">groups</span>
                                         </a>
-                                        <a href="{{route('divisao.show', $departamento->id)}}" title="LISTAR DIVISOES">
+                                        <a href="{{route('divisao.index', $departamento->id)}}" title="LISTAR DIVISOES">
                                             <span class="material-symbols-outlined text-primary">moving_ministry</span>
                                         </a>
                                         <a href="{{route('board.index', $departamento->id)}}">

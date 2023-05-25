@@ -37,7 +37,7 @@
                                     <a href="{{route('secretarias.edit', $secretaria->id)}}">
                                         <span class="material-symbols-outlined">edit_note</span>
                                     </a>
-                                    <a href="{{route('departamento.index', $secretaria->id)}}">
+                                    <a href="{{route('departamento.show', $secretaria->id)}}">
                                         <span class="material-symbols-outlined">groups</span>
                                     </a>
                                 </div>

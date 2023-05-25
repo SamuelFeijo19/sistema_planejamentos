@@ -34,13 +34,13 @@ Route::post('resetar-senha', [\App\Http\Controllers\RecuperarSenhaController::cl
 Route::resource('secretarias', \App\Http\Controllers\Admin\SecretariaController::class);
 
 //DEPARTAMENTOS
-Route::resource('departamento', \App\Http\Controllers\Admin\DepartamentoController::class)->except(['create', 'index']);
-Route::get('departamento/index/{secretaria_id}', [\App\Http\Controllers\Admin\DepartamentoController::class, 'index'])->name('departamento.index');
+Route::resource('departamento', \App\Http\Controllers\Admin\DepartamentoController::class)->except(['create', 'show']);
+Route::get('departamento/show/{secretaria_id}', [\App\Http\Controllers\Admin\DepartamentoController::class, 'show'])->name('departamento.show');
 Route::get('departamento/create/{secretaria_id}', [\App\Http\Controllers\Admin\DepartamentoController::class, 'create'])->name('departamento.create');
 
 //DIVISOES
-Route::resource('divisao', \App\Http\Controllers\Admin\DivisaoController::class)->except(['create', 'index']);
-Route::get('divisao/index/{departamento_id}', [\App\Http\Controllers\Admin\DivisaoController::class, 'index'])->name('divisao.index');
+Route::resource('divisao', \App\Http\Controllers\Admin\DivisaoController::class)->except(['create', 'show']);
+Route::get('divisao/show/{departamento_id}', [\App\Http\Controllers\Admin\DivisaoController::class, 'show'])->name('divisao.show');
 Route::get('divisao/create/{departamento_id}', [\App\Http\Controllers\Admin\DivisaoController::class, 'create'])->name('divisao.create');
 
 //LOTACAO DO SERVIDOR NO DEPARTAMENTO

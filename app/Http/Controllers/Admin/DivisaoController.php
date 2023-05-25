@@ -12,21 +12,20 @@ use Illuminate\Support\Facades\DB;
 
 class DivisaoController extends Controller
 {
-    public function index(Request $request, $departamento_id)
+    public function index(Request $request)
     {
         $divisoes = Divisao::query();
         if($request->has('search')){
             $search = $request->search;
             $divisoes->where('nomeDivisao', 'like', "%$search%");
         }
-        $divisoes->where('departamento_id', $departamento_id);
         $divisoes = $divisoes->paginate(10);
-
+        $departamento = Departamento::all();
         if ($divisoes->count() === 0) {
             $mensagem = "Nenhuma Divisão encontrada";
-            return view('admin.divisoes.index', compact('divisoes', 'departamento_id', 'mensagem'));
+            return view('admin.divisoes.lista', compact('divisoes', 'departamento', 'mensagem'));
         }
-        return view('admin.divisoes.index', compact('divisoes', 'departamento_id'));
+        return view('admin.divisoes.lista', compact('divisoes', 'departamento'));
     }
 
     public function create($departamento_id)
@@ -68,9 +67,21 @@ class DivisaoController extends Controller
         }
     }
 
-    public function show($id)
+    public function show(Request $request, $departamento_id)
     {
-        //
+        $divisoes = Divisao::query();
+        if($request->has('search')){
+            $search = $request->search;
+            $divisoes->where('nomeDivisao', 'like', "%$search%");
+        }
+        $divisoes->where('departamento_id', $departamento_id);
+        $divisoes = $divisoes->paginate(10);
+
+        if ($divisoes->count() === 0) {
+            $mensagem = "Nenhuma Divisão encontrada";
+            return view('admin.divisoes.index', compact('divisoes', 'departamento_id', 'mensagem'));
+        }
+        return view('admin.divisoes.index', compact('divisoes', 'departamento_id'));
     }
 
     public function edit($id)

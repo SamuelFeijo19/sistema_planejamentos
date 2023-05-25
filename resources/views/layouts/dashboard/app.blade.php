@@ -102,8 +102,7 @@
             </a>
             <div id="collapseTwo0" class="collapse" aria-labelledby="headingTwo0" data-parent="#accordionSidebar">
                 <div class="bg-white py-2 collapse-inner rounded">
-                    <a class="collapse-item" href="{{route('secretarias.index')}}">0</a>
-                    <a class="collapse-item" href="{{route('secretarias.create')}}">1</a>
+                    <a class="collapse-item" href="{{route('departamento.index')}}">Departamentos Cadastrados</a>
                 </div>
             </div>
         </li>
@@ -116,8 +115,8 @@
             </a>
             <div id="collapseTwo2" class="collapse" aria-labelledby="headingTwo2" data-parent="#accordionSidebar">
                 <div class="bg-white py-2 collapse-inner rounded">
-                    <a class="collapse-item" href="{{route('servidores.index')}}">Ver</a>
-                    <a class="collapse-item" href="{{route('servidores.create')}}">Cadastrar</a>
+                    <a class="collapse-item" href="{{route('servidores.index')}}">Servidores Cadastrados</a>
+                    <a class="collapse-item" href="{{route('servidores.create')}}">Novo Servidor</a>
                 </div>
             </div>
         </li>
@@ -127,14 +126,12 @@
             <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseUtilities"
                aria-expanded="true" aria-controls="collapseUtilities">
                 <i class="fas fa-fw fa-wrench"></i>
-                <span>Quadros</span>
+                <span>Divisões</span>
             </a>
             <div id="collapseUtilities" class="collapse" aria-labelledby="headingUtilities"
                  data-parent="#accordionSidebar">
                 <div class="bg-white py-2 collapse-inner rounded">
-                    <a class="collapse-item" href="">Item</a>
-                    <a class="collapse-item" href="">Item</a>
-                    <a class="collapse-item" href="">Item</a>
+                    <a class="collapse-item" href="{{route('divisao.index')}}">Divisões Cadastradas</a>
                 </div>
             </div>
         </li>
