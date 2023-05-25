@@ -39,9 +39,9 @@ class BoardController extends Controller
         //
     }
 
-    public function show($id)
+    public function show()
     {
-        //
+        return view('layouts.dashboard.teste');
     }
 
     public function edit($id)
