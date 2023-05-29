@@ -75,6 +75,5 @@ Route::get('divisao/{divisao_id}/board', [\App\Http\Controllers\Admin\BoardDivis
 //CONTENT
 Route::get('/dashboard/content', [\App\Http\Controllers\Admin\HomeController::class, 'content'])->name('dashboard.content');
 
-//GRAFICO
-Route::get('/dados-tarefas', [\App\Http\Controllers\Admin\DepartamentoTarefaController::class, 'dadosTarefas'])->name('dados-tarefas');
 
+Route::get('/departamentos/{departamento_id}/tarefas', [\App\Http\Controllers\Admin\DepartamentoTarefaController::class, 'index'])->name('departamento.tarefas.home');

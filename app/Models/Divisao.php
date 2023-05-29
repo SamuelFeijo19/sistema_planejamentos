@@ -21,4 +21,10 @@ class Divisao extends Model
         return $this->belongsTo(Departamento::class, 'departamento_id', 'id');
     }
 
+    public function divisaoTarefas()
+    {
+        return $this->hasMany(DivisaoTarefa::class, 'divisao_id', 'id');
+
+    }
+
 }

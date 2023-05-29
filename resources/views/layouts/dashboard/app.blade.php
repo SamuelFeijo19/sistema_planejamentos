@@ -59,7 +59,7 @@ background: linear-gradient(187deg, rgba(26,122,178,1) 15%, rgba(26,122,178,1) 7
     >
 
         <!-- Sidebar - Brand -->
-        <a class="sidebar-brand d-flex align-items-center justify-content-center" href="{{ route('dashboard.content')}}">
+        <a class="sidebar-brand d-flex align-items-center justify-content-center" href="{{route('dashboard.content')}}">
             <div class="sidebar-brand-icon">
                 <img src="{{asset('img/icon2.png')}}" alt="" width="30" height="30">
             </div>

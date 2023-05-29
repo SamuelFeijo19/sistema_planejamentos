@@ -21,4 +21,10 @@ class Departamento extends Model
         return $this->belongsTo(Secretaria::class, 'secretaria_id', 'id');
     }
 
+    public function departamentoTarefas()
+    {
+        return $this->hasMany(DepartamentoTarefa::class, 'departamento_id', 'id');
+
+    }
+
 }

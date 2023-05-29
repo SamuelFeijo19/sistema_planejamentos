@@ -23,7 +23,7 @@
 
         .servidor-container {
             width: 50%;
-            border: solid 1px white;
+            /*border: solid 1px white;*/
             padding: 10px;
         }
 
@@ -56,18 +56,20 @@
     </div>
     <br>
     <div class="container-fluid shadow" style="
-            background: rgb(45,145,203);
-            background: linear-gradient(38deg, rgba(45,145,203,1) 33%, rgba(42,139,197,1) 37%, rgba(39,136,194,1) 38%, rgba(26,122,178,1) 59%, rgba(18,107,162,1) 90%, rgba(13,98,153,1) 95%, rgba(13,98,153,1) 95%, rgba(44,134,194,1) 100%, rgba(90,188,255,1) 100%);
+            /*background: rgb(45,145,203);*/
+            /*background: linear-gradient(38deg, rgba(45,145,203,1) 33%, rgba(42,139,197,1) 37%, rgba(39,136,194,1) 38%, rgba(26,122,178,1) 59%, rgba(18,107,162,1) 90%, rgba(13,98,153,1) 95%, rgba(13,98,153,1) 95%, rgba(44,134,194,1) 100%, rgba(90,188,255,1) 100%);*/
+           background: white;
             padding-top: 20px;
             width: 98%;
             height: 75%;
-            border: solid 4px white;
+            /*border: solid 4px white;*/
             border-radius: 7px;">
 
         @foreach($servidores as $servidor)
             <div class="servidor-container float-left">
 
-                <h3 class="text-light">{{$servidor->user->name}}</h3>
+                <h3 class="text-primary border-bottom border-primary ">{{$servidor->user->name}}</h3>
+
                 <div class="">
                     <div class=" ">
                         {{-- TAREFAS EM BACKLOG --}}
@@ -125,7 +127,7 @@
                         {{-- TAREFAS EM ANDAMENTO --}}
                         <div class="card col-sm-6 float-right">
                             <div id="accordion{{$servidor->user->id}}_doing">
-                                <div class="card-header bg-gradient-warning text-white" data-toggle="collapse"
+                                <div class="card-header bg-warning text-white" data-toggle="collapse"
                                      data-target="#collapse{{$servidor->user->id}}_doing" aria-expanded="true"
                                      aria-controls="collapse{{$servidor->user->id}}_doing">
                                     Doing
@@ -178,7 +180,7 @@
                     {{-- TAREFAS EM CODE REVIEW --}}
                     <div class="card col-sm-12">
                         <div id="accordion{{$servidor->user->id}}_code_review">
-                            <div class="card-header bg-gradient-success text-white" data-toggle="collapse"
+                            <div class="card-header bg-success text-white" data-toggle="collapse"
                                  data-target="#collapse{{$servidor->user->id}}_code_review" aria-expanded="true"
                                  aria-controls="collapse{{$servidor->user->id}}_code_review">
                                 Code Review

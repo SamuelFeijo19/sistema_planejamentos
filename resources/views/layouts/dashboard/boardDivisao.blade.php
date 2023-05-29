@@ -49,7 +49,7 @@
             <h3 style="padding-left:20px; color: #2d91cb;">{{ucwords(strtolower($divisao->nomeDivisao))}}</h3>
         </div>
         <div class="float-right" style="padding-right: 20px; padding-left: 10px;">
-            <a href="{{route('tarefa.create', $divisao->id)}}" class="btn btn-primary">
+            <a href="{{route('tarefaDivisao.create', $divisao->id)}}" class="btn btn-primary">
                 <span class="material-symbols-outlined align-middle">add</span>Nova Tarefa
             </a>
         </div>
