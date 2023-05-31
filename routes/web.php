@@ -19,6 +19,8 @@ use Illuminate\Support\Facades\Route;
 
 Route::get('/', [\App\Http\Controllers\LoginController::class, 'index'])->name('login');
 
+//PERFIL
+Route::resource('perfil', \App\Http\Controllers\Admin\PerfilController::class);
 
 Route::get('/login', '\App\Http\Controllers\LoginController@index')->name('login');
 Route::post('/login', '\App\Http\Controllers\LoginController@authenticate')->name('login');
