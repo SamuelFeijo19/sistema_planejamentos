@@ -46,6 +46,15 @@
                                     @enderror
 
                                     <div class="form-group">
+                                        <label for="numeroChamado">Número do Chamado (Quando houver):</label>
+                                        <input type="text" class="form-control" name="numeroChamado"
+                                               id="numeroChamado" placeholder="Número do Chamado:" value="{{ $tarefa->numeroChamado }}">
+                                    </div>
+                                    @error('numeroChamado')
+                                    <div class="alert alert-danger">{{ $message }}</div>
+                                    @enderror
+
+                                    <div class="form-group">
                                         <label for="situacao">Descricao da Tarefa:</label>
                                         <select name="situacao" for="situacao" class="custom-select"
                                                 id="inputGroupSelect02">

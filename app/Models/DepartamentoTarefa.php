@@ -17,7 +17,8 @@ class DepartamentoTarefa extends Model
         'nomeTarefa',
         'descricao',
         'situacao',
-        'classificacao'
+        'classificacao',
+        'numeroChamado'
     ];
 
     public function departamento()

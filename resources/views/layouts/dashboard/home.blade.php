@@ -31,6 +31,7 @@
 @push('js')
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 
+    {{-- GRAFICO DAS DEPARTAMENTO --}}
     <script>
         const ctx = document.getElementById('myChart');
 

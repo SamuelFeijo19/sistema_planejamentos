@@ -17,7 +17,8 @@ class DivisaoTarefa extends Model
         'nomeTarefa',
         'descricao',
         'situacao',
-        'classificacao'
+        'classificacao',
+        'numeroChamado'
     ];
 
     public function divisao()

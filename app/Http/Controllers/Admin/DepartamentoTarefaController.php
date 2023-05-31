@@ -50,7 +50,8 @@ class DepartamentoTarefaController extends Controller
                 'criador_id' => auth()->user()->id,
                 'descricao' => $request->descricao,
                 'situacao' => $request->situacao,
-                'classificacao' => $request->classificacao
+                'classificacao' => $request->classificacao,
+                'numeroChamado' => $request->numeroChamado
             ]);
             DB::commit();
             //resetar csrf token
@@ -69,9 +70,9 @@ class DepartamentoTarefaController extends Controller
      * @param int $id
      * @return \Illuminate\Http\Response
      */
-    public function show($id)
+    public function show($tarefa_id)
     {
-        //
+        return 'chegou';
     }
 
     /**
@@ -104,7 +105,8 @@ class DepartamentoTarefaController extends Controller
                 'nomeTarefa' => mb_strtoupper($request->nomeTarefa),
                 'descricao' => $request->descricao,
                 'situacao' => $request->situacao,
-                'classificacao' => $request->classificacao
+                'classificacao' => $request->classificacao,
+                'numeroChamado' => $request->numeroChamado
             ]);
             DB::commit();
             //resetar csrf token

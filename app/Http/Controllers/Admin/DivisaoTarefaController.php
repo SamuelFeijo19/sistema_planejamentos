@@ -48,7 +48,8 @@ class DivisaoTarefaController extends Controller
                 'criador_id' => auth()->user()->id,
                 'descricao' => $request->descricao,
                 'situacao' => $request->situacao,
-                'classificacao' => $request->classificacao
+                'classificacao' => $request->classificacao,
+                'numeroChamado' => $request->numeroChamado
             ]);
             DB::commit();
             //resetar csrf token
@@ -102,7 +103,8 @@ class DivisaoTarefaController extends Controller
                 'nomeTarefa' => mb_strtoupper($request->nomeTarefa),
                 'descricao' => $request->descricao,
                 'situacao' => $request->situacao,
-                'classificacao' => $request->classificacao
+                'classificacao' => $request->classificacao,
+                'numeroChamado' => $request->numeroChamado
             ]);
             DB::commit();
             //resetar csrf token
