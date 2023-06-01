@@ -39,10 +39,12 @@
         let dataB = [];
         let dataD = [];
         let dataCR = [];
+        let dataCONC = [];
 
         let backlogCount = 0;
         let doingCount = 0;
         let codeReviewCount = 0;
+        let concluidoCount = 0;
 
         @foreach($departamentos as $departamento)
         labels.push("{{$departamento->departamento->nomeDepartamento}}");
@@ -54,16 +56,20 @@
             doingCount++;
         @elseif($departamentoTarefa->situacao == 2)
             codeReviewCount++;
+        @elseif($departamentoTarefa->situacao == 3)
+            concluidoCount++;
         @endif
         @endforeach
 
         dataB.push(backlogCount);
         dataD.push(doingCount);
         dataCR.push(codeReviewCount);
+        dataCONC.push(concluidoCount);
 
         backlogCount = 0;
         doingCount = 0;
         codeReviewCount = 0;
+        concluidoCount = 0;
         @endforeach
 
         new Chart(ctx, {
@@ -86,9 +92,16 @@
                     {
                         label: 'Code Review',
                         data: dataCR,
-                        backgroundColor: 'rgba(75, 192, 192, 0.5)', // Verde
+                        backgroundColor: 'rgba(75, 192, 192, 0.5)', // Azul
                         stack: 'Stack 0'
                     },
+                    {
+                        label: 'Concluído',
+                        data: dataCONC,
+                        backgroundColor: 'rgba(3, 252, 48, 0.5)', // Verde
+                        stack: 'Stack 1'
+                    }
+
                 ],
             },
             options: {
@@ -110,10 +123,12 @@
         let dataB1 = [];
         let dataD1 = [];
         let dataCR1 = [];
+        let dataCONC1 = [];
 
         let backlogCount1 = 0;
         let doingCount1 = 0;
         let codeReviewCount1 = 0;
+        let concluidoCount1 = 0;
 
         @foreach($divisoes as $divisao)
         labels1.push("{{$divisao->divisao->nomeDivisao}}");
@@ -125,12 +140,15 @@
             doingCount1++;
         @elseif($divisaotarefa->situacao == 2)
             codeReviewCount1++;
+        @elseif($divisaotarefa->situacao == 3)
+            concluidoCount1++;
         @endif
         @endforeach
 
         dataB1.push(backlogCount1);
         dataD1.push(doingCount1);
         dataCR1.push(codeReviewCount1);
+        dataCONC.push(concluidoCount1);
 
         backlogCount1 = 0;
         doingCount1 = 0;
@@ -160,6 +178,12 @@
                         backgroundColor: 'rgba(75, 192, 192, 0.5)', // Verde
                         stack: 'Stack 0'
                     },
+                    {
+                        label: 'Concluído',
+                        data: dataCONC1,
+                        backgroundColor: 'rgba(3, 252, 48, 0.5)', // Verde
+                        stack: 'Stack 1'
+                    }
                 ],
             },
             options: {
