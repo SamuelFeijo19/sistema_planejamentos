@@ -61,6 +61,7 @@
                                             <option value="0" {{$tarefa->situacao == 0 ? 'selected' : ''}}>Backlog</option>
                                             <option value="1" {{$tarefa->situacao == 1 ? 'selected' : ''}}>Doing</option>
                                             <option value="2" {{$tarefa->situacao == 2 ? 'selected' : ''}}>Code Review</option>
+                                            <option value="3" {{$tarefa->situacao == 3 ? 'selected' : ''}}>Concluida</option>
                                         </select>
                                     </div>
                                     @error('situacao')

@@ -48,7 +48,15 @@ class DivisaoTarefaController extends Controller
                 'criador_id' => auth()->user()->id,
                 'descricao' => $request->descricao,
                 'situacao' => $request->situacao,
+                //  0 = Backlog
+                //  1 = Doing
+                //  2 = Code Review
+
                 'classificacao' => $request->classificacao,
+                //  0 = Baixa Prioridade
+                //  1 = Média prioridade
+                //  2 = Alta Prioridade
+
                 'numeroChamado' => $request->numeroChamado
             ]);
             DB::commit();
@@ -103,7 +111,16 @@ class DivisaoTarefaController extends Controller
                 'nomeTarefa' => mb_strtoupper($request->nomeTarefa),
                 'descricao' => $request->descricao,
                 'situacao' => $request->situacao,
+                //  0 = Backlog
+                //  1 = Doing
+                //  2 = Code Review
+                //  3 = Concluída
+
                 'classificacao' => $request->classificacao,
+                //  0 = Baixa Prioridade
+                //  1 = Média prioridade
+                //  2 = Alta Prioridade
+
                 'numeroChamado' => $request->numeroChamado
             ]);
             DB::commit();
