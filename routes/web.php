@@ -79,5 +79,4 @@ Route::prefix('')->middleware('autenticacao')->group(function () {
     //CONTENT
     Route::get('/dashboard/content', [\App\Http\Controllers\Admin\HomeController::class, 'content'])->name('dashboard.content');
 
-    Route::get('/departamentos/{departamento_id}/tarefas', [\App\Http\Controllers\Admin\DepartamentoTarefaController::class, 'index'])->name('departamento.tarefas.home');
 });

@@ -3,6 +3,13 @@
         <link href="{{asset('css/select2.css')}}" rel="stylesheet" />
     @endpush
 @section('content')
+    <style>
+        h3{
+            color: #2d91cb;
+            font-weight: bold;
+        }
+    </style>
+
     <main class="container" id="ajuste">
         <div class="row">
             <div class="col col-12">

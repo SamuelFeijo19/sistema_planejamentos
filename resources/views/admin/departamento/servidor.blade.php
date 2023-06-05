@@ -3,6 +3,13 @@
         <link href="{{asset('css/select2.css')}}" rel="stylesheet" />
     @endpush
 @section('content')
+    <style>
+        h3{
+            color: #2d91cb;
+            font-weight: bold;
+        }
+    </style>
+
     <main class="container" id="ajuste">
         <div class="row">
             <div class="col col-12">
@@ -13,7 +20,7 @@
                 <form id="formulario_registro" method="post" action="{{ route('departamentoServidor.store') }}">
                     {{-- <input type="hidden" name="'id" value="{{ $matricula->id ?? ''}}"> --}}
                     @csrf
-                    <div class="card">
+                    <div class="card shadow">
                         <div class="card-header text-center bg-primary" id="headingOne">
                             <h5 class="mb-0">
                                 <input type="" class="btn btn-link text-white font-weight-bold" value="LOTAÇÃO">
@@ -42,7 +49,7 @@
 
                                 <div class="row">
                                     <div class="col col-12 text-right">
-                                        <input type="submit" class="btn btn-outline-dark font-weight-bold" value="Adicionar Servidor">
+                                        <input type="submit" class="btn btn-primary font-weight-bold" value="Adicionar Servidor">
                                     </div>
                                 </div>
                             </div>
