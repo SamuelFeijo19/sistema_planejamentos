@@ -34,9 +34,19 @@ class HomeController extends Controller
 
         $divisoes = DivisaoServidor::where('servidor_id', $servidorId)->get();
 
-        $divisaoTarefas = Divisaotarefa::join('divisao_servidor', 'divisao_servidor.divisao_id', '=', 'divisao_tarefa.divisao_id')
-            ->get();
-        return view('layouts.dashboard.home', compact('departamentos', 'divisoes','departamentoTarefas', 'divisaoTarefas'));
+        $divisaoTarefas = Divisaotarefa::join('divisao_servidor', 'divisao_servidor.divisao_id', '=', 'divisao_tarefa.divisao_id')->get();
+
+        $countDptTarefasAbertas = DepartamentoTarefa::where('criador_id', auth()->user()->id)->where('situacao', '<>', 3)->count();
+        $countDivTarefasAbertas = DivisaoTarefa::where('criador_id', auth()->user()->id)->where('situacao', '<>', 3)->count();
+        $countTarefasAbertas = ($countDptTarefasAbertas + $countDivTarefasAbertas);
+
+        $countDptTarefasFechadas = DepartamentoTarefa::where('criador_id', auth()->user()->id)->where('situacao', '=', 3)->count();
+        $countDivTarefasFechadas = DivisaoTarefa::where('criador_id', auth()->user()->id)->where('situacao', '=', 3)->count();
+        $countTarefasfechadas = ($countDptTarefasFechadas + $countDivTarefasFechadas);
+
+        $porcentagemAndamento = ($countTarefasfechadas / $countTarefasAbertas) * 100;
+
+        return view('layouts.dashboard.home', compact('departamentos', 'divisoes','departamentoTarefas', 'divisaoTarefas', 'countTarefasAbertas', 'countTarefasfechadas', 'porcentagemAndamento'));
     }
 
 }

@@ -11,15 +11,115 @@
             font-weight: bold;
         }
     </style>
+    <div class="row" style="margin: 10px;">
 
-    <div class="card container-fluid col-md-11">
+        <div class="col-xl-3 col-md-6 mb-4">
+            <div class="card border-left-primary shadow h-100 py-2">
+                <div class="card-body">
+                    <div class="row no-gutters align-items-center">
+                        <div class="col mr-2">
+                            <div class="d-flex align-items-center">
+                                <div class="text-xs font-weight-bold text-primary text-uppercase mb-1">
+                                    Minhas Tarefas Abertas
+                                </div>
+                                <span class="text-primary material-symbols-outlined ml-2 mb-2">
+                                    confirmation_number
+                                </span>
+                            </div>
+
+                            <div class="h5 mb-0 font-weight-bold text-gray-800">
+                                    <div style="float: left;">{{$countTarefasAbertas}} Tarefas</div>
+                                </a>
+                            </div>
+                        </div>
+                        <div class="col-auto">
+                            <i class="fas fa-calendar fa-2x text-gray-300"></i>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-xl-3 col-md-6 mb-4">
+            <div class="card border-left-success shadow h-100 py-2">
+                <div class="card-body">
+                    <div class="row no-gutters align-items-center">
+                        <div class="col mr-2">
+                            <div class="d-flex align-items-center">
+                                <div class="text-xs font-weight-bold text-success text-uppercase mb-1">
+                                    Minhas Tarefas Concluídas
+                                </div>
+                                <span class="text-success material-symbols-outlined ml-2 mb-2">
+                                    check_circle
+                                </span>
+                            </div>
+                            <div class="h5 mb-0 font-weight-bold text-gray-800">{{$countTarefasfechadas}} Tarefas</div>
+                        </div>
+                        <div class="col-auto">
+                            <i class="fas fa-dollar-sign fa-2x text-gray-300"></i>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-xl-3 col-md-6 mb-4">
+            <div class="card border-left-info shadow h-100 py-2">
+                <div class="card-body">
+                    <div class="row no-gutters align-items-center">
+                        <div class="col mr-2">
+                            <div class="text-xs font-weight-bold text-info text-uppercase mb-1">Progresso de Tarefas
+                            </div>
+                            <div class="row no-gutters align-items-center">
+                                <div class="col-auto">
+                                    <div class="h5 mb-0 mr-3 font-weight-bold text-gray-800">
+                                        {{ number_format($porcentagemAndamento, 1) }}%
+                                    </div>
+                                </div>
+                                <div class="col">
+                                    <div class="progress progress-sm mr-2">
+                                        <div class="progress-bar bg-info" role="progressbar"
+                                             style="width: {{ $porcentagemAndamento }}%" aria-valuenow="{{ $porcentagemAndamento }}"
+                                             aria-valuemin="0" aria-valuemax="100"></div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-auto">
+                            <i class="fas fa-clipboard-list fa-2x text-gray-300"></i>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Pending Requests Card Example -->
+{{--        <div class="col-xl-3 col-md-6 mb-4">--}}
+{{--            <div class="card border-left-warning shadow h-100 py-2">--}}
+{{--                <div class="card-body">--}}
+{{--                    <div class="row no-gutters align-items-center">--}}
+{{--                        <div class="col mr-2">--}}
+{{--                            <div class="text-xs font-weight-bold text-warning text-uppercase mb-1">--}}
+{{--                                Pending Requests</div>--}}
+{{--                            <div class="h5 mb-0 font-weight-bold text-gray-800">18</div>--}}
+{{--                        </div>--}}
+{{--                        <div class="col-auto">--}}
+{{--                            <i class="fas fa-comments fa-2x text-gray-300"></i>--}}
+{{--                        </div>--}}
+{{--                    </div>--}}
+{{--                </div>--}}
+{{--            </div>--}}
+{{--        </div>--}}
+    </div>
+
+    <div class="container-fluid">
         <div class="row">
             <div class="card-body col-md-6" >
-                <h3 style="padding-left: 20px;">Departamentos</h3>
+                <h3 >Departamentos</h3>
                     <canvas class="shadow" id="myChart"></canvas>
             </div>
             <div class="card-body col-md-6">
-                <h3 style="padding-left: 20px;">Divisões</h3>
+                <h3 >Divisões</h3>
                     <canvas class="shadow" id="myChart1"></canvas>
             </div>
         </div>
@@ -148,11 +248,12 @@
         dataB1.push(backlogCount1);
         dataD1.push(doingCount1);
         dataCR1.push(codeReviewCount1);
-        dataCONC.push(concluidoCount1);
+        dataCONC1.push(concluidoCount1);
 
         backlogCount1 = 0;
         doingCount1 = 0;
         codeReviewCount1 = 0;
+        concluidoCount1 = 0;
         @endforeach
 
         new Chart(ctx1, {
