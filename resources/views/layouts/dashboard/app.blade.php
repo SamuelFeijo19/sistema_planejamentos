@@ -72,7 +72,9 @@ background: linear-gradient(187deg, rgba(26,122,178,1) 15%, rgba(26,122,178,1) 7
         <!-- Nav Item - Dashboard -->
         <li class="nav-item active">
             <a class="nav-link" href="{{route('dashboard.content')}}">
-                <i class="fa-solid fa-address-card"></i>
+            <span class="material-symbols-outlined">
+                home
+            </span>
                 <span>Dashboard</span>
             </a>
         </li>
@@ -89,7 +91,9 @@ background: linear-gradient(187deg, rgba(26,122,178,1) 15%, rgba(26,122,178,1) 7
         <li class="nav-item">
             <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseTwo1"
                aria-expanded="true" aria-controls="collapseTwo">
-                <i class="fas fa-fw fa-cog"></i>
+            <span class="material-symbols-outlined">
+                apartment
+            </span>
                 <span>Secretarias</span>
             </a>
             <div id="collapseTwo1" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
@@ -103,7 +107,9 @@ background: linear-gradient(187deg, rgba(26,122,178,1) 15%, rgba(26,122,178,1) 7
         <li class="nav-item">
             <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseTwo0"
                aria-expanded="true" aria-controls="collapseTwo0">
-                <i class="fas fa-fw fa-cog"></i>
+                <span class="material-symbols-outlined">
+                    meeting_room
+                </span>
                 <span>Departamentos</span>
             </a>
             <div id="collapseTwo0" class="collapse" aria-labelledby="headingTwo0" data-parent="#accordionSidebar">
@@ -117,7 +123,9 @@ background: linear-gradient(187deg, rgba(26,122,178,1) 15%, rgba(26,122,178,1) 7
         <li class="nav-item">
             <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseUtilities"
                aria-expanded="true" aria-controls="collapseUtilities">
-                <i class="fas fa-fw fa-wrench"></i>
+                <span class="material-symbols-outlined">
+                    groups
+                </span>
                 <span>Divisões</span>
             </a>
             <div id="collapseUtilities" class="collapse" aria-labelledby="headingUtilities"
@@ -139,7 +147,9 @@ background: linear-gradient(187deg, rgba(26,122,178,1) 15%, rgba(26,122,178,1) 7
         <li class="nav-item">
             <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseTwo2"
                aria-expanded="true" aria-controls="collapseTwo">
-                <i class="fas fa-fw fa-cog"></i>
+                <span class="material-symbols-outlined">
+                    person
+                </span>
                 <span>Servidores</span>
             </a>
             <div id="collapseTwo2" class="collapse" aria-labelledby="headingTwo2" data-parent="#accordionSidebar">
