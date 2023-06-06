@@ -1,10 +1,17 @@
 @extends('layouts.dashboard.app')
 
 @section('content')
+    <style>
+        h3 {
+            color: #2d91cb;
+            font-weight: bold;
+        }
+    </style>
+
     <div class="container-fluid">
         <div style="width: 100%;">
             <div class="col col-12">
-                <h3>Divisões cadastrados</h3>
+                <h3>Divisões do {{ucwords(mb_strtolower($departamento->nomeDepartamento))}}</h3>
                 <hr>
             </div>
 

@@ -69,6 +69,8 @@ class DivisaoController extends Controller
 
     public function show(Request $request, $departamento_id)
     {
+        $departamento = Departamento::findOrFail($departamento_id);
+
         $divisoes = Divisao::query();
         if($request->has('search')){
             $search = $request->search;
@@ -79,9 +81,9 @@ class DivisaoController extends Controller
 
         if ($divisoes->count() === 0) {
             $mensagem = "Nenhuma Divisão encontrada";
-            return view('admin.divisoes.index', compact('divisoes', 'departamento_id', 'mensagem'));
+            return view('admin.divisoes.index', compact('divisoes', 'departamento_id', 'mensagem', 'departamento'));
         }
-        return view('admin.divisoes.index', compact('divisoes', 'departamento_id'));
+        return view('admin.divisoes.index', compact('divisoes', 'departamento_id', 'departamento'));
     }
 
     public function edit($id)
