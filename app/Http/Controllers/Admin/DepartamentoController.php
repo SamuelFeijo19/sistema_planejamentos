@@ -102,6 +102,7 @@ class DepartamentoController extends Controller
      */
     public function show(Request $request, $secretaria_id)
     {
+        $secretaria = Secretaria::findOrFail($secretaria_id);
         $departamentos = Departamento::query();
         if($request->has('search')){
             $search = $request->search;
@@ -112,9 +113,9 @@ class DepartamentoController extends Controller
 //
         if ($departamentos->count() === 0) {
             $mensagem = "Nenhum conteúdo cadastrado";
-            return view('admin.departamento.index', compact('departamentos', 'secretaria_id', 'mensagem'));
+            return view('admin.departamento.index', compact('departamentos', 'secretaria_id', 'mensagem', 'secretaria'));
         }
-        return view('admin.departamento.index', compact('departamentos', 'secretaria_id'));
+        return view('admin.departamento.index', compact('departamentos', 'secretaria_id', 'secretaria'));
     }
 
     /**

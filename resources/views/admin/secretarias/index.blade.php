@@ -37,8 +37,8 @@
                                     <a href="{{route('secretarias.edit', $secretaria->id)}}">
                                         <span class="material-symbols-outlined">edit_note</span>
                                     </a>
-                                    <a href="{{route('departamento.show', $secretaria->id)}}">
-                                        <span class="material-symbols-outlined">groups</span>
+                                    <a href="{{route('departamento.show', $secretaria->id)}}" title="DEPARTAMENTOS">
+                                        <span class="material-symbols-outlined">meeting_room</span>
                                     </a>
                                 </div>
                             </div>
