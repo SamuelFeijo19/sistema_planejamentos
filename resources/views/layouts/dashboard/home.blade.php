@@ -28,7 +28,7 @@
                             </div>
 
                             <div class="h5 mb-0 font-weight-bold text-gray-800">
-                                    <div style="float: left;">{{$countTarefasAbertas}} Tarefas</div>
+                                <div style="float: left;">{{$countTarefasAbertas}} Tarefas</div>
                                 </a>
                             </div>
                         </div>
@@ -64,6 +64,27 @@
         </div>
 
         <div class="col-xl-3 col-md-6 mb-4">
+            <div class="card border-left-warning shadow h-100 py-2">
+                <div class="card-body">
+                    <div class="row no-gutters align-items-center">
+                        <div class="d-flex align-items-center">
+                            <div class="text-xs font-weight-bold text-warning text-uppercase mb-1">
+                                Tarefas de Alta Prioridade Abertas
+                            </div>
+                            <span class="text-warning material-symbols-outlined ml-2 mb-2">
+                                    error
+                                </span>
+                        </div>
+                        <div class="h5 mb-0 font-weight-bold text-gray-800">{{$countTarefasUrgentes}} Tarefas</div>
+                        <div class="col-auto">
+                            <i class="fas fa-comments fa-2x text-gray-300"></i>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-xl-3 col-md-6 mb-4">
             <div class="card border-left-info shadow h-100 py-2">
                 <div class="card-body">
                     <div class="row no-gutters align-items-center">
@@ -85,7 +106,8 @@
                                 <div class="col">
                                     <div class="progress progress-sm mr-2">
                                         <div class="progress-bar bg-info" role="progressbar"
-                                             style="width: {{ $porcentagemAndamento }}%" aria-valuenow="{{ $porcentagemAndamento }}"
+                                             style="width: {{ $porcentagemAndamento }}%"
+                                             aria-valuenow="{{ $porcentagemAndamento }}"
                                              aria-valuemin="0" aria-valuemax="100"></div>
                                     </div>
                                 </div>
@@ -98,35 +120,17 @@
                 </div>
             </div>
         </div>
-
-        <!-- Pending Requests Card Example -->
-{{--        <div class="col-xl-3 col-md-6 mb-4">--}}
-{{--            <div class="card border-left-warning shadow h-100 py-2">--}}
-{{--                <div class="card-body">--}}
-{{--                    <div class="row no-gutters align-items-center">--}}
-{{--                        <div class="col mr-2">--}}
-{{--                            <div class="text-xs font-weight-bold text-warning text-uppercase mb-1">--}}
-{{--                                Pending Requests</div>--}}
-{{--                            <div class="h5 mb-0 font-weight-bold text-gray-800">18</div>--}}
-{{--                        </div>--}}
-{{--                        <div class="col-auto">--}}
-{{--                            <i class="fas fa-comments fa-2x text-gray-300"></i>--}}
-{{--                        </div>--}}
-{{--                    </div>--}}
-{{--                </div>--}}
-{{--            </div>--}}
-{{--        </div>--}}
     </div>
 
     <div class="container-fluid">
         <div class="row">
-            <div class="card-body col-md-6" >
-                <h3 >Departamentos</h3>
-                    <canvas class="shadow" id="myChart"></canvas>
+            <div class="card-body col-md-6">
+                <h3>Departamentos</h3>
+                <canvas class="shadow" id="myChart"></canvas>
             </div>
             <div class="card-body col-md-6">
-                <h3 >Divisões</h3>
-                    <canvas class="shadow" id="myChart1"></canvas>
+                <h3>Divisões</h3>
+                <canvas class="shadow" id="myChart1"></canvas>
             </div>
         </div>
     </div>
