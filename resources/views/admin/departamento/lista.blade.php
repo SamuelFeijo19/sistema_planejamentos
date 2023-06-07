@@ -25,6 +25,7 @@
                                 <div class="col">
                                     <p class="mb-1"><b>Nome do Departamento:</b> {{ucwords(mb_strtolower($departamento->nomeDepartamento))}}</p>
                                     <p class="mb-1"><b>Secretaria:</b> {{ucwords(mb_strtolower($departamento->secretaria->nomeSecretaria))}}</p>
+                                    <p class="mb-1"><b>Chefe do Departamento:</b> {{ $departamento->administrador ? ucwords(mb_strtolower($departamento->administrador->user->name)) : "Nenhum chefe" }}</p>
                                 </div>
                                 <br>
                                 <div class="col d-flex justify-content-center align-items-center">

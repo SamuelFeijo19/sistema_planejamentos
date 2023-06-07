@@ -130,8 +130,8 @@ class DepartamentoController extends Controller
     public function edit($id)
     {
         $departamento = Departamento::findOrFail($id);
-
-        return view('admin.departamento.edit', compact('departamento'));
+        $servidores = Servidor::all();
+        return view('admin.departamento.edit', compact('departamento', 'servidores'));
     }
 
     /**
