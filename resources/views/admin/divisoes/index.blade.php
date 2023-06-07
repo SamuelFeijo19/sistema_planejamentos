@@ -32,6 +32,7 @@
                             <div class="row">
                                 <div class="col">
                                     <p class="mb-1"><b>Nome da Divisao:</b> {{ucwords(mb_strtolower($divisao->nomeDivisao))}}</p>
+                                    <p class="mb-1"><b>Chefe da Divisão:</b> {{ $divisao->administrador ? ucwords(mb_strtolower($divisao->administrador->user->name)) : "Nenhum chefe" }}</p>
                                 </div>
                                 <div class="col d-flex justify-content-center align-items-center">
                                     <div class="text-right">
