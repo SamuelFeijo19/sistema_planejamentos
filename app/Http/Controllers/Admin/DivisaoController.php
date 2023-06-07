@@ -30,7 +30,8 @@ class DivisaoController extends Controller
 
     public function create($departamento_id)
     {
-        return view('admin.divisoes.create', compact('departamento_id'));
+        $servidores = Servidor::all();
+        return view('admin.divisoes.create', compact('departamento_id', 'servidores'));
     }
 
     public function createServidor($id)
@@ -53,6 +54,7 @@ class DivisaoController extends Controller
             $divisao = Divisao::create([
                 'departamento_id' => $request->departamento_id,
                 'nomeDivisao' => mb_strtoupper($request->nomeDivisao),
+                'administrador_id' => $request->administrador_id
             ]);
 
             DB::commit();
@@ -89,8 +91,8 @@ class DivisaoController extends Controller
     public function edit($id)
     {
         $divisao = Divisao::findOrFail($id);
-
-        return view('admin.divisoes.edit', compact('divisao'));
+        $servidores = Servidor::all();
+        return view('admin.divisoes.edit', compact('divisao', 'servidores'));
     }
 
     public function update(Request $request, $id)
@@ -103,6 +105,7 @@ class DivisaoController extends Controller
             $divisao->update([
                 'departamento_id' => $request->departamento_id,
                 'nomeDivisao' => mb_strtoupper($request->nomeDivisao),
+                'administrador_id' => $request->administrador_id
             ]);
 
             DB::commit();

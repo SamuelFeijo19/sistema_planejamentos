@@ -13,7 +13,8 @@ class Divisao extends Model
 
     protected $fillable = [
         'departamento_id',
-        'nomeDivisao'
+        'nomeDivisao',
+        'administrador_id' // adicionando o campo para o ID do administrador
     ];
 
     public function departamento()
@@ -25,6 +26,11 @@ class Divisao extends Model
     {
         return $this->hasMany(DivisaoTarefa::class, 'divisao_id', 'id');
 
+    }
+
+    public function administrador()
+    {
+        return $this->belongsTo(Servidor::class, 'administrador_id', 'id');
     }
 
 }

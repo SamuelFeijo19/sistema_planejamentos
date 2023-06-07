@@ -39,6 +39,22 @@
                                         @enderror
 
                                         <div class="row">
+                                            <div class="col">
+                                                <div class=" mb-3">
+                                                    <div class="input-group-prepend">
+                                                        <label class="text-dark" for="inputGroupSelect01">CHEFE DO DEPARTAMENTO (OPCIONAL)</label>
+                                                    </div>
+                                                    <select name="administrador_id" for="administrador_id" class="js-example-basic-single custom-select" id="inputGroupSelect01">
+                                                        <option value="">Selecione o Servidor</option>
+                                                        @foreach ($servidores as $servidor)
+                                                            <option value="{{ $servidor->id }}" {{ $divisao->administrador && $divisao->administrador->id == $servidor->id ? 'selected' : '' }}>{{ mb_strtoupper($servidor->user->name) }}</option>
+                                                        @endforeach
+                                                    </select>
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                        <div class="row">
                                             <div class="col col-12 text-right">
                                                 <input type="submit" class="btn btn-outline-dark font-weight-bold"
                                                        value="Editar">
