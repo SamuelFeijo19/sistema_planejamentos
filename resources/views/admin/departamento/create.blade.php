@@ -43,6 +43,8 @@
                              data-parent="#accordion">
                             <div class="card-body">
                                 <div class="row">
+                                    <input type="hidden" name="secretaria_id" value="{{$secretaria_id}}">
+
                                     <div class="col">
                                         <div class="form-group">
                                             <input type="text" class="text-dark input-group" name="nomeDepartamento" id="nomeDepartamento"
@@ -55,12 +57,29 @@
                                 </div>
 
                                 <div class="row">
+                                    <div class="col">
+                                        <div class=" mb-3">
+                                            <div class="input-group-prepend">
+                                                <label class="text-dark" for="inputGroupSelect01">CHEFE DO DEPARTAMENTO (OPCIONAL)</label>
+                                            </div>
+                                            <select name="administrador_id" for="administrador_id" class="js-example-basic-single custom-select" id="inputGroupSelect01">
+                                                <option value="">Selecione o Servidor</option>
+                                                @foreach ($servidores as $servidor)
+                                                    <option value="{{ $servidor->id }}">{{ mb_strtoupper($servidor->user->name) }}</option>
+                                                @endforeach
+                                            </select>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="row">
                                    <div class="col col-12 text-right">
                                       <input type="submit" class="btn btn-primary font-weight-bold"
                                       value="Cadastrar">
                                    </div>
                                </div>
                             </div>
+
                         </div>
                       </div>
                     </div>

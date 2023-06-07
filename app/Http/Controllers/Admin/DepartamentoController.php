@@ -43,7 +43,8 @@ class DepartamentoController extends Controller
      */
     public function create($secretaria_id)
     {
-        return view('admin.departamento.create', compact('secretaria_id'));
+        $servidores = Servidor::all();
+        return view('admin.departamento.create', compact('secretaria_id', 'servidores'));
     }
 
     /**
@@ -74,12 +75,14 @@ class DepartamentoController extends Controller
      */
     public function store(Request $request)
     {
+
         try {
             DB::beginTransaction();
 
             $departamento = Departamento::create([
                 'secretaria_id' => $request->secretaria_id,
                 'nomeDepartamento' => mb_strtoupper($request->nomeDepartamento),
+                'administrador_id' => $request->administrador_id
             ]);
 
             DB::commit();
@@ -147,6 +150,7 @@ class DepartamentoController extends Controller
             $departamento->update([
                 'secretaria_id' => $request->secretaria_id,
                 'nomeDepartamento' => mb_strtoupper($request->nomeDepartamento),
+                'administrador_id' => $request->administrador_id
             ]);
 
             DB::commit();

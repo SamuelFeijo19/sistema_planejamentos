@@ -13,7 +13,8 @@ class Departamento extends Model
 
     protected $fillable = [
         'secretaria_id',
-        'nomeDepartamento'
+        'nomeDepartamento',
+        'administrador_id' // adicionando o campo para o ID do administrador
     ];
 
     public function secretaria()
@@ -25,6 +26,11 @@ class Departamento extends Model
     {
         return $this->hasMany(DepartamentoTarefa::class, 'departamento_id', 'id');
 
+    }
+
+    public function administrador()
+    {
+        return $this->belongsTo(Servidor::class, 'administrador_id', 'id');
     }
 
 }
