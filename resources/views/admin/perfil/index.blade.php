@@ -9,21 +9,26 @@
     <link rel="stylesheet" href="{{asset('css/dataTables.min.css')}}">
 @endpush
 @section('content')
-    <main class="container-fluid">
+    <style>
+        h3{
+            color: #2d91cb;
+            font-weight: bold;
+        }
+    </style>
+
+    <main class="container" id="ajuste">
         <div class="row">
             <div class="col col-12">
-                <hr>
                 <h3>Meus Dados</h3>
                 <hr>
             </div>
-            <div id="accordion" style="width: 80%; margin:0 auto;">
+            <div class="col col-12 m-auto">
                 <form method="post" action="{{ route('perfil.update', auth()->user()->id) }}">
                     @method('PUT')
                     @csrf
-                    <div class="card">
-                        <div class="card-header text-center bg-primary" id="headingOne" style="
-                           background: linear-gradient( rgba(28,132,198,1) 2%, rgba(5,66,105,1) 0%);
-                        ">
+                    <br>
+                    <div class="card shadow">
+                        <div class="card-header text-center bg-primary" id="headingOne" style="">
                             <h5 class="mb-0">
                                 <input type="button" class="btn btn-link text-white font-weight-bold"
                                        value="DADOS DO PERFIL">
@@ -35,11 +40,14 @@
                             <div class="card-body">
                                 <div class="row">
                                     <div class="col">
+                                        <label for="nome">NOME COMPLETO:</label>
                                         <div class="form-group">
-                                            <label for="nome">NOME COMPLETO:</label>
                                             <input type="text" class="form-control" name="nome" id="nome"
                                                    placeholder="NOME COMPLETO:" value="{{ $servidor->user->name }}">
                                         </div>
+                                        @error('nome')
+                                        <div class="alert alert-danger">{{ $message }}</div>
+                                        @enderror
                                     </div>
                                 </div>
 
@@ -47,7 +55,7 @@
                                     <div class="col">
                                         <div class="form-group">
                                             <label for="dataNascimento">Data de Nascimento:</label>
-                                            <input type="text" class="form-control" name="dataNascimento"
+                                            <input type="date" class="form-control" name="dataNascimento"
                                                    id="dataNascimento" placeholder="Data de Nascimento:"
                                                    value="{{date('d/m/Y', strtotime($servidor->data_nascimento))}} ">
                                         </div>

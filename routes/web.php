@@ -13,10 +13,7 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-//Route::get('/', function () {
-//    return view('welcome');
-//});
-
+//ROTAS LIVRES
 Route::get('/', [\App\Http\Controllers\LoginController::class, 'index'])->name('login');
 Route::get('/login', '\App\Http\Controllers\LoginController@index')->name('login');
 Route::post('/login', '\App\Http\Controllers\LoginController@authenticate')->name('login');
@@ -27,7 +24,7 @@ Route::post('recuperar-senha', [\App\Http\Controllers\RecuperarSenhaController::
 Route::get('recebido-resetar-senha/{token}', [\App\Http\Controllers\RecuperarSenhaController::class, 'resetPassword'])->name('mail-resetar-senha');
 Route::post('resetar-senha', [\App\Http\Controllers\RecuperarSenhaController::class, 'confirmResetPassword'])->name('resetar-senha');
 
-
+//ROTAS QUE SÓ PODEM SER ACESSADAS APÓS AUTENTICAÇÃO
 Route::prefix('')->middleware('autenticacao')->group(function () {
 
     //PERFIL
@@ -41,13 +38,17 @@ Route::prefix('')->middleware('autenticacao')->group(function () {
     Route::get('departamento/show/{secretaria_id}', [\App\Http\Controllers\Admin\DepartamentoController::class, 'show'])->name('departamento.show');
     Route::get('departamento/create/{secretaria_id}', [\App\Http\Controllers\Admin\DepartamentoController::class, 'create'])->name('departamento.create');
 
-    //DIVISOES
+    //ROTAS QUE SÓ PODEM SER ACESADAS PELO CHEFE DO DEPARTAMENTO
+    Route::middleware('adminDpt')->group(function () {
+
+        //LOTACAO DO SERVIDOR NO DEPARTAMENTO
+        Route::get('departamentos/{id}/servidor', [\App\Http\Controllers\Admin\DepartamentoController::class, 'createServidor'])->name('departamentos.servidor.create');
+    });
+
+        //DIVISOES
     Route::resource('divisao', \App\Http\Controllers\Admin\DivisaoController::class)->except(['create', 'show']);
     Route::get('divisao/show/{departamento_id}', [\App\Http\Controllers\Admin\DivisaoController::class, 'show'])->name('divisao.show');
     Route::get('divisao/create/{departamento_id}', [\App\Http\Controllers\Admin\DivisaoController::class, 'create'])->name('divisao.create');
-
-    //LOTACAO DO SERVIDOR NO DEPARTAMENTO
-    Route::get('departamentos/{id}/servidor', [\App\Http\Controllers\Admin\DepartamentoController::class, 'createServidor'])->name('departamentos.servidor.create');
 
     Route::resource('departamentoServidor', \App\Http\Controllers\Admin\DepartamentoServidorController::class)->except(['create']);;
     Route::get('/departamentoServidor/create/{departamento_id}', [\App\Http\Controllers\Admin\DepartamentoServidorController::class, 'create'])->name('departamentoServidor.create');
