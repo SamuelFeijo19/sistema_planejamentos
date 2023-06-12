@@ -16,7 +16,7 @@ class AdminDptMiddleware
      */
     public function handle($request, Closure $next)
     {
-        $departamentoId = $request->route('id');
+        $departamentoId = $request->route('departamento_id');
         $usuarioId = auth()->user()->servidor->id;
 
         $departamento = Departamento::find($departamentoId);

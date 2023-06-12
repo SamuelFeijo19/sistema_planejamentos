@@ -42,7 +42,8 @@ Route::prefix('')->middleware('autenticacao')->group(function () {
     Route::middleware('adminDpt')->group(function () {
 
         //LOTACAO DO SERVIDOR NO DEPARTAMENTO
-        Route::get('departamentos/{id}/servidor', [\App\Http\Controllers\Admin\DepartamentoController::class, 'createServidor'])->name('departamentos.servidor.create');
+        Route::get('departamentos/{departamento_id}/servidor', [\App\Http\Controllers\Admin\DepartamentoController::class, 'createServidor'])->name('departamentos.servidor.create');
+        Route::get('/departamentoServidor/create/{departamento_id}', [\App\Http\Controllers\Admin\DepartamentoServidorController::class, 'create'])->name('departamentoServidor.create');
     });
 
         //DIVISOES
@@ -50,8 +51,7 @@ Route::prefix('')->middleware('autenticacao')->group(function () {
     Route::get('divisao/show/{departamento_id}', [\App\Http\Controllers\Admin\DivisaoController::class, 'show'])->name('divisao.show');
     Route::get('divisao/create/{departamento_id}', [\App\Http\Controllers\Admin\DivisaoController::class, 'create'])->name('divisao.create');
 
-    Route::resource('departamentoServidor', \App\Http\Controllers\Admin\DepartamentoServidorController::class)->except(['create']);;
-    Route::get('/departamentoServidor/create/{departamento_id}', [\App\Http\Controllers\Admin\DepartamentoServidorController::class, 'create'])->name('departamentoServidor.create');
+    Route::resource('departamentoServidor', \App\Http\Controllers\Admin\DepartamentoServidorController::class)->except(['create']);
 
     //LOTACAO DO SERVIDOR NA DIVISAO
     Route::get('divisao/{id}/servidor', [\App\Http\Controllers\Admin\DivisaoController::class, 'createServidor'])->name('divisao.servidor.create');
