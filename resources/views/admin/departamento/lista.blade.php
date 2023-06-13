@@ -43,7 +43,7 @@
                                         <a href="{{route('departamentoServidor.show', $departamento->id)}}" title="LISTAR SERVIDORES">
                                             <span class="material-symbols-outlined text-primary">groups</span>
                                         </a>
-                                        <a href="{{route('divisao.index', $departamento->id)}}" title="LISTAR DIVISOES">
+                                        <a href="{{route('divisao.show', $departamento->id)}}" title="LISTAR DIVISOES">
                                             <span class="material-symbols-outlined text-primary">moving_ministry</span>
                                         </a>
                                         <a href="{{route('board.index', $departamento->id)}}">

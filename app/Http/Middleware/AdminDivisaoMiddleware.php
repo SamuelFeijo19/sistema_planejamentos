@@ -2,6 +2,7 @@
 
 namespace App\Http\Middleware;
 
+use App\Models\Departamento;
 use App\Models\Divisao;
 use Closure;
 use Illuminate\Http\Request;
@@ -16,12 +17,20 @@ class AdminDivisaoMiddleware
      */
     public function handle($request, Closure $next)
     {
-        $divisaoId = $request->route('divisao_id');
+        $divisaoId = $request->route('id');
         $usuarioId = auth()->user()->servidor->id;
 
         $divisao = Divisao::find($divisaoId);
 
-        if (!$divisao || $divisao->administrador_id !== $usuarioId) {
+        //OBTER ID DO DEPARTAMENTO
+        $cod = $divisao->departamento_id;
+
+        //BUSCAR DEPARTAMENTO
+        $departamento= Departamento::where('id', '=', $cod)->first();
+
+        if($departamento->administrador_id == $usuarioId){
+            return $next($request);
+        }else if($divisao->administrador_id !== $usuarioId ){
             abort(403, 'Acesso negado. Você não é o administrador desta divisão.');
         }
 
