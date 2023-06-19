@@ -31,7 +31,7 @@ class AdminDivisaoMiddleware
         if($departamento->administrador_id == $usuarioId){
             return $next($request);
         }else if($divisao->administrador_id !== $usuarioId ){
-            abort(403, 'Acesso negado. Você não é o administrador desta divisão.');
+            return redirect()->back()->with(['type' => 'error', 'title'=>'Acesso Negado', 'message' => 'Você não é o administrador desta divisão!']);
         }
 
         return $next($request);

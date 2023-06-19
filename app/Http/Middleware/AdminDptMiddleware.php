@@ -22,7 +22,7 @@ class AdminDptMiddleware
         $departamento = Departamento::find($departamentoId);
 
         if (!$departamento || $departamento->administrador_id !== $usuarioId) {
-            abort(403, 'Acesso negado. Você não é o administrador deste departamento.');
+            return redirect()->back()->with(['type' => 'error', 'title'=>'Acesso Negado', 'message' => 'Você não é o administrador deste departamento!']);
         }
 
         return $next($request);

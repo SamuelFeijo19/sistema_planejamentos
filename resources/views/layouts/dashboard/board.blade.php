@@ -189,7 +189,6 @@
                 <div class="modal-body" id="taskDetails">
 
                 </div>
-{{--                <a class="btn btn-primary w-25" style="margin-left: 74%;margin-bottom: 10px;" data-bs-toggle="modal" href="#exampleModalToggle" role="button">Editar</a>--}}
             </div>
         </div>
     </div>
@@ -222,8 +221,8 @@
                         modalBody.append('<p><strong>Situação:</strong> ' + situacao + '</p>');
                         modalBody.append('<p><strong>Número do Chamado:</strong> ' + (response.numeroChamado !== null ? response.numeroChamado : 'Não informado') + '</p>');
 
-                        var editButton = '<a class="" href="{{ route("tarefas.edit", ":taskId") }}"><span class="material-symbols-outlined">edit_note</span></a>';
-                        var doneButton = '<a class="" href="#"><span class="material-symbols-outlined">check_circle</span></a>';
+                        var editButton = '<a class="" href="{{ route("tarefas.edit", ":taskId") }}" title="EDITAR TAREFA"><span class="material-symbols-outlined">edit_note</span></a>';
+                        var doneButton = '<a class="done-button" href="{{ route("task.updateStatus", ":taskId") }}" title="FECHAR TAREFA"><span class="material-symbols-outlined">check_circle</span></a>';
 
                         editButton = editButton.replace(':taskId', taskId);
                         doneButton = doneButton.replace(':taskId', taskId);
@@ -244,5 +243,4 @@
             });
         });
     </script>
-
 @endpush

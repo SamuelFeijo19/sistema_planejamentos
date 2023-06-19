@@ -72,6 +72,22 @@ class DepartamentoTarefaController extends Controller
         }
     }
 
+    public function updateStatus($task_id)
+    {
+        try {
+            $task = DepartamentoTarefa::findOrFail($task_id);
+            $task->situacao = 3; // Assuming 3 represents the "done" status
+            $task->save();
+
+            // Optionally, you can return a response or redirect to a specific page
+            return redirect()->back()->with(['type' => 'success', 'message' => 'Tarefa concluída!']);
+        } catch (Exception $exception) {
+            DB::rollBack();
+
+            return redirect()->back()->with(['type' => 'error', 'message' => 'Erro ao atualizar status da tarefa!']);
+        }
+    }
+
     /**
      * Display the specified resource.
      *

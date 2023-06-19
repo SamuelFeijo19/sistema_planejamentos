@@ -37,7 +37,6 @@ class BoardController extends Controller
         return response()->json($task);
     }
 
-
     public function create($id)
     {
         //
