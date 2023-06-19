@@ -87,8 +87,6 @@
     </style>
 
     <div class="container-fluid shadow" style="
-            /*background: rgb(45,145,203);*/
-            /*background: linear-gradient(38deg, rgba(45,145,203,1) 33%, rgba(42,139,197,1) 37%, rgba(39,136,194,1) 38%, rgba(26,122,178,1) 59%, rgba(18,107,162,1) 90%, rgba(13,98,153,1) 95%, rgba(13,98,153,1) 95%, rgba(44,134,194,1) 100%, rgba(90,188,255,1) 100%);*/
            background: #ccc;
             padding-top: 20px;
             width: 98%;
@@ -123,8 +121,11 @@
                                 @if($tarefa->criador_id==$servidor->user->id)
                                     @if($tarefa->situacao == 0)
                                         <div class="float-left" style="margin-left: 20px; margin-right: 5px;">
-                                            <a class="{{ $tarefa->classificacao == 0 ? 'text-success' : ($tarefa->classificacao == 1 ? 'text-warning'  : 'text-danger') }}" href="{{ route('tarefa.show', ['tarefa_id' => $tarefa->id]) }}">{{ $tarefa->nomeTarefa }}</a>
-                                                    </div>
+                                            <a class="{{ $tarefa->classificacao == 0 ? 'text-success' : ($tarefa->classificacao == 1 ? 'text-warning'  : 'text-danger') }} task-link"
+                                               href="#"
+                                               data-task-id="{{ $tarefa->id }}">{{ $tarefa->nomeTarefa }}
+                                            </a>
+                                        </div>
                                     @endif
                                 @endif
                             @endforeach
@@ -139,9 +140,12 @@
                             @foreach($tarefas as $tarefa)
                                 @if($tarefa->criador_id==$servidor->user->id)
                                     @if($tarefa->situacao == 1)
-                                        <div class="col float-left" style="margin-left: 20px; margin-right: 5px;">
-                                                        <a class="{{ $tarefa->classificacao == 0 ? 'text-success' : ($tarefa->classificacao == 1 ? 'text-warning'  : 'text-danger') }}" href="{{ route('tarefa.show', ['tarefa_id' => $tarefa->id]) }}">{{ $tarefa->nomeTarefa }}</a>
-                                                    </div>
+                                        <div class="float-left" style="margin-left: 20px; margin-right: 5px;">
+                                            <a class="{{ $tarefa->classificacao == 0 ? 'text-success' : ($tarefa->classificacao == 1 ? 'text-warning'  : 'text-danger') }} task-link"
+                                               href="#"
+                                               data-task-id="{{ $tarefa->id }}">{{ $tarefa->nomeTarefa }}
+                                            </a>
+                                        </div>
                                     @endif
                                 @endif
                             @endforeach
@@ -156,7 +160,10 @@
                             @if($tarefa->criador_id==$servidor->user->id)
                                 @if($tarefa->situacao == 2)
                                     <div class="float-left" style="margin-left: 20px; margin-right: 5px;">
-                                        <a class="{{ $tarefa->classificacao == 0 ? 'text-success' : ($tarefa->classificacao == 1 ? 'text-warning'  : 'text-danger') }}" href="{{ route('tarefa.show', ['tarefa_id' => $tarefa->id]) }}">{{ $tarefa->nomeTarefa }}</a>
+                                        <a class="{{ $tarefa->classificacao == 0 ? 'text-success' : ($tarefa->classificacao == 1 ? 'text-warning'  : 'text-danger') }} task-link"
+                                           href="#"
+                                           data-task-id="{{ $tarefa->id }}">{{ $tarefa->nomeTarefa }}
+                                        </a>
                                     </div>
                                 @endif
                             @endif
@@ -168,4 +175,74 @@
         @endforeach
         <br>
     </div>
+
+    <!-- Modal -->
+    <div class="modal fade" id="taskModal" tabindex="-1" aria-labelledby="taskModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-lg modal-dialog-centered">
+            <div class="modal-content">
+                <div class="modal-header bg-primary text-center">
+                    <div class="text-white font-weight-bold w-100">
+                        DADOS DA TAREFA
+                    </div>
+                    <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Close">X</button>
+                </div>
+                <div class="modal-body" id="taskDetails">
+
+                </div>
+{{--                <a class="btn btn-primary w-25" style="margin-left: 74%;margin-bottom: 10px;" data-bs-toggle="modal" href="#exampleModalToggle" role="button">Editar</a>--}}
+            </div>
+        </div>
+    </div>
 @endsection
+@push('js')
+    <script>
+        $(document).ready(function() {
+            $('.task-link').click(function(e) {
+                e.preventDefault();
+
+                var taskId = $(this).data('task-id');
+
+                var url = '{{ route("task.details", ":taskId") }}';
+                url = url.replace(':taskId', taskId);
+
+                $.ajax({
+                    url: url,
+                    type: 'GET',
+                    success: function(response) {
+                        var modalBody = $('#taskModal').find('.modal-body');
+
+                        var prioridade = response.classificacao === 0 ? 'Baixa Prioridade' : (response.classificacao === 1 ? 'Média Prioridade' : 'Alta Prioridade');
+                        var situacao = response.situacao === 0 ? 'Backlog' : (response.classificacao === 1 ? 'Doing' : 'Code Review');
+
+                        modalBody.empty();
+
+                        modalBody.append('<p><strong>Nome:</strong> ' + response.nomeTarefa + '</p>');
+                        modalBody.append('<p><strong>Descrição:</strong> ' + response.descricao + '</p>');
+                        modalBody.append('<p><strong>Classificação:</strong> ' + prioridade + '</p>');
+                        modalBody.append('<p><strong>Situação:</strong> ' + situacao + '</p>');
+                        modalBody.append('<p><strong>Número do Chamado:</strong> ' + (response.numeroChamado !== null ? response.numeroChamado : 'Não informado') + '</p>');
+
+                        var editButton = '<a class="" href="{{ route("tarefas.edit", ":taskId") }}"><span class="material-symbols-outlined">edit_note</span></a>';
+                        var doneButton = '<a class="" href="#"><span class="material-symbols-outlined">check_circle</span></a>';
+
+                        editButton = editButton.replace(':taskId', taskId);
+                        doneButton = doneButton.replace(':taskId', taskId);
+
+                        var actionsDiv = $('<div>').addClass('d-flex align-items-center');
+                        actionsDiv.append(editButton);
+                        actionsDiv.append(doneButton);
+
+                        modalBody.append('<p><strong>Ações:</strong></p>');
+                        modalBody.append(actionsDiv);
+
+                        $('#taskModal').modal('show');
+                    },
+                    error: function(xhr) {
+                        console.log(xhr.responseText);
+                    }
+                });
+            });
+        });
+    </script>
+
+@endpush

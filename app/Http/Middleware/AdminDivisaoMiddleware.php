@@ -17,7 +17,7 @@ class AdminDivisaoMiddleware
      */
     public function handle($request, Closure $next)
     {
-        $divisaoId = $request->route('id');
+        $divisaoId = $request->route('divisao_id');
         $usuarioId = auth()->user()->servidor->id;
 
         $divisao = Divisao::find($divisaoId);

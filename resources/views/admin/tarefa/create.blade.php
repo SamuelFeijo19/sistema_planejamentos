@@ -34,7 +34,7 @@
 <main class="container" id="ajuste">
     <div class="row">
         <div class="col col-12">
-            <h3>Cadastro de Departamento</h3>
+            <h3>Cadastro de Tarefas</h3>
             <hr>
         </div>
         <div class="shadow-lg" style="width: 80%; margin:0 auto; border-radius: 7px;">
@@ -44,7 +44,7 @@
                     <div class="card-header text-center bg-primary" id="headingOne" style="">
                         <h5 class="mb-0">
                             <input type="button" class="btn btn-link text-white font-weight-bold"
-                                   value="DADOS DO DEPARTAMENTO">
+                                   value="DADOS DA TAREFA">
                         </h5>
                     </div>
 

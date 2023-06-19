@@ -29,6 +29,15 @@ class BoardController extends Controller
         return view('layouts.dashboard.board', compact('servidores', 'departamento', 'tarefas'));
     }
 
+    public function getTaskDetails($task_id)
+    {
+        // Fetch the task details from the database
+        $task = DepartamentoTarefa::findOrFail($task_id);
+
+        return response()->json($task);
+    }
+
+
     public function create($id)
     {
         //
