@@ -43,22 +43,6 @@
             color: #6b6d7d;
         }
 
-        .text1 {
-            position: relative;
-            display: inline-block;
-            color: #2e59d9;
-        }
-
-        .text1::after {
-            content: "";
-            position: absolute;
-            left: 0;
-            bottom: -2px;
-            width: 100%;
-            height: 2px;
-            background-color: #2e59d9; /* Cor do sublinhado */
-        }
-
         .text::after {
             content: "";
             position: absolute;
@@ -92,6 +76,7 @@
         .board {
             display: flex;
             flex-wrap: wrap;
+            height: 400px; /* Altura fixa do board */
         }
 
         .list {
@@ -100,6 +85,8 @@
             padding: 10px;
             background-color: #f0f0f0;
             border-radius: 10px;
+            max-height: 200px; /* Altura máxima para o list com scroll */
+            overflow-y: auto; /
         }
 
         .list-title {
