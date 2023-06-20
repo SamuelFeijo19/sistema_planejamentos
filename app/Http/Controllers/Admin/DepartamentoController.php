@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
 use App\Models\Departamento;
+use App\Models\DepartamentoServidor;
 use App\Models\Secretaria;
 use App\Models\Servidor;
 use Exception;
@@ -21,19 +22,33 @@ class DepartamentoController extends Controller
      */
     public function index(Request $request)
     {
-        $departamentos = Departamento::query();
-        if($request->has('search')){
-            $search = $request->search;
-            $departamentos->where('nomeDepartamento', 'like', "%$search%");
+        $departamentosQuery = Departamento::query();
+
+        if (!auth()->user()->is_admin) {
+            $servidorId = auth()->user()->servidor->id;
+            $departamentosQuery = $departamentosQuery->whereIn('id', function ($query) use ($servidorId) {
+                $query->select('departamento_id')
+                    ->from('departamento_servidor')
+                    ->where('servidor_id', $servidorId);
+            });
         }
-        $departamentos = $departamentos->paginate(10);
+
+        if ($request->has('search')) {
+            $search = $request->search;
+            $departamentosQuery->where('nomeDepartamento', 'like', "%$search%");
+        }
+
+        $departamentos = $departamentosQuery->paginate(10);
         $secretarias = Secretaria::all();
-        if ($departamentos->count() === 0) {
+
+        if ($departamentos->isEmpty()) {
             $mensagem = "Nenhum conteúdo cadastrado";
             return view('admin.departamento.lista', compact('departamentos', 'mensagem', 'secretarias'));
         }
+
         return view('admin.departamento.lista', compact('departamentos', 'secretarias'));
     }
+
 
     /**
      * Show the form for creating a new resource.
