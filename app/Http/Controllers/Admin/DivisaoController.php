@@ -129,12 +129,10 @@ class DivisaoController extends Controller
             $divisao->delete();
 
             DB::commit();
-
-            return response()->json(['msg' => 'Divisao excluído com sucesso!'], 200);
+            return redirect()->back()->with(['type' => 'success', 'message' => 'Divisao excluído com sucesso!']);
         } catch (Exception $exception) {
             DB::rollBack();
-
-            return response()->json(['msg' => 'Erro ao excluir Divisao!'], 500);
+            return redirect()->back()->with(['type' => 'error', 'message' => 'Erro ao excluir Divisa!']);
         }
     }
 }

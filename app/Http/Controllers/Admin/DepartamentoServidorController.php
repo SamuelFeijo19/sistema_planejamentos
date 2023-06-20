@@ -74,10 +74,10 @@ class DepartamentoServidorController extends Controller
             //MATA O TOKEN PARA NÃO DAR ERRO DE DUPLICIDADE
             $request->session()->regenerateToken();
             DB::commit();
-            return 'Lotação realizada com sucesso!';
+            return redirect()->back()->with(['type' => 'success', 'message' => 'Lotação realizada com sucesso!']);
         } catch (Exception $exception) {
             DB::rollBack();
-            return 'Erro ao realizar Lotação!';
+            return redirect()->back()->with(['type' => 'error', 'message' => 'Erro ao realizar Lotação!']);
         }
     }
 
@@ -97,10 +97,10 @@ class DepartamentoServidorController extends Controller
             ]);
             DB::commit();
             $request->session()->regenerateToken();
-            return "Lotação atualizada com sucesso!";
+            return redirect()->back()->with(['type' => 'success', 'message' => 'Lotação atualizada com sucesso!']);
         } catch (Exception $exception) {
             DB::rollBack();
-            return "Falha na atualização!";
+            return redirect()->back()->with(['type' => 'error', 'message' => 'Falha na atualização!']);
         }
     }
 
@@ -110,12 +110,10 @@ class DepartamentoServidorController extends Controller
             DB::beginTransaction();
             DepartamentoServidor::findOrFail($id)->ForceDelete();
             DB::commit();
-            return response()->json(['msg' => 'Lotação do servidor no departamento excluída com sucesso!'], 200);
+            return redirect()->back()->with(['type' => 'success', 'message' => 'Lotação do servidor no departamento excluída com sucesso!']);
         } catch (Exception $ex) {
             DB::rollBack();
-            return response()->json([
-                'msg' => 'Erro ao excluir do servidor no departamento!',
-            ], 401);
+            return redirect()->back()->with(['type' => 'error', 'message' => 'Erro ao excluir do servidor no departamento!']);
         }
     }
 }

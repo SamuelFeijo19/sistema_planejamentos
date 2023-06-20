@@ -74,10 +74,10 @@ class DivisaoServidorController extends Controller
             //MATA O TOKEN PARA NÃO DAR ERRO DE DUPLICIDADE
             $request->session()->regenerateToken();
             DB::commit();
-            return 'Lotação do servidor na divisão realizada com sucesso!';
+            return redirect()->back()->with(['type' => 'success', 'message' => 'Lotação do servidor na divisão realizada com sucesso!']);
         } catch (Exception $exception) {
             DB::rollBack();
-            return 'Erro ao realizar Lotação do servidor na divisão!';
+            return redirect()->back()->with(['type' => 'error', 'message' => 'Erro ao realizar Lotação do servidor na divisão!']);
         }
     }
 
@@ -97,10 +97,10 @@ class DivisaoServidorController extends Controller
             ]);
             DB::commit();
             $request->session()->regenerateToken();
-            return "Lotação do servidor na divisão atualizada com sucesso!";
+            return redirect()->back()->with(['type' => 'success', 'message' => 'Lotação do servidor na divisão atualizada com sucesso!']);
         } catch (Exception $exception) {
             DB::rollBack();
-            return "Falha na atualização do servidor na divisão!";
+            return redirect()->back()->with(['type' => 'error', 'message' => 'Falha na atualização do servidor na divisão!']);
         }
     }
 
@@ -110,12 +110,10 @@ class DivisaoServidorController extends Controller
             DB::beginTransaction();
             DepartamentoServidor::findOrFail($id)->ForceDelete();
             DB::commit();
-            return response()->json(['msg' => 'Lotação do servidor na divisão excluída com sucesso!'], 200);
+            return redirect()->back()->with(['type' => 'success', 'message' => 'Lotação do servidor na divisão excluída com sucesso!']);
         } catch (Exception $ex) {
             DB::rollBack();
-            return response()->json([
-                'msg' => 'Erro ao excluir Lotação do servidor na Divisão!',
-            ], 401);
+            return redirect()->back()->with(['type' => 'error', 'message' => 'Erro ao excluir Lotação do servidor na Divisão!']);
         }
     }
 }

@@ -51,7 +51,7 @@ class HomeController extends Controller
         $porcentagemAndamento = 0;
 
         if ($countTarefasAbertas != 0) {
-            $porcentagemAndamento = ($countTarefasfechadas / $countTarefasAbertas) * 100;
+            $porcentagemAndamento = ($countTarefasfechadas / ($countTarefasfechadas + $countTarefasAbertas)) * 100;
         }
         return view('layouts.dashboard.home', compact('departamentos', 'divisoes','departamentoTarefas', 'divisaoTarefas', 'countTarefasAbertas', 'countTarefasfechadas', 'porcentagemAndamento', 'countTarefasUrgentes'));
     }

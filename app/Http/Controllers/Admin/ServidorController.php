@@ -54,10 +54,10 @@ class ServidorController extends Controller
             //MATA O TOKEN PARA NÃO DAR ERRO DE DUPLICIDADE
             $request->session()->regenerateToken();
             DB::commit();
-            return 'Servidor cadastrado com sucesso!';
+            return redirect()->back()->with(['type' => 'success', 'message' => 'Servidor cadastrado com sucesso!']);
         } catch (Exception $exception) {
             DB::rollBack();
-            return  'Erro ao cadastrar Servidor!';
+            return redirect()->back()->with(['type' => 'error', 'message' => 'Erro ao cadastrar Servidor!']);
         }
     }
 
@@ -108,10 +108,10 @@ class ServidorController extends Controller
             ]);
             DB::commit();
             $request->session()->regenerateToken();
-            return 'Usuário atualizado com sucesso!';
+            return redirect()->back()->with(['type' => 'success', 'message' => 'Usuário atualizado com sucesso!']);
         } catch (Exception $exception) {
             DB::rollBack();
-            return 'Erro ao atualizar usuário!';
+            return redirect()->back()->with(['type' => 'error', 'message' => 'Erro ao atualizar usuário!']);
         }
     }
 
@@ -121,12 +121,10 @@ class ServidorController extends Controller
             DB::beginTransaction();
             Servidor::findOrFail($id)->ForceDelete();
             DB::commit();
-            return response()->json('');
+            return redirect()->back()->with(['type' => 'success', 'message' => 'Cadastro do Servidor excluído com sucesso!']);
         } catch (Exception $ex) {
             DB::rollBack();
-            return response()->json([
-                'msg' => $ex->getMessage()
-            ], 401);
+            return redirect()->back()->with(['type' => 'error', 'message' => 'Erro ao excluir cadastro do Servidor!']);
         }
     }
 }

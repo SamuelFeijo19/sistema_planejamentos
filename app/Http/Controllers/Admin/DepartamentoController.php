@@ -89,11 +89,10 @@ class DepartamentoController extends Controller
 
             // Reset CSRF token
             $request->session()->regenerateToken();
-
-            return "Departamento Cadastrado!";
+            return redirect()->back()->with(['type' => 'success', 'message' => 'Departamento Cadastrado!']);
         } catch (Exception $exception) {
             DB::rollBack();
-            return "Erro ao cadastrar departamento!";
+            return redirect()->back()->with(['type' => 'error', 'message' => 'Erro ao cadastrar departamento!']);
         }
     }
 

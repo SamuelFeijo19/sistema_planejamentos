@@ -85,12 +85,10 @@ class SecretariaController extends Controller
             DB::beginTransaction();
             Secretaria::findOrFail($id)->ForceDelete();
             DB::commit();
-            return response()->json('');
+            return redirect()->back()->with(['type' => 'success', 'message' => 'Secretaria excluída com sucesso!']);
         } catch (Exception $ex) {
             DB::rollBack();
-            return response()->json([
-                'msg' => $ex->getMessage()
-            ], 401);
+            return redirect()->back()->with(['type' => 'error', 'message' => 'Erro ao excluir Secretaria!']);
         }
     }
 }
