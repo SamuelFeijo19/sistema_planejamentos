@@ -48,8 +48,11 @@ class HomeController extends Controller
         $countDivTarefasUrgentes = DivisaoTarefa::where('criador_id', auth()->user()->id)->where('situacao', '<>', 3)->where('classificacao', '=', 2)->count();
         $countTarefasUrgentes = ($countDptTarefasUrgentes + $countDivTarefasUrgentes);
 
-        $porcentagemAndamento = ($countTarefasfechadas / $countTarefasAbertas) * 100;
+        $porcentagemAndamento = 0;
 
+        if ($countTarefasAbertas != 0) {
+            $porcentagemAndamento = ($countTarefasfechadas / $countTarefasAbertas) * 100;
+        }
         return view('layouts.dashboard.home', compact('departamentos', 'divisoes','departamentoTarefas', 'divisaoTarefas', 'countTarefasAbertas', 'countTarefasfechadas', 'porcentagemAndamento', 'countTarefasUrgentes'));
     }
 
