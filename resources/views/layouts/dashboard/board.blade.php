@@ -1,6 +1,7 @@
 @extends('layouts.dashboard.app')
 
 @section('content')
+    <link rel="stylesheet" href="{{asset('js/jquery-ui-1.13.2/jquery-ui.min.css')}}">
     <style>
         .float-left {
             float: left;
@@ -11,8 +12,8 @@
         }
 
         .col-sm-6, .col-sm-12 {
-            padding-right: 0px;
-            padding-left: 0px;
+            padding-right: 2px;
+            padding-left: 2px;
         }
 
         .clearfix::after {
@@ -22,7 +23,7 @@
         }
 
         .servidor-container {
-            width: 49%;
+            width: 50%;
             /*border: solid 1px white;*/
             padding: 10px;
             background: #FFFFFF;
@@ -48,7 +49,7 @@
             color: #2e59d9;
         }
 
-        .text1::after{
+        .text1::after {
             content: "";
             position: absolute;
             left: 0;
@@ -68,9 +69,10 @@
             background-color: #6b6d7d; /* Cor do sublinhado */
         }
 
-        a{
+        a {
             text-decoration: none;
         }
+
         @media (max-width: 650px) {
             .float-right {
                 width: 100%;
@@ -80,9 +82,49 @@
                 width: 100%;
             }
 
-            .servidor-container{
+            .servidor-container {
                 width: 100%;
             }
+        }
+
+
+        /*MEU CSS*/
+        .board {
+            display: flex;
+            flex-wrap: wrap;
+        }
+
+        .list {
+            flex: 1;
+            margin: 0 10px;
+            padding: 10px;
+            background-color: #f0f0f0;
+            border-radius: 10px;
+        }
+
+        .list-title {
+            font-size: 18px;
+            margin-bottom: 10px;
+        }
+
+        .card-item {
+            background-color: #ffffff;
+            padding: 10px;
+            margin: 0 0 10px 0;
+            border-radius: 4px;
+            cursor: move;
+        }
+
+        .card-item.dragging {
+            opacity: 0.5;
+        }
+
+        .card-item.drag-over {
+            border: 2px dashed #000000;
+        }
+
+        .code-review-row {
+            flex-basis: 100%;
         }
     </style>
 
@@ -95,7 +137,8 @@
             border-radius: 7px;">
         <div class="clearfix">
             <div class="float-left">
-                <h3  style="padding-left:30px; color: #2d91cb;"><b>{{ucwords(strtolower($departamento->nomeDepartamento))}}</b></h3>
+                <h3 style="padding-left:30px; color: #2d91cb;">
+                    <b>{{ucwords(strtolower($departamento->nomeDepartamento))}}</b></h3>
             </div>
             <div class="float-right" style="padding-right: 20px;padding-left: 10px;">
                 <a href="{{route('tarefa.create', $departamento->id)}}" class="btn btn-primary">
@@ -109,66 +152,70 @@
 
                 <h4 style="padding: 10px; margin-left: 10px;">{{$servidor->user->name}}</h4>
 
-                <div class="">
-                    <div class=" ">
-                        {{-- TAREFAS EM BACKLOG --}}
-                        <div class="col-sm-6 float-left" style=" height: 210px; width: 300px;margin-right: 5px; margin-top:5px;">
-                                <div class="border-bottom col-md-1 text-dark" style="border-radius: 10px; height: 50px;">
-                                    Backlog
-                                </div>
+                <div class="board">
 
+                    {{-- TAREFAS EM BACKLOG --}}
+                    <div class="col-sm-6 float-left">
+                        <div class="col-md-4 text-dark" style="border-radius: 10px; height: 50px;">
+                            Backlog
+                        </div>
+                        <div class="list float-left w-100">
                             @foreach($tarefas as $tarefa)
                                 @if($tarefa->criador_id==$servidor->user->id)
                                     @if($tarefa->situacao == 0)
-                                        <div class="float-left" style="margin-left: 20px; margin-right: 5px;">
-                                            <a class="{{ $tarefa->classificacao == 0 ? 'text-success' : ($tarefa->classificacao == 1 ? 'text-warning'  : 'text-danger') }} task-link"
-                                               href="#"
-                                               data-task-id="{{ $tarefa->id }}">{{ $tarefa->nomeTarefa }}
-                                            </a>
-                                        </div>
+                                        <a class="card-item row {{ $tarefa->classificacao == 0 ? 'text-success' : ($tarefa->classificacao == 1 ? 'text-warning'  : 'text-danger') }} task-link"
+                                           href="#" draggable="true"
+                                           data-task-id="{{ $tarefa->id }}">{{ $tarefa->nomeTarefa }}
+                                        </a>
+
                                     @endif
                                 @endif
                             @endforeach
-                            <br>
+                        </div>
+                        <br>
+                    </div>
+
+                    {{-- TAREFAS EM ANDAMENTO --}}
+                    <div class="col-sm-6 float-left">
+                        <div class="col-md-4 text-dark" style="border-radius: 10px; height: 50px;">
+                            Doing
                         </div>
 
-                        {{-- TAREFAS EM ANDAMENTO --}}
-                        <div class="col-sm-6 float-left" style="border-radius: 10px;height: 210px; margin-top:5px;width:305px;">
-                                <div class="col-md-1 text-dark" style="border-radius: 10px; height: 50px;">
-                                    Doing
-                                </div>
+                        <div class="list float-left w-100">
                             @foreach($tarefas as $tarefa)
                                 @if($tarefa->criador_id==$servidor->user->id)
                                     @if($tarefa->situacao == 1)
-                                        <div class="float-left" style="margin-left: 20px; margin-right: 5px;">
-                                            <a class="{{ $tarefa->classificacao == 0 ? 'text-success' : ($tarefa->classificacao == 1 ? 'text-warning'  : 'text-danger') }} task-link"
-                                               href="#"
-                                               data-task-id="{{ $tarefa->id }}">{{ $tarefa->nomeTarefa }}
-                                            </a>
-                                        </div>
+                                        <a class="card-item row {{ $tarefa->classificacao == 0 ? 'text-success' : ($tarefa->classificacao == 1 ? 'text-warning'  : 'text-danger') }} task-link"
+                                           href="#" draggable="true"
+                                           data-task-id="{{ $tarefa->id }}">{{ $tarefa->nomeTarefa }}
+                                        </a>
                                     @endif
                                 @endif
                             @endforeach
                         </div>
                     </div>
+
                     {{-- TAREFAS EM CODE REVIEW --}}
-                    <div class="col-sm-12 float-left position-relative" style="border-radius: 10px;height: 200px; margin-top: 5px;">
-                        <div class="m-md-2 text-dark" style="border-radius: 10px; height: 50px;">
+                    <div class="col-sm-12 float-left mt-2 mb-2">
+                        <div class="col-md-4 text-dark" style="border-radius: 10px; height: 50px;">
                             Code Review
                         </div>
-                        @foreach($tarefas as $tarefa)
-                            @if($tarefa->criador_id==$servidor->user->id)
-                                @if($tarefa->situacao == 2)
-                                    <div class="float-left" style="margin-left: 20px; margin-right: 5px;">
-                                        <a class="{{ $tarefa->classificacao == 0 ? 'text-success' : ($tarefa->classificacao == 1 ? 'text-warning'  : 'text-danger') }} task-link"
-                                           href="#"
+                        <div class="list float-left w-100">
+                            @foreach($tarefas as $tarefa)
+                                @if($tarefa->criador_id==$servidor->user->id)
+                                    @if($tarefa->situacao == 2)
+                                        <a class="card-item row {{ $tarefa->classificacao == 0 ? 'text-success' : ($tarefa->classificacao == 1 ? 'text-warning'  : 'text-danger') }} task-link"
+                                           href="#" draggable="true"
                                            data-task-id="{{ $tarefa->id }}">{{ $tarefa->nomeTarefa }}
                                         </a>
-                                    </div>
+
+                                    @endif
                                 @endif
-                            @endif
-                        @endforeach
-                        <a href="#" class="text1 position-absolute" style="bottom: 15px; right: 25px;">Ver Mais</a>
+                            @endforeach
+                        </div>
+                    </div>
+                    <div class="row w-100 justify-content-end">
+                        <a href="#" class="text1">Ver Mais</a>
                     </div>
                 </div>
             </div>
@@ -184,19 +231,23 @@
                     <div class="text-white font-weight-bold w-100">
                         DADOS DA TAREFA
                     </div>
-                    <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Close">X</button>
+                    <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Close">
+                        X
+                    </button>
                 </div>
                 <div class="modal-body" id="taskDetails">
 
                 </div>
+                {{--                <a class="btn btn-primary w-25" style="margin-left: 74%;margin-bottom: 10px;" data-bs-toggle="modal" href="#exampleModalToggle" role="button">Editar</a>--}}
             </div>
         </div>
     </div>
 @endsection
 @push('js')
+    <script src="{{asset('js/jquery-ui-1.13.2/jquery-ui.min.js')}}"></script>
     <script>
-        $(document).ready(function() {
-            $('.task-link').click(function(e) {
+        $(document).ready(function () {
+            $('.task-link').click(function (e) {
                 e.preventDefault();
 
                 var taskId = $(this).data('task-id');
@@ -207,7 +258,7 @@
                 $.ajax({
                     url: url,
                     type: 'GET',
-                    success: function(response) {
+                    success: function (response) {
                         var modalBody = $('#taskModal').find('.modal-body');
 
                         var prioridade = response.classificacao === 0 ? 'Baixa Prioridade' : (response.classificacao === 1 ? 'Média Prioridade' : 'Alta Prioridade');
@@ -221,8 +272,8 @@
                         modalBody.append('<p><strong>Situação:</strong> ' + situacao + '</p>');
                         modalBody.append('<p><strong>Número do Chamado:</strong> ' + (response.numeroChamado !== null ? response.numeroChamado : 'Não informado') + '</p>');
 
-                        var editButton = '<a class="" href="{{ route("tarefas.edit", ":taskId") }}" title="EDITAR TAREFA"><span class="material-symbols-outlined">edit_note</span></a>';
-                        var doneButton = '<a class="done-button" href="{{ route("task.updateStatus", ":taskId") }}" title="FECHAR TAREFA"><span class="material-symbols-outlined">check_circle</span></a>';
+                        var editButton = '<a class="" href="{{ route("tarefas.edit", ":taskId") }}"><span class="material-symbols-outlined">edit_note</span></a>';
+                        var doneButton = '<a class="" href="#"><span class="material-symbols-outlined">check_circle</span></a>';
 
                         editButton = editButton.replace(':taskId', taskId);
                         doneButton = doneButton.replace(':taskId', taskId);
@@ -236,11 +287,37 @@
 
                         $('#taskModal').modal('show');
                     },
-                    error: function(xhr) {
+                    error: function (xhr) {
                         console.log(xhr.responseText);
                     }
                 });
             });
         });
+
+        $(function() {
+            $(".card-item").draggable({
+                revert: "invalid",
+                start: function(event, ui) {
+                    $(this).addClass("dragging");
+                },
+                stop: function(event, ui) {
+                    $(this).removeClass("dragging");
+                    $(this).css({
+                        top: 0,
+                        left: 0
+                    })
+
+                }
+            });
+
+            $(".list").droppable({
+                accept: ".card-item",
+                drop: function(event, ui) {
+                    $(this).append(ui.draggable);
+                }
+            });
+        });
+
     </script>
+
 @endpush
