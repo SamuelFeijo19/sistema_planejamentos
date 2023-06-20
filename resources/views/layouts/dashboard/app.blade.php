@@ -82,6 +82,7 @@ background: linear-gradient(187deg, rgba(26,122,178,1) 15%, rgba(26,122,178,1) 7
         <!-- Divider -->
         <hr class="sidebar-divider">
 
+        @if(auth()->user()->is_admin == 1)
         <!-- Heading -->
         <div class="sidebar-heading">
             Unidades Adiministrativas
@@ -159,6 +160,28 @@ background: linear-gradient(187deg, rgba(26,122,178,1) 15%, rgba(26,122,178,1) 7
                 </div>
             </div>
         </li>
+        @endif
+
+        @if(auth()->user()->is_admin == 0)
+            <li class="nav-item">
+                <a class="nav-link collapsed" href="{{route('departamento.index')}}">
+                <span class="material-symbols-outlined">
+                    meeting_room
+                </span>
+                    <span>Meus Departamentos</span>
+                </a>
+            </li>
+
+            <!-- Nav Item - Utilities Collapse Menu -->
+            <li class="nav-item">
+                <a class="nav-link collapsed" href="{{route('divisao.index')}}">
+                <span class="material-symbols-outlined">
+                    groups
+                </span>
+                    <span>Minhas Divisões</span>
+                </a>
+            </li>
+        @endif
     </ul>
     <!-- End of Sidebar -->
 
@@ -179,7 +202,7 @@ background: linear-gradient(187deg, rgba(26,122,178,1) 15%, rgba(26,122,178,1) 7
                     <li class="nav-item dropdown no-arrow">
                         <a class="nav-link dropdown-toggle" href="#" id="userDropdown" role="button"
                            data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                            <span class="mr-2 d-none d-lg-inline text-gray-600 small">Usuário</span>
+                            <span class="mr-2 d-none d-lg-inline text-gray-600 small">{{auth()->user()->name}}</span>
                             <img class="img-profile rounded-circle"
                                  src="{{asset('./img/user.png')}}">
                         </a>
