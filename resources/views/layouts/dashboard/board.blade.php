@@ -23,12 +23,12 @@
         }
 
         .servidor-container {
-            width: 50%;
+            width: 45%;
             /*border: solid 1px white;*/
             padding: 10px;
             background: #FFFFFF;
             border-radius: 20px;
-            margin: 5px;
+            margin: 20px;
         }
 
         .vertical-line {
@@ -301,6 +301,7 @@
         $(function () {
             $(".card-item").draggable({
                 revert: "invalid",
+                connectToSortable: ".list",
                 start: function (event, ui) {
                     $(this).addClass("dragging");
                 },
@@ -340,6 +341,7 @@
 
             $(".list").droppable({
                 accept: ".card-item",
+                connectWith: ".list",
                 drop: function (event, ui) {
                     $(this).append(ui.draggable);
                 }
