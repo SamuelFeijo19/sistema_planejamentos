@@ -159,15 +159,16 @@
                         <div class="col-md-4 text-dark" style="border-radius: 10px; height: 50px;">
                             Backlog
                         </div>
-                        <div class="list float-left w-100">
+                        <div class="list float-left w-100" data-situacao="0">
                             @foreach($tarefas as $tarefa)
                                 @if($tarefa->criador_id==$servidor->user->id)
                                     @if($tarefa->situacao == 0)
-                                        <a class="card-item row {{ $tarefa->classificacao == 0 ? 'text-success' : ($tarefa->classificacao == 1 ? 'text-warning'  : 'text-danger') }} task-link"
-                                           href="#" draggable="true"
-                                           data-task-id="{{ $tarefa->id }}">{{ $tarefa->nomeTarefa }}
-                                        </a>
-
+                                        <div class="card-item row" data-task-id="{{ $tarefa->id }}">
+                                            <a class="{{ $tarefa->classificacao == 0 ? 'text-success' : ($tarefa->classificacao == 1 ? 'text-warning'  : 'text-danger') }} task-link"
+                                               href="#" draggable="true" data-task-id="{{ $tarefa->id }}"
+                                               >{{ $tarefa->nomeTarefa }}
+                                            </a>
+                                        </div>
                                     @endif
                                 @endif
                             @endforeach
@@ -181,14 +182,16 @@
                             Doing
                         </div>
 
-                        <div class="list float-left w-100">
+                        <div class="list float-left w-100" data-situacao="1">
                             @foreach($tarefas as $tarefa)
                                 @if($tarefa->criador_id==$servidor->user->id)
                                     @if($tarefa->situacao == 1)
-                                        <a class="card-item row {{ $tarefa->classificacao == 0 ? 'text-success' : ($tarefa->classificacao == 1 ? 'text-warning'  : 'text-danger') }} task-link"
-                                           href="#" draggable="true"
-                                           data-task-id="{{ $tarefa->id }}">{{ $tarefa->nomeTarefa }}
-                                        </a>
+                                        <div class="card-item row" data-task-id="{{ $tarefa->id }}">
+                                            <a class="{{ $tarefa->classificacao == 0 ? 'text-success' : ($tarefa->classificacao == 1 ? 'text-warning'  : 'text-danger') }} task-link"
+                                               href="#" draggable="true" data-task-id="{{ $tarefa->id }}"
+                                              >{{ $tarefa->nomeTarefa }}
+                                            </a>
+                                        </div>
                                     @endif
                                 @endif
                             @endforeach
@@ -200,15 +203,16 @@
                         <div class="col-md-4 text-dark" style="border-radius: 10px; height: 50px;">
                             Code Review
                         </div>
-                        <div class="list float-left w-100">
+                        <div class="list float-left w-100" data-situacao="2">
                             @foreach($tarefas as $tarefa)
                                 @if($tarefa->criador_id==$servidor->user->id)
                                     @if($tarefa->situacao == 2)
-                                        <a class="card-item row {{ $tarefa->classificacao == 0 ? 'text-success' : ($tarefa->classificacao == 1 ? 'text-warning'  : 'text-danger') }} task-link"
-                                           href="#" draggable="true"
-                                           data-task-id="{{ $tarefa->id }}">{{ $tarefa->nomeTarefa }}
-                                        </a>
-
+                                        <div class="card-item row" data-task-id="{{ $tarefa->id }}">
+                                            <a class="{{ $tarefa->classificacao == 0 ? 'text-success' : ($tarefa->classificacao == 1 ? 'text-warning'  : 'text-danger') }} task-link"
+                                               href="#" draggable="true" data-task-id="{{ $tarefa->id }}"
+                                               >{{ $tarefa->nomeTarefa }}
+                                            </a>
+                                        </div>
                                     @endif
                                 @endif
                             @endforeach
@@ -294,25 +298,49 @@
             });
         });
 
-        $(function() {
+        $(function () {
             $(".card-item").draggable({
                 revert: "invalid",
-                start: function(event, ui) {
+                start: function (event, ui) {
                     $(this).addClass("dragging");
                 },
-                stop: function(event, ui) {
+                stop: function (event, ui) {
                     $(this).removeClass("dragging");
                     $(this).css({
                         top: 0,
                         left: 0
                     })
+                    let card = $(event.target)
+                    let situacao = card.closest('.list').data('situacao')
+                    let taskId = card.data('task-id')
+                    let url = '{{route('task.moveSituacao')}}'
+                    $.ajax({
+                        url: url,
+                        method: 'POST',
+                        data: {
+                            "_token": "{{ csrf_token() }}",
+                            "taskId": taskId,
+                            "situacao": situacao
+                        },
+                        success: function (response) {
 
+                        },
+                        error: function (xhr) {
+                            swal.fire({
+                                title: 'Erro!',
+                                text: xhr.responseText,
+                                icon: 'error',
+                                confirmButtonText: 'Ok'
+                            })
+                        }
+
+                    });
                 }
             });
 
             $(".list").droppable({
                 accept: ".card-item",
-                drop: function(event, ui) {
+                drop: function (event, ui) {
                     $(this).append(ui.draggable);
                 }
             });

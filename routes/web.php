@@ -85,5 +85,5 @@ Route::prefix('')->middleware('autenticacao')->group(function () {
     Route::get('task/{task_id}/details', [\App\Http\Controllers\Admin\BoardController::class, 'getTaskDetails'])->name('task.details');
 
     Route::get('task/{task_id}/update-status', [\App\Http\Controllers\Admin\DepartamentoTarefaController::class, 'updateStatus'])->name('task.updateStatus');
-
+    Route::post('task/move-situacao', [\App\Http\Controllers\Admin\DepartamentoTarefaController::class, 'moveSituacao'])->name('task.moveSituacao');
 });
