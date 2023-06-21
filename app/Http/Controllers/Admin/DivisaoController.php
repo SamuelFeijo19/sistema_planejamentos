@@ -12,19 +12,33 @@ use Illuminate\Support\Facades\DB;
 
 class DivisaoController extends Controller
 {
+
     public function index(Request $request)
     {
-        $divisoes = Divisao::query();
-        if($request->has('search')){
+        $divisoesQuery = Divisao::query();
+
+        if (!auth()->user()->is_admin) {
+            $servidorId = auth()->user()->servidor->id;
+            $divisoesQuery = $divisoesQuery->whereIn('id', function ($query) use ($servidorId) {
+                $query->select('divisao_id')
+                    ->from('divisao_servidor')
+                    ->where('servidor_id', $servidorId);
+            });
+        }
+
+        if ($request->has('search')) {
             $search = $request->search;
-            $divisoes->where('nomeDivisao', 'like', "%$search%");
+            $divisoesQuery->where('nomeDivisao', 'like', "%$search%");
         }
-        $divisoes = $divisoes->paginate(10);
+
+        $divisoes = $divisoesQuery->paginate(10);
         $departamento = Departamento::all();
-        if ($divisoes->count() === 0) {
-            $mensagem = "Nenhuma Divisão encontrada";
-            return view('admin.divisoes.lista', compact('divisoes', 'departamento', 'mensagem'));
+
+        if ($divisoes->isEmpty()) {
+            $mensagem = "Nenhum conteúdo cadastrado";
+            return view('admin.divisoes.lista', compact('divisoes', 'mensagem', 'departamento'));
         }
+
         return view('admin.divisoes.lista', compact('divisoes', 'departamento'));
     }
 
