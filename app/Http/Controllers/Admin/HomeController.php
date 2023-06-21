@@ -3,15 +3,10 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
-use App\Http\Controllers\ModelNotFoundException;
 use App\Models\DepartamentoServidor;
 use App\Models\DepartamentoTarefa;
 use App\Models\DivisaoServidor;
 use App\Models\DivisaoTarefa;
-use App\Models\User;
-use App\Models\Servidor;
-use App\Models\Departamento;
-use Exception;
 use Illuminate\Http\Request;
 
 class HomeController extends Controller
@@ -23,37 +18,45 @@ class HomeController extends Controller
 
     public function content(Request $request)
     {
-
+        // OBTEM O ID DO SERVIDOR LOGADO NA SESSÃO
         $servidorId = auth()->user()->servidor->id; // Obtenha o ID do usuário logado na sessão
 
+        // OBTEM TODOS OS DEPARTAMENTOS QUE O SERVIDOR ESTÁ LOTADO
         $departamentos = DepartamentoServidor::where('servidor_id', $servidorId)->get();
 
-        $departamentoTarefas = DepartamentoTarefa::join('departamento_servidor', 'departamento_servidor.departamento_id', '=', 'departamento_tarefa.departamento_id')
-            ->get();
-
-
+        // OBTEM TODAS AS DIVISÕES QUE O SERVIDOR ESTÁ LOTADO
         $divisoes = DivisaoServidor::where('servidor_id', $servidorId)->get();
 
-        $divisaoTarefas = Divisaotarefa::join('divisao_servidor', 'divisao_servidor.divisao_id', '=', 'divisao_tarefa.divisao_id')->get();
+        // OBTEM TODAS AS TAREFAS ABERTAS CRIADAS PELO SERVIDOR (DEPARTAMENTOS E DIVISOES)
+        $countTarefasAbertas = DepartamentoTarefa::where('situacao', '<>', 3)
+            ->whereIn('criador_id', [auth()->user()->id])
+            ->union(
+                DivisaoTarefa::where('situacao', '<>', 3)
+                    ->whereIn('criador_id', [auth()->user()->id])
+            )->count();
 
-        $countDptTarefasAbertas = DepartamentoTarefa::where('criador_id', auth()->user()->id)->where('situacao', '<>', 3)->count();
-        $countDivTarefasAbertas = DivisaoTarefa::where('criador_id', auth()->user()->id)->where('situacao', '<>', 3)->count();
-        $countTarefasAbertas = ($countDptTarefasAbertas + $countDivTarefasAbertas);
+        // OBTEM TODAS AS TAREFAS FECHADAS CRIADAS PELO SERVIDOR (DEPARTAMENTOS E DIVISOES)
+        $countTarefasfechadas = DepartamentoTarefa::where('situacao', 3)
+            ->whereIn('criador_id', [auth()->user()->id])
+            ->union(
+                DivisaoTarefa::where('situacao', 3)
+                    ->whereIn('criador_id', [auth()->user()->id])
+            )->count();
 
-        $countDptTarefasFechadas = DepartamentoTarefa::where('criador_id', auth()->user()->id)->where('situacao', '=', 3)->count();
-        $countDivTarefasFechadas = DivisaoTarefa::where('criador_id', auth()->user()->id)->where('situacao', '=', 3)->count();
-        $countTarefasfechadas = ($countDptTarefasFechadas + $countDivTarefasFechadas);
+        // OBTEM TODAS AS TAREFAS DE STATUS URGENTE CRIADAS PELO SERVIDOR (DEPARTAMENTOS E DIVISOES)
+        $countTarefasUrgentes = DepartamentoTarefa::where('situacao', '<>', 3)
+            ->where('classificacao', 2)
+            ->whereIn('criador_id', [auth()->user()->id])
+            ->union(
+                DivisaoTarefa::where('situacao', '<>', 3)
+                    ->where('classificacao', 2)
+                    ->whereIn('criador_id', [auth()->user()->id])
+            )->count();
 
-        $countDptTarefasUrgentes = DepartamentoTarefa::where('criador_id', auth()->user()->id)->where('situacao', '<>', 3)->where('classificacao', '=', 2)->count();
-        $countDivTarefasUrgentes = DivisaoTarefa::where('criador_id', auth()->user()->id)->where('situacao', '<>', 3)->where('classificacao', '=', 2)->count();
-        $countTarefasUrgentes = ($countDptTarefasUrgentes + $countDivTarefasUrgentes);
+        // PORCENTAGEM DO ANDAMENTO DAS TAREFAS
+        $porcentagemAndamento = ($countTarefasfechadas / max($countTarefasfechadas + $countTarefasAbertas, 1)) * 100;
 
-        $porcentagemAndamento = 0;
-
-        if ($countTarefasAbertas != 0) {
-            $porcentagemAndamento = ($countTarefasfechadas / ($countTarefasfechadas + $countTarefasAbertas)) * 100;
-        }
-        return view('layouts.dashboard.home', compact('departamentos', 'divisoes','departamentoTarefas', 'divisaoTarefas', 'countTarefasAbertas', 'countTarefasfechadas', 'porcentagemAndamento', 'countTarefasUrgentes'));
+        return view('layouts.dashboard.home', compact('departamentos', 'divisoes', 'countTarefasAbertas', 'countTarefasfechadas', 'porcentagemAndamento', 'countTarefasUrgentes'));
     }
 
 }
