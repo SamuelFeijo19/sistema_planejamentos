@@ -27,51 +27,77 @@ Route::post('resetar-senha', [\App\Http\Controllers\RecuperarSenhaController::cl
 //ROTAS QUE SÓ PODEM SER ACESSADAS APÓS AUTENTICAÇÃO
 Route::prefix('')->middleware('autenticacao')->group(function () {
 
+    //ROTAS QUE SÓ PODEM SER ACESSADAS POR ADMINISTRADORES DO SISTEMA
+    Route::middleware('is.admin')->group(function () {
+        // SECRETARIAS
+        Route::resource('secretarias', \App\Http\Controllers\Admin\SecretariaController::class);
+
+        //DEPARTAMENTOS
+        Route::resource('departamento', \App\Http\Controllers\Admin\DepartamentoController::class)->except(['create', 'show', 'index']);
+        Route::get('departamento/show/{secretaria_id}', [\App\Http\Controllers\Admin\DepartamentoController::class, 'show'])->name('departamento.show');
+        Route::get('departamento/create/{secretaria_id}', [\App\Http\Controllers\Admin\DepartamentoController::class, 'create'])->name('departamento.create');
+
+        //DIVISOES
+        Route::resource('divisao', \App\Http\Controllers\Admin\DivisaoController::class)->except(['create', 'show', 'index']);
+        Route::get('divisao/create/{departamento_id}', [\App\Http\Controllers\Admin\DivisaoController::class, 'create'])->name('divisao.create');
+
+        Route::resource('departamentoServidor', \App\Http\Controllers\Admin\DepartamentoServidorController::class)->except(['create', 'show']);
+
+        Route::resource('divisaoServidor', \App\Http\Controllers\Admin\DivisaoServidorController::class)->except(['create', 'show']);
+        Route::get('/DivisaoServidor/create/{divisao_id}', [\App\Http\Controllers\Admin\DivisaoServidorController::class, 'create'])->name('divisaoServidor.create');
+
+        // TAREFAS DEPARTAMENTO
+        Route::resource('tarefas', \App\Http\Controllers\Admin\DepartamentoTarefaController::class)->except(['create', 'index', 'create', 'store']);
+
+        // TAREFAS DIVISAO
+        Route::resource('tarefasDivisao', \App\Http\Controllers\Admin\DivisaoTarefaController::class)->except(['create', 'index', 'create', 'store']);
+
+        // SERVIDORES
+        Route::resource('servidores', \App\Http\Controllers\Admin\ServidorController::class);
+
+        Route::get('task/{task_id}/update-status', [\App\Http\Controllers\Admin\DepartamentoTarefaController::class, 'updateStatus'])->name('task.updateStatus');
+    });//FIM DAS ROTAS QUE SÓ PODEM SER ACESSADAS POR ADMINISTRADORES DO SISTEMA
+
+
+    //ROTAS LIVRES PARA USUÁRIO NÃO ADM
     //PERFIL
     Route::resource('perfil', \App\Http\Controllers\Admin\PerfilController::class);
 
-    // SECRETARIAS
-    Route::resource('secretarias', \App\Http\Controllers\Admin\SecretariaController::class);
-
-    //DEPARTAMENTOS
-    Route::resource('departamento', \App\Http\Controllers\Admin\DepartamentoController::class)->except(['create', 'show']);
-    Route::get('departamento/show/{secretaria_id}', [\App\Http\Controllers\Admin\DepartamentoController::class, 'show'])->name('departamento.show');
-    Route::get('departamento/create/{secretaria_id}', [\App\Http\Controllers\Admin\DepartamentoController::class, 'create'])->name('departamento.create');
-
-    //ROTAS QUE SÓ PODEM SER ACESADAS PELO CHEFE DO DEPARTAMENTO
+    //ROTAS QUE SÓ PODEM SER ACESADAS PELO CHEFE DO DEPARTAMENTO E PELO ADM DO SISTEMA
     Route::middleware('adminDpt')->group(function () {
         //LOTACAO DO SERVIDOR NO DEPARTAMENTO
         Route::get('departamentos/{departamento_id}/servidor', [\App\Http\Controllers\Admin\DepartamentoController::class, 'createServidor'])->name('departamentos.servidor.create');
         Route::get('/departamentoServidor/create/{departamento_id}', [\App\Http\Controllers\Admin\DepartamentoServidorController::class, 'create'])->name('departamentoServidor.create');
     });
 
-    //ROTAS QUE SÓ PODEM SER ACESSADAS PELO CHEFE DA DIVISÃO E PELO CHEFE DO DEPARTAMENTO QUE A DIVISAO
+    //ROTAS QUE SÓ PODEM SER ACESSADAS PELO CHEFE DA DIVISÃO, CHEFE DO DEPARTAMENTO QUE A DIVISAO ESTA LOTADA E PELO ADM DO SISTEMA
     Route::middleware(['adminDivisao'])->group(function () {
         Route::get('divisao/{divisao_id}/servidor', [\App\Http\Controllers\Admin\DivisaoController::class, 'createServidor'])
             ->name('divisao.servidor.create');
     });
 
+    //DEPARTAMENTOS
+    Route::get('departamento/index', [\App\Http\Controllers\Admin\DepartamentoController::class, 'index'])->name('departamento.index');
+
+    //TAREFAS DO DEPARTAMENTO
+    Route::get('tarefa/create/{tarefa_id}', [\App\Http\Controllers\Admin\DepartamentoTarefaController::class, 'create'])->name('tarefa.create');
+    Route::post('tarefa/store', [\App\Http\Controllers\Admin\DepartamentoTarefaController::class, 'store'])->name('tarefas.store');
+
     //DIVISOES
-    Route::resource('divisao', \App\Http\Controllers\Admin\DivisaoController::class)->except(['create', 'show']);
+    Route::get('divisao/index', [\App\Http\Controllers\Admin\DivisaoController::class, 'index'])->name('divisao.index');
+
+    //TAREFAS DAS DIVISOES
+    Route::get('tarefaDivisao/create/{tarefa_id}', [\App\Http\Controllers\Admin\DivisaoTarefaController::class, 'create'])->name('tarefaDivisao.create');
+    Route::post('tarefaDivisao/store', [\App\Http\Controllers\Admin\DivisaoTarefaController::class, 'store'])->name('tarefasDivisao.store');
+
+    //SERVIDORES LOTADOS NOS DEPARTAMENTOS
+    Route::get('/departamentoServidor/show/{departamento_id}', [\App\Http\Controllers\Admin\DepartamentoServidorController::class, 'show'])->name('departamentoServidor.show');
+
+    //SERVIDORES LOTADOS NAS DIVISOES
+    Route::get('/divisaoServidor/show/{divisao_id}', [\App\Http\Controllers\Admin\DivisaoServidorController::class, 'show'])->name('divisaoServidor.show');
+
+    //DIVISOES LOTADAS NOS DEPARTAMENTOS
     Route::get('divisao/show/{departamento_id}', [\App\Http\Controllers\Admin\DivisaoController::class, 'show'])->name('divisao.show');
-    Route::get('divisao/create/{departamento_id}', [\App\Http\Controllers\Admin\DivisaoController::class, 'create'])->name('divisao.create');
-
-    Route::resource('departamentoServidor', \App\Http\Controllers\Admin\DepartamentoServidorController::class)->except(['create']);
-
-    Route::resource('divisaoServidor', \App\Http\Controllers\Admin\DivisaoServidorController::class)->except(['create']);
-    Route::get('/DivisaoServidor/create/{divisao_id}', [\App\Http\Controllers\Admin\DivisaoServidorController::class, 'create'])->name('divisaoServidor.create');
-
-    // SERVIDORES
-    Route::resource('servidores', \App\Http\Controllers\Admin\ServidorController::class);
-
-    // TAREFAS DEPARTAMENTO
-    Route::resource('tarefas', \App\Http\Controllers\Admin\DepartamentoTarefaController::class)->except(['create', 'index', 'show']);
-    Route::get('tarefa/create/{departamento_id}', [\App\Http\Controllers\Admin\DepartamentoTarefaController::class, 'create'])->name('tarefa.create');
-    Route::get('tarefa/show/{tarefa_id}', [\App\Http\Controllers\Admin\DepartamentoTarefaController::class, 'show'])->name('tarefa.show');
-
-    // TAREFAS DIVISAO
-    Route::resource('tarefasDivisao', \App\Http\Controllers\Admin\DivisaoTarefaController::class)->except(['create', 'index']);
-    Route::get('tarefaDivisao/create/{divisao_id}', [\App\Http\Controllers\Admin\DivisaoTarefaController::class, 'create'])->name('tarefaDivisao.create');
 
     //BOARD DEPARTAMENTO
     Route::get('departamento/{departamento_id}/board', [\App\Http\Controllers\Admin\BoardController::class, 'index'])->name('board.index');
@@ -82,8 +108,9 @@ Route::prefix('')->middleware('autenticacao')->group(function () {
     //CONTENT
     Route::get('/dashboard/content', [\App\Http\Controllers\Admin\HomeController::class, 'content'])->name('dashboard.content');
 
+    //EXIBIR DETALHES DAS TAREFAS
     Route::get('task/{task_id}/details', [\App\Http\Controllers\Admin\BoardController::class, 'getTaskDetails'])->name('task.details');
 
-    Route::get('task/{task_id}/update-status', [\App\Http\Controllers\Admin\DepartamentoTarefaController::class, 'updateStatus'])->name('task.updateStatus');
+    //MOVER CARD PELO BOARD
     Route::post('task/move-situacao', [\App\Http\Controllers\Admin\DepartamentoTarefaController::class, 'moveSituacao'])->name('task.moveSituacao');
 });

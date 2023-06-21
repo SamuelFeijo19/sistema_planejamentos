@@ -28,13 +28,12 @@ class AdminDivisaoMiddleware
         //BUSCAR DEPARTAMENTO
         $departamento= Departamento::where('id', '=', $cod)->first();
 
-        if($departamento->administrador_id == $usuarioId){
+        if($departamento->administrador_id == $usuarioId || auth()->user()->is_admin){
             return $next($request);
         }else if($divisao->administrador_id !== $usuarioId ){
             return redirect()->back()->with(['type' => 'error', 'title'=>'Acesso Negado', 'message' => 'Você não é o administrador desta divisão!']);
         }
 
-        return $next($request);
     }
 
 }

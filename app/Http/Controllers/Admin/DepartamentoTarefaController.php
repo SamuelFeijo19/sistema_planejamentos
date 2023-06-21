@@ -64,11 +64,11 @@ class DepartamentoTarefaController extends Controller
             DB::commit();
             //resetar csrf token
             $request->session()->regenerateToken();
-            return "Tarefa Cadastrada!";
+            return redirect()->back()->with(['type' => 'success', 'message' => 'Tarefa Cadastrada!']);
         } catch (Exception $exception) {
             dd($exception);
             DB::rollBack();
-            return "Erro ao cadastrar tarefa!";
+            return redirect()->back()->with(['type' => 'success', 'message' => 'Erro ao Cadastrar Tarefa!']);
         }
     }
 
@@ -96,7 +96,7 @@ class DepartamentoTarefaController extends Controller
      */
     public function show($tarefa_id)
     {
-        return 'chegou';
+        //
     }
 
     /**
