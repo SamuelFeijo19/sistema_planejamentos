@@ -36,6 +36,14 @@ class BoardDivisaoController extends Controller
         return view('layouts.dashboard.boardDivisao', compact('servidores', 'divisao', 'tarefas'));
     }
 
+    public function getTaskDetails($task_id)
+    {
+        // Fetch the task details from the database
+        $task = DivisaoTarefa::findOrFail($task_id);
+
+        return response()->json($task);
+    }
+
     /**
      * Show the form for creating a new resource.
      *

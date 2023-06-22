@@ -110,7 +110,10 @@ Route::prefix('')->middleware('autenticacao')->group(function () {
 
     //EXIBIR DETALHES DAS TAREFAS
     Route::get('task/{task_id}/details', [\App\Http\Controllers\Admin\BoardController::class, 'getTaskDetails'])->name('task.details');
+    Route::get('task/{task_id}/details', [\App\Http\Controllers\Admin\BoardDivisaoController::class, 'getTaskDetails'])->name('task.detailsDivisao');
 
     //MOVER CARD PELO BOARD
     Route::post('task/move-situacao', [\App\Http\Controllers\Admin\DepartamentoTarefaController::class, 'moveSituacao'])->name('task.moveSituacao');
+    Route::post('task/move-situacao', [\App\Http\Controllers\Admin\DivisaoTarefaController::class, 'moveSituacao'])->name('task.moveSituacaoDivisao');
+
 });

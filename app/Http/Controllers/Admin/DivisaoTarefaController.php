@@ -153,4 +153,18 @@ class DivisaoTarefaController extends Controller
             return response()->json(['msg' => 'Erro ao excluir tarefa!'], 500);
         }
     }
+
+    public function moveSituacao(Request $request){
+        try {
+            DB::rollBack();
+            $tarefa = DivisaoTarefa::findOrFail($request->taskId);
+            $tarefa->situacao = $request->situacao;
+            $tarefa->save();
+            DB::commit();
+            return response()->json("Situação da tarefa atualizada com sucesso!", 200);
+        }catch (Exception $exception) {
+            DB::rollBack();
+            return response()->json("Erro ao atualizar situação da tarefa!", 500);
+        }
+    }
 }
