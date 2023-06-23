@@ -47,7 +47,7 @@ Route::prefix('')->middleware('autenticacao')->group(function () {
         Route::get('/DivisaoServidor/create/{divisao_id}', [\App\Http\Controllers\Admin\DivisaoServidorController::class, 'create'])->name('divisaoServidor.create');
 
         // TAREFAS DEPARTAMENTO
-        Route::resource('tarefas', \App\Http\Controllers\Admin\DepartamentoTarefaController::class)->except(['create', 'index', 'create', 'store']);
+        Route::resource('tarefasDepartamento', \App\Http\Controllers\Admin\DepartamentoTarefaController::class)->except(['create', 'index', 'create', 'store']);
 
         // TAREFAS DIVISAO
         Route::resource('tarefasDivisao', \App\Http\Controllers\Admin\DivisaoTarefaController::class)->except(['create', 'index', 'create', 'store']);
@@ -80,8 +80,8 @@ Route::prefix('')->middleware('autenticacao')->group(function () {
     Route::get('departamento/index', [\App\Http\Controllers\Admin\DepartamentoController::class, 'index'])->name('departamento.index');
 
     //TAREFAS DO DEPARTAMENTO
-    Route::get('tarefa/create/{tarefa_id}', [\App\Http\Controllers\Admin\DepartamentoTarefaController::class, 'create'])->name('tarefa.create');
-    Route::post('tarefa/store', [\App\Http\Controllers\Admin\DepartamentoTarefaController::class, 'store'])->name('tarefas.store');
+    Route::get('tarefaDepartamento/create/{tarefa_id}', [\App\Http\Controllers\Admin\DepartamentoTarefaController::class, 'create'])->name('tarefasDepartamento.create');
+    Route::post('tarefaDepartamento/store', [\App\Http\Controllers\Admin\DepartamentoTarefaController::class, 'store'])->name('tarefasDepartamento.store');
 
     //DIVISOES
     Route::get('divisao/index', [\App\Http\Controllers\Admin\DivisaoController::class, 'index'])->name('divisao.index');
@@ -100,7 +100,7 @@ Route::prefix('')->middleware('autenticacao')->group(function () {
     Route::get('divisao/show/{departamento_id}', [\App\Http\Controllers\Admin\DivisaoController::class, 'show'])->name('divisao.show');
 
     //BOARD DEPARTAMENTO
-    Route::get('departamento/{departamento_id}/board', [\App\Http\Controllers\Admin\BoardController::class, 'index'])->name('board.index');
+    Route::get('departamento/{departamento_id}/board', [\App\Http\Controllers\Admin\BoardController::class, 'index'])->name('boardDepartamento.index');
 
     //BOARD DIVISAO
     Route::get('divisao/{divisao_id}/board', [\App\Http\Controllers\Admin\BoardDivisaoController::class, 'index'])->name('boardDivisao.index');
@@ -109,11 +109,11 @@ Route::prefix('')->middleware('autenticacao')->group(function () {
     Route::get('/dashboard/content', [\App\Http\Controllers\Admin\HomeController::class, 'content'])->name('dashboard.content');
 
     //EXIBIR DETALHES DAS TAREFAS
-    Route::get('task/{task_id}/details', [\App\Http\Controllers\Admin\BoardController::class, 'getTaskDetails'])->name('task.details');
-    Route::get('task/{task_id}/details', [\App\Http\Controllers\Admin\BoardDivisaoController::class, 'getTaskDetails'])->name('task.detailsDivisao');
+    Route::get('taskDepartamento/{task_id}/details', [\App\Http\Controllers\Admin\BoardController::class, 'getTaskDetails'])->name('taskDepartamento.details');
+    Route::get('taskDivisao/{task_id}/details', [\App\Http\Controllers\Admin\BoardDivisaoController::class, 'getTaskDetails'])->name('taskDivisao.details');
 
     //MOVER CARD PELO BOARD
-    Route::post('task/move-situacao', [\App\Http\Controllers\Admin\DepartamentoTarefaController::class, 'moveSituacao'])->name('task.moveSituacao');
+    Route::post('taskDepartamento/move-situacao', [\App\Http\Controllers\Admin\DepartamentoTarefaController::class, 'moveSituacao'])->name('task.moveSituacao');
     Route::post('task/move-situacao', [\App\Http\Controllers\Admin\DivisaoTarefaController::class, 'moveSituacao'])->name('task.moveSituacaoDivisao');
 
 });

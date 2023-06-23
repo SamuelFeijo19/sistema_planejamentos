@@ -128,7 +128,7 @@
                     <b>{{ucwords(strtolower($departamento->nomeDepartamento))}}</b></h3>
             </div>
             <div class="float-right" style="padding-right: 20px;padding-left: 10px;">
-                <a href="{{route('tarefa.create', $departamento->id)}}" class="btn btn-primary">
+                <a href="{{route('tarefasDepartamento.create', $departamento->id)}}" class="btn btn-primary">
                     <span class="material-symbols-outlined align-middle">add</span>Nova Tarefa
                 </a>
             </div>
@@ -243,7 +243,7 @@
 
                 var taskId = $(this).data('task-id');
 
-                var url = '{{ route("task.details", ":taskId") }}';
+                var url = '{{ route("taskDepartamento.details", ":taskId") }}';
                 url = url.replace(':taskId', taskId);
 
                 $.ajax({
@@ -263,7 +263,7 @@
                         modalBody.append('<p><strong>Situação:</strong> ' + situacao + '</p>');
                         modalBody.append('<p><strong>Número do Chamado:</strong> ' + (response.numeroChamado !== null ? response.numeroChamado : 'Não informado') + '</p>');
 
-                        var editButton = '<a class="" href="{{ route("tarefas.edit", ":taskId") }}"><span class="material-symbols-outlined">edit_note</span></a>';
+                        var editButton = '<a class="" href="{{ route("tarefasDepartamento.edit", ":taskId") }}"><span class="material-symbols-outlined">edit_note</span></a>';
                         var doneButton = '<a class="" href="#"><span class="material-symbols-outlined">check_circle</span></a>';
 
                         editButton = editButton.replace(':taskId', taskId);

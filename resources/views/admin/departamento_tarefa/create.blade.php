@@ -38,7 +38,7 @@
             <hr>
         </div>
         <div class="shadow-lg" style="width: 80%; margin:0 auto; border-radius: 7px;">
-            <form id="formulario_registro" method="post" action="{{ route('tarefas.store') }}">
+            <form id="formulario_registro" method="post" action="{{ route('tarefasDepartamento.store') }}">
                 @csrf
                 <div>
                     <div class="card-header text-center bg-primary" id="headingOne" style="">

@@ -30,7 +30,7 @@ class DepartamentoTarefaController extends Controller
      */
     public function create($departamento_id)
     {
-        return view('admin.tarefa.create', compact('departamento_id'));
+        return view('admin.departamento_tarefa.create', compact('departamento_id'));
     }
 
     /**
@@ -109,7 +109,7 @@ class DepartamentoTarefaController extends Controller
     {
         //
         $tarefa = DepartamentoTarefa::findOrFail($id);
-        return view('admin.tarefa.edit', compact('tarefa'));
+        return view('admin.departamento_tarefa.edit', compact('tarefa'));
     }
 
     /**
@@ -144,10 +144,10 @@ class DepartamentoTarefaController extends Controller
             DB::commit();
             //resetar csrf token
             $request->session()->regenerateToken();
-            return "tarefa atualiada com sucesso";
+            return redirect()->back()->with(['type' => 'success', 'message' => 'Tarefa atualizada com sucesso!']);
         } catch (Exception $exception) {
             DB::rollBack();
-            return "erro ao atualizar tarefa!";
+            return redirect()->back()->with(['type' => 'error', 'message' => 'Erro ao atualizar tarefa!']);
         }
     }
 

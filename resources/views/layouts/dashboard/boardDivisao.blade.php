@@ -128,7 +128,6 @@
                     <b>{{ucwords(strtolower($divisao->nomeDivisao))}}</b></h3>
             </div>
             <div class="float-right" style="padding-right: 20px;padding-left: 10px;">
-                <a href="{{route('tarefa.create', $divisao->id)}}" class="btn btn-primary">
                 <a href="{{route('tarefaDivisao.create', $divisao->id)}}" class="btn btn-primary">
                     <span class="material-symbols-outlined align-middle">add</span>Nova Tarefa
                 </a>
@@ -244,7 +243,7 @@
 
                 var taskId = $(this).data('task-id');
 
-                var url = '{{ route("task.detailsDivisao", ":taskId") }}';
+                var url = '{{ route("taskDivisao.details", ":taskId") }}';
                 url = url.replace(':taskId', taskId);
 
                 $.ajax({

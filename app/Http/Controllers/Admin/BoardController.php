@@ -26,7 +26,7 @@ class BoardController extends Controller
         //BUSCAR TAREFAS QUE QUE ESTÃO CADASTRADAS NO DEPARTAMENTO
         $tarefas = DepartamentoTarefa::where('departamento_id', $departamento_id)->get();
 
-        return view('layouts.dashboard.board', compact('servidores', 'departamento', 'tarefas'));
+        return view('layouts.dashboard.boardDepartamento', compact('servidores', 'departamento', 'tarefas'));
     }
 
     public function getTaskDetails($task_id)

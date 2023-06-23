@@ -29,13 +29,16 @@
                                         <a href="{{route('divisao.servidor.create', $divisao->id)}}" title="ADICIONAR SERVIDOR">
                                             <span class="material-symbols-outlined text-success">person_add</span>
                                         </a>
+                                        @if(auth()->user()->is_admin)
                                         <a href="#" class="delete"
                                            data-route="{{route('divisao.destroy', $divisao->id)}}">
                                             <span class="material-symbols-outlined text-danger">delete</span>
                                         </a>
+
                                         <a href="{{route('divisao.edit', $divisao->id)}}">
                                             <span class="material-symbols-outlined">edit_note</span>
                                         </a>
+                                        @endif
                                         <a href="{{route('divisaoServidor.show', $divisao->id)}}" title="LISTAR SERVIDORES">
                                             <span class="material-symbols-outlined text-primary">groups</span>
                                         </a>

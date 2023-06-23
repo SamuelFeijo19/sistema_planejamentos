@@ -35,6 +35,7 @@
                                     <br>
                                     <small class="text-muted"><b>Lotação:</b> {{ ucwords(mb_strtolower($lotacao->departamento->nomeDepartamento)) }}</small>
                                 </div>
+                                @if(auth()->user()->is_admin)
                                 <div class="col d-flex justify-content-center align-items-center">
                                     <div class="text-right">
                                         <a href="#" class="delete" data-route="{{ route('departamentoServidor.destroy', $lotacao->id) }}">
@@ -45,6 +46,7 @@
                                         </a>
                                     </div>
                                 </div>
+                                @endif
                             </div>
                         </div>
                         <br>

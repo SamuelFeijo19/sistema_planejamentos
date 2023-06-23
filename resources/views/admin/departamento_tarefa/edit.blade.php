@@ -8,7 +8,7 @@
             <hr>
         </div>
         <div class="col col-12 m-auto">
-            <form id="formulario_registro" method="post" action="{{ route('tarefas.update', $tarefa->id)}}">
+            <form id="formulario_registro" method="post" action="{{ route('tarefasDepartamento.update', $tarefa->id)}}">
                 @method('PUT')
                 @csrf
                 <br>
