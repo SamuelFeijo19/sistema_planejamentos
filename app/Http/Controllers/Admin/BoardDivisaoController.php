@@ -3,13 +3,10 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
-use App\Models\Departamento;
-use App\Models\DepartamentoServidor;
 use App\Models\Divisao;
+use App\Models\DivisaoServidor;
 use App\Models\DivisaoTarefa;
 use App\Models\Servidor;
-use App\Models\DepartamentoTarefa;
-use Exception;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 
@@ -22,6 +19,17 @@ class BoardDivisaoController extends Controller
      */
     public function index(Request $request, $divisao_id)
     {
+        $servidorId= auth()->user()->servidor->id;
+
+        // Verificar se o usuário tem uma entrada na tabela divisao_servidor com o servidor_id correspondente
+        $divisaoServidor = DivisaoServidor::where('servidor_id', $servidorId)
+            ->where('divisao_id', $divisao_id)
+            ->first();
+
+        if (!$divisaoServidor) {
+            return redirect()->back()->with(['type' => 'error', 'message' => 'Você não faz parte desta divisão!']);
+        }
+
         //BUSCAR APENAS SERVIDORES QUE ESTÃO CADASTRADOS NA DIVISAO
         $servidores = Servidor::with('user')
             ->join('divisao_servidor', 'servidores.id', '=', 'divisao_servidor.servidor_id')

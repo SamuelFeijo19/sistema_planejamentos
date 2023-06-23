@@ -15,6 +15,17 @@ class BoardController extends Controller
 {
     public function index(Request $request, $departamento_id)
     {
+        $servidorId= auth()->user()->servidor->id;
+
+        // Verificar se o usuário tem uma entrada na tabela departamento_servidor com o servidor_id correspondente
+        $departamentoServidor = DepartamentoServidor::where('servidor_id', $servidorId)
+            ->where('departamento_id', $departamento_id)
+            ->first();
+
+        if (!$departamentoServidor) {
+            return redirect()->back()->with(['type' => 'error', 'message' => 'Você não faz parte deste departamento!']);
+        }
+
         //BUSCAR APENAS SERVIDORES QUE ESTÃO CADASTRADOS NO DEPARTAMENTO
         $servidores = Servidor::with('user')
             ->join('departamento_servidor', 'servidores.id', '=', 'departamento_servidor.servidor_id')
