@@ -10,11 +10,11 @@
                 <hr>
             </div>
 
-            {{--Componente do Botão de Adicionar--}}
-{{--            <x-adicionar.adicionar-button link-route="{{ route('participantes.create') }}" text-button="Novo Participante" />--}}
+        {{--Componente do Botão de Adicionar--}}
+        <x-adicionar.adicionar-button link-route="{{ route('servidores.create') }}" text-button="Novo Servidor" />
 
-            {{--Componente do Botão de Pesquisa--}}
-{{--            <x-search.search-button placeholder="  Digite o nome do Participante ..." form-action="{{ route('participantes.index') }}" />--}}
+        {{--Componente do Botão de Pesquisa--}}
+        <x-search.search-button placeholder="Busque por Servidores" form-action="{{ route('servidores.index') }}" />
 
         <div class="w-100">
             <div class="list-group">

@@ -15,10 +15,23 @@ class ServidorController extends Controller
 {
     public function index(Request $request)
     {
-        $servidores = Servidor::all();
+        $servidores = Servidor::query();
 
-        return view('admin.servidor.index', compact('servidores'));
-    }
+        if ($request->has('search')) {
+            $search = $request->search;
+            $servidores->join('users', 'users.id', '=', 'servidores.user_id')
+                ->select('servidores.*', 'users.name')
+                ->where('name', 'like', "%$search%");
+        }
+
+            $servidores = $servidores->paginate(10);
+
+            if ($servidores->count() === 0) {
+                return redirect()->route('servidores.index')->with(['type' => 'error', 'message' => 'Servidor não encontrado!']);
+            }
+            return view('admin.servidor.index', compact('servidores'));
+        }
+
 
     public function show($id)
     {
