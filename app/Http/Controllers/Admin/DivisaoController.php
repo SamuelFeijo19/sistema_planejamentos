@@ -35,7 +35,7 @@ class DivisaoController extends Controller
         $departamento = Departamento::all();
 
         if ($divisoes->isEmpty()) {
-            $mensagem = "Nenhum conteúdo cadastrado";
+            $mensagem = "Nenhuma divisão cadastrada";
             return view('admin.divisoes.lista', compact('divisoes', 'mensagem', 'departamento'));
         }
 
@@ -74,12 +74,10 @@ class DivisaoController extends Controller
             DB::commit();
 
             $request->session()->regenerateToken();
-
-            return "Divisão cadastrada!";
+            return redirect()->back()->with(['type' => 'success', 'message' => 'Divisão cadastrada com sucesso!']);
         } catch (Exception $exception) {
             DB::rollBack();
-
-            return "Erro ao cadastrar divisão!";
+            return redirect()->back()->with(['type' => 'error', 'message' => 'Erro ao cadastrar divisão!']);
         }
     }
 
@@ -96,7 +94,7 @@ class DivisaoController extends Controller
         $divisoes = $divisoes->paginate(10);
 
         if ($divisoes->count() === 0) {
-            $mensagem = "Nenhuma Divisão encontrada";
+            $mensagem = "Nenhuma divisão cadastrada";
             return view('admin.divisoes.index', compact('divisoes', 'departamento_id', 'mensagem', 'departamento'));
         }
         return view('admin.divisoes.index', compact('divisoes', 'departamento_id', 'departamento'));
@@ -125,12 +123,10 @@ class DivisaoController extends Controller
             DB::commit();
 
             $request->session()->regenerateToken();
-
-            return 'Divisao atualizada com sucesso';
+            return redirect()->back()->with(['type' => 'success', 'message' => 'Divisao atualizada com sucess!']);
         } catch (Exception $exception) {
             DB::rollBack();
-
-            return "Erro ao atualizar divisao!";
+            return redirect()->back()->with(['type' => 'error', 'message' => 'Erro ao atualizar divisao!']);
         }
     }
 

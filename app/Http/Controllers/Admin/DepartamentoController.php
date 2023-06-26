@@ -42,7 +42,7 @@ class DepartamentoController extends Controller
         $secretarias = Secretaria::all();
 
         if ($departamentos->isEmpty()) {
-            $mensagem = "Nenhum conteúdo cadastrado";
+            $mensagem = "Nenhum departamento cadastrado";
             return view('admin.departamento.lista', compact('departamentos', 'mensagem', 'secretarias'));
         }
 
@@ -129,7 +129,7 @@ class DepartamentoController extends Controller
         $departamentos = $departamentos->paginate(10);
 //
         if ($departamentos->count() === 0) {
-            $mensagem = "Nenhum conteúdo cadastrado";
+            $mensagem = "Nenhum departamento cadastrado";
             return view('admin.departamento.index', compact('departamentos', 'secretaria_id', 'mensagem', 'secretaria'));
         }
         return view('admin.departamento.index', compact('departamentos', 'secretaria_id', 'secretaria'));
@@ -171,11 +171,10 @@ class DepartamentoController extends Controller
 
             // Reset CSRF token
             $request->session()->regenerateToken();
-
-            return 'Departamento atualizado com sucesso!';
+            return redirect()->back()->with(['type' => 'success', 'message' => 'Departamento atualizado com sucesso!']);
         } catch (Exception $exception) {
             DB::rollBack();
-            return "Erro ao atualizar departamento!";
+            return redirect()->back()->with(['type' => 'error', 'message' => 'Erro ao atualizar departamento!']);
         }
     }
 
