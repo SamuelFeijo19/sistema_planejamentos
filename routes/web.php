@@ -54,8 +54,6 @@ Route::prefix('')->middleware('autenticacao')->group(function () {
 
         // SERVIDORES
         Route::resource('servidores', \App\Http\Controllers\Admin\ServidorController::class);
-
-        Route::get('task/{task_id}/update-status', [\App\Http\Controllers\Admin\DepartamentoTarefaController::class, 'updateStatus'])->name('task.updateStatus');
     });//FIM DAS ROTAS QUE SÓ PODEM SER ACESSADAS POR ADMINISTRADORES DO SISTEMA
 
 
@@ -116,4 +114,9 @@ Route::prefix('')->middleware('autenticacao')->group(function () {
     Route::post('taskDepartamento/move-situacao', [\App\Http\Controllers\Admin\DepartamentoTarefaController::class, 'moveSituacao'])->name('task.moveSituacao');
     Route::post('task/move-situacao', [\App\Http\Controllers\Admin\DivisaoTarefaController::class, 'moveSituacao'])->name('task.moveSituacaoDivisao');
 
+    //FECHAR TAREFA DO DEPARTAMENTO
+    Route::get('taskDepartamento/{task_id}/update-status', [\App\Http\Controllers\Admin\DepartamentoTarefaController::class, 'updateStatus'])->name('taskDepartamento.updateStatus');
+
+    //FECHAR TAREFA DA DIVISAO
+    Route::get('taskDivisao/{task_id}/update-status', [\App\Http\Controllers\Admin\DivisaoTarefaController::class, 'updateStatus'])->name('taskDivisao.updateStatus');
 });

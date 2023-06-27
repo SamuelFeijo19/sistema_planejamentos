@@ -76,6 +76,12 @@ class DepartamentoTarefaController extends Controller
     {
         try {
             $task = DepartamentoTarefa::findOrFail($task_id);
+
+            // Check if the authenticated user is the creator of the task
+            if ($task->criador_id !== auth()->user()->id) {
+                return redirect()->back()->with(['type' => 'error', 'message' => 'Você não tem permissão para atualizar esta tarefa.']);
+            }
+
             $task->situacao = 3; // Assuming 3 represents the "done" status
             $task->save();
 

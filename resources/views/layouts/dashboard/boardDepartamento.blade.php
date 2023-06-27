@@ -264,7 +264,7 @@
                         modalBody.append('<p><strong>Número do Chamado:</strong> ' + (response.numeroChamado !== null ? response.numeroChamado : 'Não informado') + '</p>');
 
                         var editButton = '<a class="" href="{{ route("tarefasDepartamento.edit", ":taskId") }}"><span class="material-symbols-outlined">edit_note</span></a>';
-                        var doneButton = '<a class="" href="#"><span class="material-symbols-outlined">check_circle</span></a>';
+                        var doneButton = '<a class="" href="{{ route("taskDepartamento.updateStatus", ":taskId") }}"><span class="material-symbols-outlined">check_circle</span></a>';
 
                         editButton = editButton.replace(':taskId', taskId);
                         doneButton = doneButton.replace(':taskId', taskId);

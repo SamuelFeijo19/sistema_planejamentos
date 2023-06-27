@@ -133,6 +133,26 @@ class DivisaoTarefaController extends Controller
         }
     }
 
+    public function updateStatus($task_id)
+    {
+        try {
+            $task = DivisaoTarefa::findOrFail($task_id);
+
+            // Check if the authenticated user is the creator of the task
+            if ($task->criador_id !== auth()->user()->id) {
+                return redirect()->back()->with(['type' => 'error', 'message' => 'Você não tem permissão para atualizar esta tarefa.']);
+            }
+
+            $task->situacao = 3; // Assuming 3 represents the "done" status
+            $task->save();
+
+            return redirect()->back()->with(['type' => 'success', 'message' => 'Tarefa concluída!']);
+        } catch (Exception $exception) {
+            DB::rollBack();
+
+            return redirect()->back()->with(['type' => 'error', 'message' => 'Erro ao atualizar status da tarefa!']);
+        }
+    }
     /**
      * Remove the specified resource from storage.
      *

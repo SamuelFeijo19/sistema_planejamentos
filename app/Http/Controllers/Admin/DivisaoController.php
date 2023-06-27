@@ -50,12 +50,17 @@ class DivisaoController extends Controller
 
     public function createServidor($id)
     {
-        //BUSCAR APENAS SERVIDORES QUE NÃO ESTAO CADASTRADOS NA DIVISAO
-        $servidores = Servidor::whereNotIn('id', function ($query) use ($id) {
-            $query->select('servidor_id')->from('divisao_servidor')->where('divisao_id', $id);
-        })->get();
-
         $divisao = Divisao::findOrFail($id);
+
+        $servidores = Servidor::whereNotIn('id', function ($query) use ($id) {
+            $query->select('servidor_id')
+                ->from('divisao_servidor')
+                ->where('divisao_id', $id);
+        })
+            ->whereHas('lotacaoDepartamento', function ($query) use ($divisao) {
+                $query->where('departamento_id', $divisao->departamento->id);
+            })
+            ->get();
 
         return view('admin.divisoes.servidor', compact('servidores', 'divisao'));
     }
