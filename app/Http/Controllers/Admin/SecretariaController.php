@@ -21,7 +21,7 @@ class SecretariaController extends Controller
         $secretarias = $secretarias->paginate(10);
 //
         if ($request->has('search') && $secretarias->isEmpty()) {
-            return redirect()->route('secretarias.index')->with(['type' => 'error', 'message' => 'Secretaria não encontrada!']);
+            return route('secretarias.index');
         }
 
         return view('admin.secretarias.index', compact('secretarias'));
