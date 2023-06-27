@@ -193,11 +193,10 @@ class DepartamentoController extends Controller
             $departamento->delete();
 
             DB::commit();
-
-            return response()->json(['msg' => 'Departamento excluído com sucesso!'], 200);
+            return redirect()->back()->with(['type' => 'success', 'message' => 'Departamento excluído com sucesso!']);
         } catch (Exception $exception) {
             DB::rollBack();
-            return response()->json(['msg' => 'Erro ao excluir departamento!'], 500);
+            return redirect()->back()->with(['type' => 'error', 'message' => 'Erro ao excluir departamento!']);
         }
     }
 }

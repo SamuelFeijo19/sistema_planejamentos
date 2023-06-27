@@ -20,7 +20,7 @@ class LoginController extends Controller
     public function index(Request $request) {
         return view('login');
     }
-     public function authenticate(Request $request)
+    public function authenticate(Request $request)
     {
         $credentials = $request->validate([
             'email' => ['required', 'email'],
@@ -28,18 +28,15 @@ class LoginController extends Controller
         ]);
 
         if (Auth::attempt($credentials)) {
-            $servidorId = auth()->user()->id; // Obtenha o ID do usuário logado na sessão
-//            dd($servidorId);
+            $servidorId = auth()->user()->id;
             $lotacoes = DepartamentoServidor::where('servidor_id', $servidorId)->get();
 
             return redirect()->route('dashboard.content', compact('lotacoes'));
-        }else{
-            return "Login falhou";
+        } else {
+            return back()->withErrors([
+                'email' => 'As credenciais fornecidas não correspondem aos nossos registros.',
+            ])->withInput($request->only('email'));
         }
-
-        return back()->withErrors([
-            'email' => 'As credenciais fornecidas não correspondem aos nossos registros.',
-        ])->onlyInput('email');
     }
 
     public function sair(){

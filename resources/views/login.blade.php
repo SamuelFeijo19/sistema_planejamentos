@@ -8,6 +8,7 @@
     <link rel="icon" href="{{asset('img/icon.png')}}" type="image/x-icon"/>
     <title>RBPlanejamento</title>
     <link href="{{asset('css/app.css')}}" rel="stylesheet" id="bootstrap-css">
+    <link rel="stylesheet" href="{{asset('css/dashboard/sb-admin-2.min.css')}}">
     <link rel="stylesheet" href="{{asset('css/login/login.css')}}">
 </head>
 <body>
@@ -31,6 +32,9 @@
 							<i class="fa fa-envelope" aria-hidden="true"></i>
 						</span>
                     </div>
+                    @error('email')
+                    <div class="alert-danger">{{ $message }}</div>
+                    @enderror
 
                     <div class="wrap-input100 validate-input" data-validate="Password is required">
                         <input class="input100" type="password" name="password" placeholder="Password">
