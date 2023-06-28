@@ -27,30 +27,7 @@
             padding: 10px;
             margin: 20px;
             border-left: #127EDE 5px solid;
-            /*min-height: 100%;*/
         }
-
-        /*.vertical-line {*/
-        /*    height: 0.1px;*/
-        /*    width: 100%; !* Define a altura total da tela *!*/
-        /*    background-color: #fff; !* Define a cor de fundo como branca *!*/
-        /*}*/
-
-        /*.text {*/
-        /*    position: relative;*/
-        /*    display: inline-block;*/
-        /*    color: #6b6d7d;*/
-        /*}*/
-
-        /*.text::after {*/
-        /*    content: "";*/
-        /*    position: absolute;*/
-        /*    left: 0;*/
-        /*    bottom: -2px;*/
-        /*    width: 100%;*/
-        /*    height: 2px;*/
-        /*    background-color: #6b6d7d; !* Cor do sublinhado *!*/
-        /*}*/
 
         a {
             text-decoration: none !important;
@@ -67,30 +44,27 @@
 
             .servidor-container {
                 width: 100%;
-                /*background-color: whitesmoke !important;*/
             }
         }
 
-      /*card*/
+        /*card*/
         .board {
             display: flex;
             flex-wrap: wrap;
-            /*min-width: 50%;*/
             min-height: 400px; /* Altura fixa do board */
         }
 
         .list {
             flex: 1;
             border-radius: 10px;
-            max-height: 400px; /* Altura máxima para o list com scroll */
-            /*overflow-y: scroll;*/
-
+            max-height: 300px; /* Altura máxima para o list com scroll */
+            overflow-x: hidden;
+            overflow-y: auto;
         }
 
         .list-title {
             font-size: 18px;
             margin-bottom: 10px;
-            /*border-top: 2px solid #000000;*/
         }
 
         /*titulos*/
@@ -111,7 +85,6 @@
             max-width: 100%;
             border-top-left-radius: 5px;
             border-top-right-radius: 5px;
-            /*width: 100%;*/
         }
 
         .list-text-code-review {
@@ -229,7 +202,8 @@
                                                     <div class="card-item row tarefas"
                                                          data-task-id="{{ $tarefa->id }}">
                                                         <span class="badge badge-xs badge-baixa">Baixa</span>
-                                                        <a class="text-dark cool-link" href="#" draggable="true"
+                                                        <a class="{{ $tarefa->classificacao == 0 ? 'text-success' : ($tarefa->classificacao == 1 ? 'text-warning'  : 'text-danger') }} text-dark"
+                                                           href="#" draggable="true"
                                                            data-task-id="{{ $tarefa->id }}"
                                                         >{{ $tarefa->nomeTarefa }}
                                                         </a>
@@ -238,7 +212,8 @@
                                                     <div class="card-item row"
                                                          data-task-id="{{ $tarefa->id }}">
                                                         <span class="badge badge-xs badge-media">Média</span>
-                                                        <a class="text-dark cool-link " href="#" draggable="true"
+                                                        <a class="{{ $tarefa->classificacao == 0 ? 'text-success' : ($tarefa->classificacao == 1 ? 'text-warning'  : 'text-danger') }} text-dark"
+                                                           href="#" draggable="true"
                                                            data-task-id="{{ $tarefa->id }}"
                                                         >{{ $tarefa->nomeTarefa }}
                                                         </a>
@@ -247,7 +222,8 @@
                                                     <div class="card-item row"
                                                          data-task-id="{{ $tarefa->id }}">
                                                         <span class="badge badge-xs badge-alta">Alta</span>
-                                                        <a class="text-dark cool-link " href="#" draggable="true"
+                                                        <a class="{{ $tarefa->classificacao == 0 ? 'text-success' : ($tarefa->classificacao == 1 ? 'text-warning'  : 'text-danger') }} text-dark"
+                                                           href="#" draggable="true"
                                                            data-task-id="{{ $tarefa->id }}"
                                                         >{{ $tarefa->nomeTarefa }}
                                                         </a>
@@ -274,7 +250,8 @@
                                                     <div class="card-item row"
                                                          data-task-id="{{ $tarefa->id }}">
                                                         <span class="badge badge-xs badge-alta">Alta</span>
-                                                        <a class="text-dark cool-link" href="#" draggable="true"
+                                                        <a class="{{ $tarefa->classificacao == 0 ? 'text-success' : ($tarefa->classificacao == 1 ? 'text-warning'  : 'text-danger') }} text-dark"
+                                                           href="#" draggable="true"
                                                            data-task-id="{{ $tarefa->id }}"
                                                         >{{ $tarefa->nomeTarefa }}
                                                         </a>
@@ -283,7 +260,8 @@
                                                     <div class="card-item row"
                                                          data-task-id="{{ $tarefa->id }}">
                                                         <span class="badge badge-xs badge-media">Média</span>
-                                                        <a class="text-dark cool-link" href="#" draggable="true"
+                                                        <a class="{{ $tarefa->classificacao == 0 ? 'text-success' : ($tarefa->classificacao == 1 ? 'text-warning'  : 'text-danger') }} text-dark"
+                                                           href="#" draggable="true"
                                                            data-task-id="{{ $tarefa->id }}"
                                                         >{{ $tarefa->nomeTarefa }}
                                                         </a>
@@ -292,7 +270,8 @@
                                                     <div class="card-item row"
                                                          data-task-id="{{ $tarefa->id }}">
                                                         <span class="badge badge-xs badge-baixa">Baixa</span>
-                                                        <a class="text-dark cool-link" href="#" draggable="true"
+                                                        <a class="{{ $tarefa->classificacao == 0 ? 'text-success' : ($tarefa->classificacao == 1 ? 'text-warning'  : 'text-danger') }} text-dark"
+                                                           href="#" draggable="true"
                                                            data-task-id="{{ $tarefa->id }}"
                                                         >{{ $tarefa->nomeTarefa }}
                                                         </a>
@@ -317,7 +296,8 @@
                                                     <div class="card-item row"
                                                          data-task-id="{{ $tarefa->id }}">
                                                         <span class="badge badge-xs badge-alta">Alta</span>
-                                                        <a class="text-dark cool-link" href="#" draggable="true"
+                                                        <a class="{{ $tarefa->classificacao == 0 ? 'text-success' : ($tarefa->classificacao == 1 ? 'text-warning'  : 'text-danger') }} text-dark"
+                                                           href="#" draggable="true"
                                                            data-task-id="{{ $tarefa->id }}"
                                                         >{{ $tarefa->nomeTarefa }}
                                                         </a>
@@ -326,7 +306,8 @@
                                                     <div class="card-item row"
                                                          data-task-id="{{ $tarefa->id }}">
                                                         <span class="badge badge-xs badge-media">Média</span>
-                                                        <a class="text-dark cool-link" href="#" draggable="true"
+                                                        <a class="{{ $tarefa->classificacao == 0 ? 'text-success' : ($tarefa->classificacao == 1 ? 'text-warning'  : 'text-danger') }} text-dark"
+                                                           href="#" draggable="true"
                                                            data-task-id="{{ $tarefa->id }}"
                                                         >{{ $tarefa->nomeTarefa }}
                                                         </a>
@@ -335,7 +316,8 @@
                                                     <div class="card-item row"
                                                          data-task-id="{{ $tarefa->id }}">
                                                         <span class="badge badge-xs badge-baixa">Baixa</span>
-                                                        <a class="text-dark cool-link" href="#" draggable="true"
+                                                        <a class="{{ $tarefa->classificacao == 0 ? 'text-success' : ($tarefa->classificacao == 1 ? 'text-warning'  : 'text-danger') }} text-dark"
+                                                           href="#" draggable="true"
                                                            data-task-id="{{ $tarefa->id }}"
                                                         >{{ $tarefa->nomeTarefa }}
                                                         </a>
@@ -344,11 +326,6 @@
                                             @endif
                                         @endif
                                     @endforeach
-                                </div>
-
-
-                                <div class="row w-100 justify-content-end">
-                                    <a href="#" class="text1">Ver Mais</a>
                                 </div>
                             </div>
                         </div>
