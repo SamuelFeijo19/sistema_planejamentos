@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
+use App\Http\Requests\DepartamentoRequest;
 use App\Models\Departamento;
 use App\Models\DepartamentoServidor;
 use App\Models\Secretaria;
@@ -88,7 +89,7 @@ class DepartamentoController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(DepartamentoRequest $request)
     {
 
         try {
@@ -155,7 +156,7 @@ class DepartamentoController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(DepartamentoRequest $request, $id)
     {
         try {
             DB::beginTransaction();

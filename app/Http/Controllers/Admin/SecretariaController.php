@@ -3,7 +3,7 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
-use App\Http\Requests\SecretariaStoreRequest;
+use App\Http\Requests\SecretariaRequest;
 use App\Models\Secretaria;
 use Exception;
 use Illuminate\Http\Request;
@@ -38,7 +38,7 @@ class SecretariaController extends Controller
         return view('admin.secretarias.create', compact('secretarias'));
     }
 
-    public function store(SecretariaStoreRequest $request)
+    public function store(SecretariaRequest $request)
     {
         try {
             DB::beginTransaction();
@@ -60,7 +60,7 @@ class SecretariaController extends Controller
         $secretaria = Secretaria::findOrFail($id);
         return view('admin.secretarias.edit', compact('secretaria'));
     }
-    public function update(Request $request, $id)
+    public function update(SecretariaRequest $request, $id)
     {
         try {
             $secretaria = Secretaria::findOrFail($id);

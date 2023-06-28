@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
+use App\Http\Requests\TarefaRequest;
 use App\Models\Departamento;
 use App\Models\DepartamentoTarefa;
 use Exception;
@@ -39,7 +40,7 @@ class DepartamentoTarefaController extends Controller
      * @param \Illuminate\Http\Request $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(TarefaRequest $request)
     {
 
         try {
@@ -125,7 +126,7 @@ class DepartamentoTarefaController extends Controller
      * @param int $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(TarefaRequest $request, $id)
     {
         //
         try {

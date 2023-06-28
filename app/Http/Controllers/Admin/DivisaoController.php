@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
+use App\Http\Requests\DivisaoRequest;
 use App\Models\Departamento;
 use App\Models\Divisao;
 use App\Models\Servidor;
@@ -65,7 +66,7 @@ class DivisaoController extends Controller
         return view('admin.divisoes.servidor', compact('servidores', 'divisao'));
     }
 
-    public function store(Request $request)
+    public function store(DivisaoRequest $request)
     {
         try {
             DB::beginTransaction();
@@ -112,7 +113,7 @@ class DivisaoController extends Controller
         return view('admin.divisoes.edit', compact('divisao', 'servidores'));
     }
 
-    public function update(Request $request, $id)
+    public function update(DivisaoRequest $request, $id)
     {
         try {
             DB::beginTransaction();

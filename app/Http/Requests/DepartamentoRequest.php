@@ -4,7 +4,7 @@ namespace App\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
 
-class SecretariaStoreRequest extends FormRequest
+class DepartamentoRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -25,18 +25,16 @@ class SecretariaStoreRequest extends FormRequest
     {
         return [
             //
-            'nomeSecretaria' => 'required|min:6|max:255',
-            'siglaSecretaria' => 'required',
+            'nomeDepartamento' => 'required|min:6|max:255',
         ];
     }
 
     public function messages()
     {
         return [
-            'nomeSecretaria.required' => 'O campo nome da secretaria é obrigatório',
-            'nomeSecretaria.min' => 'O campo nome do evento deve ter no mínimo 6 caracteres',
-            'nomeSecretaria.max' => 'O campo nome do evento deve ter no máximo 255 caracteres',
-            'siglaSecretaria.required' => 'O campo data do evento é obrigatório',
+            'nomeDepartamento.required' => 'O campo nome do departamento é obrigatório',
+            'nomeDepartamento.min' => 'O campo nome do departamento deve ter no mínimo 6 caracteres',
+            'nomeDepartamento.max' => 'O campo nome do departamento deve ter no máximo 255 caracteres',
         ];
     }
 }
