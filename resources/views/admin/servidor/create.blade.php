@@ -57,7 +57,7 @@
                                             <input type="text" class="text-dark input-group" name="name" id="name"
                                                    placeholder="NOME COMPLETO:" value="">
                                         </div>
-                                        @error('nome')
+                                        @error('name')
                                         <div class="alert alert-danger">{{ $message }}</div>
                                         @enderror
                                     </div>

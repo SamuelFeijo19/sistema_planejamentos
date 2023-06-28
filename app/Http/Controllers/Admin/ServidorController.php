@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
 use App\Http\Requests\ServidorStoreRequest;
+use App\Http\Requests\ServidorUpdateRequest;
 use App\Models\Servidor;
 use App\Models\User;
 use Exception;
@@ -105,7 +106,7 @@ class ServidorController extends Controller
         return view('admin.servidor.edit', compact('servidor'));
     }
 
-    public function update(Request $request, $id)
+    public function update(ServidorUpdateRequest $request, $id)
     {
         try {
             $servidor = Servidor::findOrFail($id);
