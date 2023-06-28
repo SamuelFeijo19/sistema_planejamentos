@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Http\Requests\DivisaoRequest;
 use App\Models\Departamento;
 use App\Models\Divisao;
+use App\Models\Secretaria;
 use App\Models\Servidor;
 use Exception;
 use Illuminate\Http\Request;
@@ -46,6 +47,12 @@ class DivisaoController extends Controller
     public function create($departamento_id)
     {
         $servidores = Servidor::all();
+        $secretarias = Secretaria::all();
+        $departamentos = Departamento::all();
+
+        if ($departamento_id == 0) {
+            return view('admin.divisoes.novo', compact( 'servidores', 'departamentos', 'secretarias'));
+        }
         return view('admin.divisoes.create', compact('departamento_id', 'servidores'));
     }
 
@@ -64,6 +71,13 @@ class DivisaoController extends Controller
             ->get();
 
         return view('admin.divisoes.servidor', compact('servidores', 'divisao'));
+    }
+
+    public function getBySecretaria(Request $request, $secretaria_id)
+    {
+        $departamentos = Departamento::where('secretaria_id', $secretaria_id)->get();
+
+        return response()->json($departamentos);
     }
 
     public function store(DivisaoRequest $request)

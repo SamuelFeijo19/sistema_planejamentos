@@ -119,4 +119,7 @@ Route::prefix('')->middleware('autenticacao')->group(function () {
 
     //FECHAR TAREFA DA DIVISAO
     Route::get('taskDivisao/{task_id}/update-status', [\App\Http\Controllers\Admin\DivisaoTarefaController::class, 'updateStatus'])->name('taskDivisao.updateStatus');
+
+    Route::get('/departamentos/by/secretaria/{secretaria}', [\App\Http\Controllers\Admin\DivisaoController::class, 'getBySecretaria'])->name('departamentos.porSecretaria');
+
 });

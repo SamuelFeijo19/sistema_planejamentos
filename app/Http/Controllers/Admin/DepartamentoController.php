@@ -17,8 +17,8 @@ class DepartamentoController extends Controller
     /**
      * Display a listing of the resource.
      *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  int  $secretaria_id
+     * @param \Illuminate\Http\Request $request
+     * @param int $secretaria_id
      * @return \Illuminate\Http\Response
      */
     public function index(Request $request)
@@ -54,13 +54,18 @@ class DepartamentoController extends Controller
     /**
      * Show the form for creating a new resource.
      *
-     * @param  int  $secretaria_id
+     * @param int $secretaria_id
      * @return \Illuminate\Http\Response
      */
     public function create($secretaria_id)
     {
         $servidores = Servidor::all();
-        return view('admin.departamento.create', compact('secretaria_id', 'servidores'));
+        $secretarias = Secretaria::all();
+
+        if ($secretaria_id == 0) {
+            return view('admin.departamento.novo', compact( 'servidores', 'secretarias'));
+        }
+            return view('admin.departamento.create', compact('secretaria_id', 'servidores'));
     }
 
     /**
