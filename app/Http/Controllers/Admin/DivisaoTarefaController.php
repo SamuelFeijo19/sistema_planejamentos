@@ -62,7 +62,10 @@ class DivisaoTarefaController extends Controller
             DB::commit();
             //resetar csrf token
             $request->session()->regenerateToken();
-            return "Tarefa Cadastrada!";
+            return redirect()->route('boardDivisao.index', $request->divisao_id)->with([
+                'type' => 'success',
+                'message' => 'Tarefa cadastrada com sucesso!'
+            ]);
         } catch (Exception $exception) {
             dd($exception);
             DB::rollBack();

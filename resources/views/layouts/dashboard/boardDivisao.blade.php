@@ -2,166 +2,7 @@
 
 @section('content')
     <link rel="stylesheet" href="{{asset('js/jquery-ui-1.13.2/jquery-ui.min.css')}}">
-    <style>
-        .float-left {
-            float: left;
-        }
-
-        .float-right {
-            float: right;
-        }
-
-        .col-sm-6, .col-sm-12 {
-            padding-right: 2px;
-            padding-left: 2px;
-        }
-
-        .clearfix::after {
-            content: "";
-            clear: both;
-            display: table;
-        }
-
-        .servidor-container {
-            width: 45%;
-            padding: 10px;
-            margin: 20px;
-            border-left: #127EDE 5px solid;
-        }
-
-        a {
-            text-decoration: none !important;
-        }
-
-        @media (max-width: 650px) {
-            .float-right {
-                width: 100%;
-            }
-
-            .btn {
-                width: 100%;
-            }
-
-            .servidor-container {
-                width: 100%;
-            }
-        }
-
-        /*card*/
-        .board {
-            display: flex;
-            flex-wrap: wrap;
-            min-height: 400px; /* Altura fixa do board */
-        }
-
-        .list {
-            flex: 1;
-            border-radius: 10px;
-            max-height: 300px; /* Altura máxima para o list com scroll */
-            overflow-x: hidden;
-            overflow-y: auto;
-        }
-
-        .list-title {
-            font-size: 18px;
-            margin-bottom: 10px;
-        }
-
-        /*titulos*/
-        .list-text-backlog {
-            background-color: #0065FC;
-            text-align: center;
-            color: white !important;
-            border-top-left-radius: 5px;
-            border-top-right-radius: 5px;
-            max-width: 100%;
-        }
-
-        .list-text-doing {
-            background-color: #40C7A4;
-            text-align: center;
-            color: white !important;
-            flex: 1;
-            max-width: 100%;
-            border-top-left-radius: 5px;
-            border-top-right-radius: 5px;
-        }
-
-        .list-text-code-review {
-            background-color: #47FF63;
-            text-align: center;
-            color: white !important;
-            flex: 1;
-            border-top-left-radius: 5px;
-            border-top-right-radius: 5px;
-            max-width: 100%;
-        }
-
-        /*fim titulos*/
-
-        .card-item {
-            background-color: whitesmoke;
-            margin: 0 0 10px 0;
-            border-radius: 5px;
-            cursor: move;
-            padding-left: 5px;
-            padding-top: 5px;
-            box-shadow: gray;
-            /*padding-right: 10px;*/
-
-        }
-
-        .card-item.dragging {
-            opacity: 0.5;
-        }
-
-        .card-item.drag-over {
-            border: 2px dashed #000000;
-        }
-
-        /*hover effect titulos*/
-        li {
-            margin-bottom: 10px;
-        }
-
-
-        /*badge*/
-        .badge-xs {
-            font-size: 11px;
-            padding: 3px 8px;
-            margin-left: 75%;
-            margin-bottom: 5px;
-        }
-
-        /* Tag */
-        .badge {
-            font-weight: 700;
-            letter-spacing: 1.5px;
-            text-transform: uppercase;
-        }
-
-        /* Layout */
-        .badge-alta {
-            background-color: #f44336;
-            color: #fff;
-        }
-
-        .badge-media {
-            background-color: #ff9800;
-            color: #fff;
-        }
-
-        .badge-baixa {
-            background-color: #4caf50;
-            color: #fff;
-        }
-
-        h2 {
-            margin-bottom: 40px;
-            color: #261c6a;
-            font-weight: 700;
-        }
-    </style>
+    <link rel="stylesheet" href="{{asset('css/divisao/board.css')}}">
 
     <div class="container-fluid shadow" style="
            background: white;
@@ -194,7 +35,7 @@
                                 <div class="col-md-6 text-dark list-title list-text-backlog" style="min-height: 25px;">
                                     Backlog
                                 </div>
-                                <div class="list float-left w-100" data-situacao="0">
+                                <div class="list float-left w-100 h-75" data-situacao="0">
                                     @foreach($tarefas as $tarefa)
                                         @if($tarefa->criador_id==$servidor->user->id)
                                             @if($tarefa->situacao == 0)
@@ -242,7 +83,7 @@
                                 <div class="col-md-4 text-dark list-title list-text-doing" style=" min-height: 25px;">
                                     Doing
                                 </div>
-                                <div class="list float-left w-100" data-situacao="1">
+                                <div class="list float-left w-100 h-75" data-situacao="1">
                                     @foreach($tarefas as $tarefa)
                                         @if($tarefa->criador_id==$servidor->user->id)
                                             @if($tarefa->situacao == 1)
@@ -288,39 +129,39 @@
                                 <div class="text-dark list-title list-text-code-review " style="; height: 25px;">
                                     Code Review
                                 </div>
-                                <div class="float-left w-100" data-situacao="2">
+                                <div class="list float-right w-100 h-75" data-situacao="2">
                                     @foreach($tarefas as $tarefa)
                                         @if($tarefa->criador_id==$servidor->user->id)
                                             @if($tarefa->situacao == 2)
                                                 @if($tarefa->classificacao == 0)
-                                                    <div class="card-item row"
+                                                    <div class="card-item row h-25"
                                                          data-task-id="{{ $tarefa->id }}">
-                                                        <span class="badge badge-xs badge-alta">Alta</span>
                                                         <a class="{{ $tarefa->classificacao == 0 ? 'text-success' : ($tarefa->classificacao == 1 ? 'text-warning'  : 'text-danger') }} text-dark"
                                                            href="#" draggable="true"
                                                            data-task-id="{{ $tarefa->id }}"
                                                         >{{ $tarefa->nomeTarefa }}
                                                         </a>
+                                                        <span class="badge badge-xs badge-alta">Alta</span>
                                                     </div>
                                                 @elseif($tarefa->classificacao == 1)
                                                     <div class="card-item row"
                                                          data-task-id="{{ $tarefa->id }}">
-                                                        <span class="badge badge-xs badge-media">Média</span>
                                                         <a class="{{ $tarefa->classificacao == 0 ? 'text-success' : ($tarefa->classificacao == 1 ? 'text-warning'  : 'text-danger') }} text-dark"
                                                            href="#" draggable="true"
                                                            data-task-id="{{ $tarefa->id }}"
                                                         >{{ $tarefa->nomeTarefa }}
                                                         </a>
+                                                        <span class="badge badge-xs badge-media">Média</span>
                                                     </div>
                                                 @else
                                                     <div class="card-item row"
                                                          data-task-id="{{ $tarefa->id }}">
-                                                        <span class="badge badge-xs badge-baixa">Baixa</span>
                                                         <a class="{{ $tarefa->classificacao == 0 ? 'text-success' : ($tarefa->classificacao == 1 ? 'text-warning'  : 'text-danger') }} text-dark"
                                                            href="#" draggable="true"
                                                            data-task-id="{{ $tarefa->id }}"
                                                         >{{ $tarefa->nomeTarefa }}
                                                         </a>
+                                                        <span class="badge badge-xs badge-baixa">Baixa</span>
                                                     </div>
                                                 @endif
                                             @endif
@@ -425,6 +266,7 @@
                             let situacao = card.closest('.list').data('situacao')
                             let taskId = card.data('task-id')
                             let url = '{{route('task.moveSituacaoDivisao')}}'
+                            console.log(taskId, situacao)
                             $.ajax({
                                 url: url,
                                 method: 'POST',

@@ -98,6 +98,7 @@ Route::prefix('')->middleware('autenticacao')->group(function () {
     Route::get('divisao/show/{departamento_id}', [\App\Http\Controllers\Admin\DivisaoController::class, 'show'])->name('divisao.show');
 
     //BOARD DEPARTAMENTO
+
     Route::get('departamento/{departamento_id}/board', [\App\Http\Controllers\Admin\BoardController::class, 'index'])->name('boardDepartamento.index');
 
     //BOARD DIVISAO
