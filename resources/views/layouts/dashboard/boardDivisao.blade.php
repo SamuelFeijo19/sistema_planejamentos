@@ -16,11 +16,10 @@
                 <h3 style="padding-left:30px; color: #2d91cb;">
                     <b>{{ucwords(strtolower($divisao->nomeDivisao))}}</b></h3>
             </div>
-            <div class="float-right" style="padding-right: 20px;padding-left: 10px;">
-                <a href="{{route('tarefaDivisao.create', $divisao->id)}}" class="btn btn-primary">
-                    <span class="material-symbols-outlined align-middle">add</span>Nova Tarefa
-                </a>
-            </div>
+
+            {{--Componente do Botão de Adicionar--}}
+            <x-adicionar.adicionar-button link-route="{{route('tarefaDivisao.create', $divisao->id)}}" text-button="Nova Tarefa" />
+
         </div>
 
         <div class="container col-sm-12 ">
@@ -39,37 +38,8 @@
                                     @foreach($tarefas as $tarefa)
                                         @if($tarefa->criador_id==$servidor->user->id)
                                             @if($tarefa->situacao == 0)
-                                                @if($tarefa->classificacao == 0)
-                                                    <div class="card-item row tarefas"
-                                                         data-task-id="{{ $tarefa->id }}">
-                                                        <span class="badge badge-xs badge-baixa">Baixa</span>
-                                                        <a class="{{ $tarefa->classificacao == 0 ? 'text-success' : ($tarefa->classificacao == 1 ? 'text-warning'  : 'text-danger') }} text-dark"
-                                                           href="#" draggable="true"
-                                                           data-task-id="{{ $tarefa->id }}"
-                                                        >{{ $tarefa->nomeTarefa }}
-                                                        </a>
-                                                    </div>
-                                                @elseif($tarefa->classificacao == 1)
-                                                    <div class="card-item row"
-                                                         data-task-id="{{ $tarefa->id }}">
-                                                        <span class="badge badge-xs badge-media">Média</span>
-                                                        <a class="{{ $tarefa->classificacao == 0 ? 'text-success' : ($tarefa->classificacao == 1 ? 'text-warning'  : 'text-danger') }} text-dark"
-                                                           href="#" draggable="true"
-                                                           data-task-id="{{ $tarefa->id }}"
-                                                        >{{ $tarefa->nomeTarefa }}
-                                                        </a>
-                                                    </div>
-                                                @else
-                                                    <div class="card-item row"
-                                                         data-task-id="{{ $tarefa->id }}">
-                                                        <span class="badge badge-xs badge-alta">Alta</span>
-                                                        <a class="{{ $tarefa->classificacao == 0 ? 'text-success' : ($tarefa->classificacao == 1 ? 'text-warning'  : 'text-danger') }} text-dark"
-                                                           href="#" draggable="true"
-                                                           data-task-id="{{ $tarefa->id }}"
-                                                        >{{ $tarefa->nomeTarefa }}
-                                                        </a>
-                                                    </div>
-                                                @endif
+                                                {{-- COMPONENTE PARA LISTAGEM DE TAREFAS --}}
+                                                @include('components.tasks.tasksBacklogAndDoing', ['tarefa' => $tarefa])
                                             @endif
                                         @endif
                                     @endforeach
@@ -87,37 +57,8 @@
                                     @foreach($tarefas as $tarefa)
                                         @if($tarefa->criador_id==$servidor->user->id)
                                             @if($tarefa->situacao == 1)
-                                                @if($tarefa->classificacao == 0)
-                                                    <div class="card-item row"
-                                                         data-task-id="{{ $tarefa->id }}">
-                                                        <span class="badge badge-xs badge-alta">Alta</span>
-                                                        <a class="{{ $tarefa->classificacao == 0 ? 'text-success' : ($tarefa->classificacao == 1 ? 'text-warning'  : 'text-danger') }} text-dark"
-                                                           href="#" draggable="true"
-                                                           data-task-id="{{ $tarefa->id }}"
-                                                        >{{ $tarefa->nomeTarefa }}
-                                                        </a>
-                                                    </div>
-                                                @elseif($tarefa->classificacao == 1)
-                                                    <div class="card-item row"
-                                                         data-task-id="{{ $tarefa->id }}">
-                                                        <span class="badge badge-xs badge-media">Média</span>
-                                                        <a class="{{ $tarefa->classificacao == 0 ? 'text-success' : ($tarefa->classificacao == 1 ? 'text-warning'  : 'text-danger') }} text-dark"
-                                                           href="#" draggable="true"
-                                                           data-task-id="{{ $tarefa->id }}"
-                                                        >{{ $tarefa->nomeTarefa }}
-                                                        </a>
-                                                    </div>
-                                                @else
-                                                    <div class="card-item row"
-                                                         data-task-id="{{ $tarefa->id }}">
-                                                        <span class="badge badge-xs badge-baixa">Baixa</span>
-                                                        <a class="{{ $tarefa->classificacao == 0 ? 'text-success' : ($tarefa->classificacao == 1 ? 'text-warning'  : 'text-danger') }} text-dark"
-                                                           href="#" draggable="true"
-                                                           data-task-id="{{ $tarefa->id }}"
-                                                        >{{ $tarefa->nomeTarefa }}
-                                                        </a>
-                                                    </div>
-                                                @endif
+                                                {{-- COMPONENTE PARA LISTAGEM DE TAREFAS --}}
+                                                @include('components.tasks.tasksBacklogAndDoing', ['tarefa' => $tarefa])
                                             @endif
                                         @endif
                                     @endforeach
@@ -133,37 +74,8 @@
                                     @foreach($tarefas as $tarefa)
                                         @if($tarefa->criador_id==$servidor->user->id)
                                             @if($tarefa->situacao == 2)
-                                                @if($tarefa->classificacao == 0)
-                                                    <div class="card-item row h-25"
-                                                         data-task-id="{{ $tarefa->id }}">
-                                                        <a class="{{ $tarefa->classificacao == 0 ? 'text-success' : ($tarefa->classificacao == 1 ? 'text-warning'  : 'text-danger') }} text-dark"
-                                                           href="#" draggable="true"
-                                                           data-task-id="{{ $tarefa->id }}"
-                                                        >{{ $tarefa->nomeTarefa }}
-                                                        </a>
-                                                        <span class="badge badge-xs badge-alta">Alta</span>
-                                                    </div>
-                                                @elseif($tarefa->classificacao == 1)
-                                                    <div class="card-item row"
-                                                         data-task-id="{{ $tarefa->id }}">
-                                                        <a class="{{ $tarefa->classificacao == 0 ? 'text-success' : ($tarefa->classificacao == 1 ? 'text-warning'  : 'text-danger') }} text-dark"
-                                                           href="#" draggable="true"
-                                                           data-task-id="{{ $tarefa->id }}"
-                                                        >{{ $tarefa->nomeTarefa }}
-                                                        </a>
-                                                        <span class="badge badge-xs badge-media">Média</span>
-                                                    </div>
-                                                @else
-                                                    <div class="card-item row"
-                                                         data-task-id="{{ $tarefa->id }}">
-                                                        <a class="{{ $tarefa->classificacao == 0 ? 'text-success' : ($tarefa->classificacao == 1 ? 'text-warning'  : 'text-danger') }} text-dark"
-                                                           href="#" draggable="true"
-                                                           data-task-id="{{ $tarefa->id }}"
-                                                        >{{ $tarefa->nomeTarefa }}
-                                                        </a>
-                                                        <span class="badge badge-xs badge-baixa">Baixa</span>
-                                                    </div>
-                                                @endif
+                                                {{-- COMPONENTE PARA LISTAGEM DE TAREFAS --}}
+                                                @include('components.tasks.tasksCodeReview', ['tarefa' => $tarefa])
                                             @endif
                                         @endif
                                     @endforeach
@@ -191,7 +103,6 @@
                     <div class="modal-body" id="taskDetails">
 
                     </div>
-                    {{--                <a class="btn btn-primary w-25" style="margin-left: 74%;margin-bottom: 10px;" data-bs-toggle="modal" href="#exampleModalToggle" role="button">Editar</a>--}}
                 </div>
             </div>
         </div>
