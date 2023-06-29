@@ -14,7 +14,6 @@
 
                     <div class="h5 mb-0 font-weight-bold text-gray-800">
                         <div style="float: left;">{{$countTarefasAbertas}} Tarefas</div>
-                        </a>
                     </div>
                 </div>
                 <div class="col-auto">
