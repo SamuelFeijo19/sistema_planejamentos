@@ -8,8 +8,11 @@
                 <hr>
             </div>
 
+            @if(auth()->user()->is_admin)
             {{--Componente do Botão de Adicionar--}}
             <x-adicionar.adicionar-button link-route="{{route('divisao.create', $departamento_id=0)}}" text-button="Nova Divisão" />
+            @endif
+
             {{--Componente do Botão de Pesquisa--}}
             <x-search.search-button placeholder="Busque por Divisões ..." form-action="#" />
 

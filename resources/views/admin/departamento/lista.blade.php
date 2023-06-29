@@ -8,9 +8,12 @@
                 <hr>
             </div>
 
+            @if(auth()->user()->is_admin)
             {{--Componente do Botão de Adicionar--}}
             <x-adicionar.adicionar-button link-route="{{route('departamento.create', $secretaria_id=0)}}" text-button="Novo Departamento" />
-            {{--Componente do Botão de Pesquisa--}}
+            @endif
+
+           {{--Componente do Botão de Pesquisa--}}
             <x-search.search-button placeholder="Busque por Departamentos" form-action="{{ route('departamento.index') }}" />
 
             @if(isset($mensagem))

@@ -42,6 +42,9 @@
                 column-count: 1;
             }
         }
+        .ajuste{
+            padding-left: 0 !important;
+        }
 
     </style>
 </head>
@@ -114,8 +117,10 @@ background: linear-gradient(187deg, rgba(26,122,178,1) 15%, rgba(26,122,178,1) 7
                 <span>Departamentos</span>
             </a>
             <div id="collapseTwo0" class="collapse" aria-labelledby="headingTwo0" data-parent="#accordionSidebar">
-                <div class="bg-white collapse-inner rounded ">
-                    <a class="collapse-item" style="margin-left: 0px" href="{{route('departamento.index')}}">Departamentos Cadastrados</a>
+                <div class="bg-white py-2 collapse-inner rounded ">
+                    <div style="">
+                        <a class="collapse-item ajuste" href="{{route('departamento.index')}}">Departamentos Cadastrados</a>
+                    </div>
                 </div>
             </div>
         </li>
