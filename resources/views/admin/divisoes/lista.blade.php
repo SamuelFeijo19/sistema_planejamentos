@@ -4,7 +4,7 @@
     <div class="container-fluid">
         <div style="width: 100%;">
             <div class="col col-12">
-                <h3>Divisões cadastrados</h3>
+                <h3>Divisões Cadastrados</h3>
                 <hr>
             </div>
 
@@ -23,7 +23,7 @@
             <div class="w-100">
                 <div class="list-group">
                     @foreach ($divisoes as $divisao)
-                        <div class="list-group-item shadow-sm">
+                        <div class="list-group-item shadow-sm border-left-info">
                             <div class="row">
                                 <div class="col">
                                     <p class="mb-1"><b>Nome da Divisao:</b> {{ucwords(mb_strtolower($divisao->nomeDivisao))}}</p>

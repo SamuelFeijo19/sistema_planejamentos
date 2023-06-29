@@ -46,6 +46,15 @@
             padding-left: 0 !important;
         }
 
+        h3{
+            font-weight: bold;
+            color: #2d91cb;
+        }
+
+        .list-group-item{
+            border-radius: 5px;
+        }
+
     </style>
 </head>
 

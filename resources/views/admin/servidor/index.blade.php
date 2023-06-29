@@ -19,7 +19,7 @@
         <div class="w-100">
             <div class="list-group">
                 @foreach ($servidores as $servidor)
-                    <div class="list-group-item shadow-sm">
+                    <div class="list-group-item shadow-sm border-left-info">
                         <div class="row">
                             <div class="col">
                                 <p class="mb-1"><b>Nome do Servidor:</b> {{ucwords(mb_strtolower($servidor->user->name))}}</p>
