@@ -18,7 +18,8 @@
             </div>
 
             {{--Componente do Botão de Adicionar--}}
-            <x-adicionar.adicionar-button link-route="{{route('tarefaDivisao.create', $divisao->id)}}" text-button="Nova Tarefa" />
+            <x-adicionar.adicionar-button link-route="{{route('tarefaDivisao.create', $divisao->id)}}"
+                                          text-button="Nova Tarefa"/>
 
         </div>
 
@@ -39,7 +40,7 @@
                                         @if($tarefa->criador_id==$servidor->user->id)
                                             @if($tarefa->situacao == 0)
                                                 {{-- COMPONENTE PARA LISTAGEM DE TAREFAS --}}
-                                                @include('components.tasks.tasksBacklogAndDoing', ['tarefa' => $tarefa])
+                                                @include('components.tasks.tasks', ['tarefa' => $tarefa])
                                             @endif
                                         @endif
                                     @endforeach
@@ -58,7 +59,7 @@
                                         @if($tarefa->criador_id==$servidor->user->id)
                                             @if($tarefa->situacao == 1)
                                                 {{-- COMPONENTE PARA LISTAGEM DE TAREFAS --}}
-                                                @include('components.tasks.tasksBacklogAndDoing', ['tarefa' => $tarefa])
+                                                @include('components.tasks.tasks', ['tarefa' => $tarefa])
                                             @endif
                                         @endif
                                     @endforeach
@@ -75,7 +76,7 @@
                                         @if($tarefa->criador_id==$servidor->user->id)
                                             @if($tarefa->situacao == 2)
                                                 {{-- COMPONENTE PARA LISTAGEM DE TAREFAS --}}
-                                                @include('components.tasks.tasksCodeReview', ['tarefa' => $tarefa])
+                                                @include('components.tasks.tasks', ['tarefa' => $tarefa])
                                             @endif
                                         @endif
                                     @endforeach
