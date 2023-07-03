@@ -47,10 +47,10 @@ Route::prefix('')->middleware('autenticacao')->group(function () {
         Route::get('/DivisaoServidor/create/{divisao_id}', [\App\Http\Controllers\Admin\DivisaoServidorController::class, 'create'])->name('divisaoServidor.create');
 
         // TAREFAS DEPARTAMENTO
-        Route::resource('tarefasDepartamento', \App\Http\Controllers\Admin\DepartamentoTarefaController::class)->except(['create', 'index', 'create', 'store']);
+        Route::get('tarefasDepartamento/{tarefa_id}/destroy', [\App\Http\Controllers\Admin\DepartamentoTarefaController::class, 'destroy'])->name('tarefasDepartamento.destroy');
 
         // TAREFAS DIVISAO
-        Route::resource('tarefasDivisao', \App\Http\Controllers\Admin\DivisaoTarefaController::class)->except(['create', 'index', 'create', 'store']);
+        Route::get('tarefaDivisao/{tarefa_id}/destroy', [\App\Http\Controllers\Admin\DivisaoTarefaController::class, 'destroy'])->name('tarefasDivisao.destroy');
 
         // SERVIDORES
         Route::resource('servidores', \App\Http\Controllers\Admin\ServidorController::class);
@@ -77,9 +77,11 @@ Route::prefix('')->middleware('autenticacao')->group(function () {
     //DEPARTAMENTOS
     Route::get('departamento/index', [\App\Http\Controllers\Admin\DepartamentoController::class, 'index'])->name('departamento.index');
 
-    //TAREFAS DO DEPARTAMENTO
+    //TAREFAS DO DEPARTAMENTOS
     Route::get('tarefaDepartamento/create/{tarefa_id}', [\App\Http\Controllers\Admin\DepartamentoTarefaController::class, 'create'])->name('tarefasDepartamento.create');
     Route::post('tarefaDepartamento/store', [\App\Http\Controllers\Admin\DepartamentoTarefaController::class, 'store'])->name('tarefasDepartamento.store');
+    Route::get('tarefasDepartamento/{tarefa_id}/edit', [\App\Http\Controllers\Admin\DepartamentoTarefaController::class, 'edit'])->name('tarefasDepartamento.edit');
+    Route::PUT('tarefasDepartamento/{tarefa_id}/update', [\App\Http\Controllers\Admin\DepartamentoTarefaController::class, 'update'])->name('tarefasDepartamento.update');
 
     //DIVISOES
     Route::get('divisao/index', [\App\Http\Controllers\Admin\DivisaoController::class, 'index'])->name('divisao.index');
@@ -87,6 +89,8 @@ Route::prefix('')->middleware('autenticacao')->group(function () {
     //TAREFAS DAS DIVISOES
     Route::get('tarefaDivisao/create/{tarefa_id}', [\App\Http\Controllers\Admin\DivisaoTarefaController::class, 'create'])->name('tarefaDivisao.create');
     Route::post('tarefaDivisao/store', [\App\Http\Controllers\Admin\DivisaoTarefaController::class, 'store'])->name('tarefasDivisao.store');
+    Route::get('tarefaDivisao/{tarefa_id}/edit', [\App\Http\Controllers\Admin\DivisaoTarefaController::class, 'edit'])->name('tarefasDivisao.edit');
+    Route::PUT('tarefaDivisao/{tarefa_id}/update', [\App\Http\Controllers\Admin\DivisaoTarefaController::class, 'update'])->name('tarefasDivisao.update');
 
     //SERVIDORES LOTADOS NOS DEPARTAMENTOS
     Route::get('/departamentoServidor/show/{departamento_id}', [\App\Http\Controllers\Admin\DepartamentoServidorController::class, 'show'])->name('departamentoServidor.show');

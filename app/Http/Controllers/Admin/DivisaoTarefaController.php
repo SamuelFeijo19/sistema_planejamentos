@@ -92,9 +92,11 @@ class DivisaoTarefaController extends Controller
      */
     public function edit($id)
     {
-        //
         $tarefa = DivisaoTarefa::findOrFail($id);
-        return view('admin.divisao_tarefa.edit', compact('tarefa'));
+        if($tarefa->criador_id == auth()->user()->id || auth()->user()->is_admin) {
+            return view('admin.divisao_tarefa.edit', compact('tarefa'));
+        }else
+            return redirect()->back()->with(['type' => 'error', 'message' => 'Você não tem permissão para atualizar esta tarefa.']);
     }
 
     /**
@@ -140,16 +142,15 @@ class DivisaoTarefaController extends Controller
     {
         try {
             $task = DivisaoTarefa::findOrFail($task_id);
+            if($task->criador_id == auth()->user()->id || auth()->user()->is_admin) {
 
-            // Check if the authenticated user is the creator of the task
-            if ($task->criador_id !== auth()->user()->id) {
+                $task->situacao = 3; // Assuming 3 represents the "done" status
+                $task->save();
+
+                // Optionally, you can return a response or redirect to a specific page
+                return redirect()->back()->with(['type' => 'success', 'message' => 'Tarefa concluída!']);
+            }else
                 return redirect()->back()->with(['type' => 'error', 'message' => 'Você não tem permissão para atualizar esta tarefa.']);
-            }
-
-            $task->situacao = 3; // Assuming 3 represents the "done" status
-            $task->save();
-
-            return redirect()->back()->with(['type' => 'success', 'message' => 'Tarefa concluída!']);
         } catch (Exception $exception) {
             DB::rollBack();
 
@@ -181,10 +182,13 @@ class DivisaoTarefaController extends Controller
         try {
             DB::rollBack();
             $tarefa = DivisaoTarefa::findOrFail($request->taskId);
-            $tarefa->situacao = $request->situacao;
-            $tarefa->save();
-            DB::commit();
-            return response()->json("Situação da tarefa atualizada com sucesso!", 200);
+            if($tarefa->criador_id == auth()->user()->id || auth()->user()->is_admin){
+                $tarefa->situacao = $request->situacao;
+                $tarefa->save();
+                DB::commit();
+                return response()->json("Situação da tarefa atualizada com sucesso!", 200);
+            }else
+                return redirect()->back()->with(['type' => 'error', 'message' => 'Você não tem permissão para atualizar esta tarefa.']);
         }catch (Exception $exception) {
             DB::rollBack();
             return response()->json("Erro ao atualizar situação da tarefa!", 500);
