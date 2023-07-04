@@ -69,7 +69,7 @@ class DivisaoTarefaController extends Controller
         } catch (Exception $exception) {
             dd($exception);
             DB::rollBack();
-            return "Erro ao cadastrar tarefa!";
+            return redirect()->back()->with(['type' => 'error', 'message' => 'Erro ao cadastrar tarefa.']);
         }
     }
 
@@ -131,10 +131,10 @@ class DivisaoTarefaController extends Controller
             DB::commit();
             //resetar csrf token
             $request->session()->regenerateToken();
-            return "tarefa atualiada com sucesso";
+            return redirect()->back()->with(['type' => 'success', 'message' => 'Tarefa atualizada com sucesso!']);
         } catch (Exception $exception) {
             DB::rollBack();
-            return "erro ao atualizar tarefa!";
+            return redirect()->back()->with(['type' => 'error', 'message' => 'Erro ao atualizar tarefa.']);
         }
     }
 

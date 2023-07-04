@@ -5,17 +5,61 @@
 @endpush
 
 @section('content')
-    <style>
-        h3 {
-            color: #2d91cb;
-            font-weight: bold;
-        }
-    </style>
     <div class="row" style="margin: 10px;">
         @include('components.cards.OpenTasksCard', ['countTarefasAbertas' => $countTarefasAbertas])
         @include('components.cards.ClosedTasksCard', ['countTarefasfechadas' => $countTarefasfechadas])
         @include('components.cards.HighPriorityTasksCard', ['countTarefasUrgentes' => $countTarefasUrgentes])
         @include('components.cards.ProgressCard', ['porcentagemAndamento' => $porcentagemAndamento])
+    </div>
+    <br>
+
+    <h3 style="margin-left: 20px;">
+        <i class="fa fa-trello text-primary"></i>
+        Meus Quadros de Tarefas
+    </h3>
+    <div class="row justify-content-center align-items-center m-3">
+        <div class="col-12 text-center">
+            @if($departamentos->isEmpty() && $divisoes->isEmpty())
+                <img src="{{ asset('./img/error.png') }}" alt="" class="img-fluid">
+            @endif
+        </div>
+    </div>
+    <div class="row" style="margin: 10px;">
+            @foreach($departamentos->concat($divisoes) as $item)
+                <div class="col-xl-3 col-md-6 mb-4">
+                    <div class="card shadow h-100 py-2" id="card-{{$item->id}}" style="background-size: cover; position: relative;">
+                        <div class="card-body">
+                            <div class="row no-gutters align-items-center">
+                                <div class="col mr-2">
+                                    <div class="d-flex align-items-center">
+                                        <div style="margin-right: 8px; font-size: 15px;" class="font-weight-bold text-primary text-uppercase mb-1">
+                                            <br>
+                                            <br>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        @if ($item instanceof App\Models\DepartamentoServidor)
+                            <a class="ml-2" href="{{route('boardDepartamento.index', $item->departamento->id)}}">
+                                <input type="button" class="btn btn-primary font-weight-bold shadow" value="Board">
+                            </a>
+                            <div class="position-absolute m-0">
+                                <div class="bg-gradient-light px-2 font-weight-bold text-primary">{{$item->departamento->nomeDepartamento}}</div>
+                            </div>
+                        @elseif ($item instanceof App\Models\DivisaoServidor)
+                            <a class="ml-2" href="{{route('boardDivisao.index', $item->divisao->id)}}">
+                                <input type="button" class="btn btn-primary font-weight-bold shadow" value="Board">
+                            </a>
+                            <div class="position-absolute m-0">
+                                <div class="bg-gradient-light px-2 font-weight-bold text-primary">{{$item->divisao->nomeDivisao}}</div>
+                            </div>
+                        @endif
+                    </div>
+                </div>
+            @endforeach
+
     </div>
 
     <div class="container-fluid">
@@ -202,6 +246,54 @@
                 },
             },
         });
-    </script>
 
+        var images = [
+            '{{ asset('./img/cards-bg/card-bg1.png') }}',
+            '{{ asset('./img/cards-bg/card-bg3.webp') }}',
+            '{{ asset('./img/cards-bg/card-bg4.webp') }}',
+            '{{ asset('./img/cards-bg/card-bg5.webp') }}',
+            '{{ asset('./img/cards-bg/card-bg5.webp') }}',
+            '{{ asset('./img/cards-bg/card-bg6.webp') }}',
+            '{{ asset('./img/cards-bg/card-bg7.webp') }}'
+        ];
+
+        var usedImages = [];
+
+        @foreach($departamentos->concat($divisoes) as $item)
+        @php
+            $itemId = $item->id;
+            $cardId = 'card-' . $itemId;
+            $index = 'index_' . $itemId;
+        @endphp
+
+        var cardId_{{$itemId}} = '{{$cardId}}';
+        var index_{{$itemId}};
+
+        function changeBackground_{{$itemId}}() {
+            var card = document.getElementById(cardId_{{$itemId}});
+            card.style.transition = 'background-image 2s ease';
+
+            var newIndex;
+
+            // Encontra um novo índice que não tenha sido usado anteriormente
+            do {
+                newIndex = Math.floor(Math.random() * images.length);
+            } while (usedImages.includes(newIndex));
+
+            // Armazena o novo índice na lista de índices usados
+            usedImages.push(newIndex);
+
+            // Verifica se a lista de índices usados está cheia
+            if (usedImages.length === images.length) {
+                // Se estiver cheia, esvazia a lista para permitir a repetição das imagens
+                usedImages = [];
+            }
+
+            card.style.backgroundImage = 'url(' + images[newIndex] + ')';
+        }
+
+        setInterval(changeBackground_{{$itemId}}, 4000);
+        @endforeach
+
+    </script>
 @endpush
