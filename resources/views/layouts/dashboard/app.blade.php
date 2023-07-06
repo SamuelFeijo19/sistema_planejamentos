@@ -129,6 +129,7 @@ background: linear-gradient(187deg, rgba(26,122,178,1) 15%, rgba(26,122,178,1) 7
                 <div class="bg-white py-2 collapse-inner rounded ">
                     <div style="">
                         <a class="collapse-item ajuste" href="{{route('departamento.index')}}">Departamentos Cadastrados</a>
+                        <a class="collapse-item ajuste" href="{{route('departamento.create', $secretaria_id=0)}}">Novo Departamento</a>
                     </div>
                 </div>
             </div>
@@ -147,6 +148,7 @@ background: linear-gradient(187deg, rgba(26,122,178,1) 15%, rgba(26,122,178,1) 7
                  data-parent="#accordionSidebar">
                 <div class="bg-white py-2 collapse-inner rounded">
                     <a class="collapse-item" href="{{route('divisao.index')}}">Divisões Cadastradas</a>
+                    <a class="collapse-item" href="{{route('divisao.create', $departamento_id=0)}}">Nova Divisão</a>
                 </div>
             </div>
         </li>
