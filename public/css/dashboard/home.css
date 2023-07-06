@@ -1,0 +1,35 @@
+/* Estilo para dispositivos móveis */
+@media screen and (max-width: 768px) {
+    .sidebarTasks {
+        width: 100%; /* Defina a largura desejada para dispositivos móveis */
+    }
+}
+
+@media screen and (min-width: 769px) {
+    .sidebarTasks {
+        width: 15%; /* Defina a largura desejada para telas maiores */
+    }
+}
+
+/* Estilo para ícone do menu */
+.mobile-menu-icon {
+    display: none; /* Oculta o ícone em telas maiores */
+    cursor: pointer;
+}
+
+/* Estilo para o ícone do menu - ajuste conforme necessário */
+.mobile-menu-icon i {
+    font-size: 24px;
+    padding: 10px;
+}
+
+/* Estilo para o menu expandido em telas maiores */
+.sidebarTasks.expanded {
+    display: block;
+    z-index: 9999;
+}
+
+/* Estilo para animação de transição */
+.sidebarTasks {
+    transition: all 0.3s ease;
+}

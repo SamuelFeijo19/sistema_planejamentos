@@ -1,15 +1,24 @@
 @extends('layouts.dashboard.app')
 
-@push('css')
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
-@endpush
-
 @section('content')
-    <div class="row" style="margin: 10px;">
-        @include('components.cards.OpenTasksCard', ['countTarefasAbertas' => $countTarefasAbertas])
-        @include('components.cards.ClosedTasksCard', ['countTarefasfechadas' => $countTarefasfechadas])
-        @include('components.cards.HighPriorityTasksCard', ['countTarefasUrgentes' => $countTarefasUrgentes])
-        @include('components.cards.ProgressCard', ['porcentagemAndamento' => $porcentagemAndamento])
+    <link rel="stylesheet" href="{{asset('css/dashboard/home.css')}}">
+
+    {{--  ÍCONE PARA EXPANDIR AS MÉTRICAS NA VERSAO MOBILE --}}
+    <div class="mobile-menu-icon text-primary" style="float: right;" onclick="toggleMenu()">
+        <i class="fa fa-bars"></i>
+    </div>
+
+    <div style="float: right;" class="sidebarTasks expanded" id="sidebarTasks">
+        <h3 style="margin-left: 20px; margin-top: 25px; margin-bottom: 17px;">
+            <i class="fa fa-line-chart"></i>
+            Métricas
+        </h3>
+        <div class="col">
+            @include('components.cards.OpenTasksCard', ['countTarefasAbertas' => $countTarefasAbertas])
+            @include('components.cards.ClosedTasksCard', ['countTarefasfechadas' => $countTarefasfechadas])
+            @include('components.cards.HighPriorityTasksCard', ['countTarefasUrgentes' => $countTarefasUrgentes])
+            @include('components.cards.ProgressCard', ['porcentagemAndamento' => $porcentagemAndamento])
+        </div>
     </div>
     <br>
 
@@ -17,51 +26,31 @@
         <i class="fa fa-trello text-primary"></i>
         Meus Quadros de Tarefas
     </h3>
-    <div class="row justify-content-center align-items-center m-3">
-        <div class="col-12 text-center">
+    <div class="row justify-content-center align-items-center ">
+        <div class="col text-center">
             @if($departamentos->isEmpty() && $divisoes->isEmpty())
-                <img src="{{ asset('./img/error.png') }}" alt="" class="img-fluid">
+                <img src="{{ asset('./img/error.png') }}">
             @endif
         </div>
     </div>
+
+    {{-- IMPRESSAO DOS QUADROS DE TAREFAS --}}
     <div class="row" style="margin: 10px;">
-            @foreach($departamentos->concat($divisoes) as $item)
-                <div class="col-xl-3 col-md-6 mb-4">
-                    <div class="card shadow h-100 py-2" id="card-{{$item->id}}" style="background-size: cover; position: relative;">
-                        <div class="card-body">
-                            <div class="row no-gutters align-items-center">
-                                <div class="col mr-2">
-                                    <div class="d-flex align-items-center">
-                                        <div style="margin-right: 8px; font-size: 15px;" class="font-weight-bold text-primary text-uppercase mb-1">
-                                            <br>
-                                            <br>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
+        @foreach($departamentos->concat($divisoes) as $item)
+            @php
+                $route = $item instanceof App\Models\DepartamentoServidor ? 'boardDepartamento.index' : 'boardDivisao.index';
+                $id = $item instanceof App\Models\DepartamentoServidor ? $item->departamento->id : $item->divisao->id;
+                $nome = $item instanceof App\Models\DepartamentoServidor ? $item->departamento->nomeDepartamento : $item->divisao->nomeDivisao;
+            @endphp
 
-                        @if ($item instanceof App\Models\DepartamentoServidor)
-                            <a class="ml-2" href="{{route('boardDepartamento.index', $item->departamento->id)}}">
-                                <input type="button" class="btn btn-primary font-weight-bold shadow" value="Board">
-                            </a>
-                            <div class="position-absolute m-0">
-                                <div class="bg-gradient-light px-2 font-weight-bold text-primary">{{$item->departamento->nomeDepartamento}}</div>
-                            </div>
-                        @elseif ($item instanceof App\Models\DivisaoServidor)
-                            <a class="ml-2" href="{{route('boardDivisao.index', $item->divisao->id)}}">
-                                <input type="button" class="btn btn-primary font-weight-bold shadow" value="Board">
-                            </a>
-                            <div class="position-absolute m-0">
-                                <div class="bg-gradient-light px-2 font-weight-bold text-primary">{{$item->divisao->nomeDivisao}}</div>
-                            </div>
-                        @endif
-                    </div>
-                </div>
-            @endforeach
-
+            @include('components.quadros.quadroTarefa', compact('item', 'route', 'nome', 'id'))
+        @endforeach
     </div>
 
+    <h3 style="margin-left: 20px;">
+        <i class="fa fa-bar-chart text-primary"></i>
+        Gráficos
+    </h3>
     <div class="container-fluid">
         <div class="row">
             <div class="card-body col-md-6">
@@ -74,15 +63,13 @@
             </div>
         </div>
     </div>
-
-    <br>
 @endsection
 
 @push('js')
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 
-    {{-- GRAFICO DAS DEPARTAMENTO --}}
     <script>
+        {{-- INICIO DO GRAFICO DOS DEPARTAMENTO --}}
         const ctx = document.getElementById('myChart');
 
         let labels = [];
@@ -162,11 +149,9 @@
                     },
                 },
             },
-        });
-    </script>
+        }); {{-- FIM DO GRAFICO DOS DEPARTAMENTO --}}
 
-    {{-- GRAFICO DAS DIVISOES --}}
-    <script>
+        {{-- INICIO DO GRAFICO DAS DIVISOES --}}
         const ctx1 = document.getElementById('myChart1');
 
         let labels1 = [];
@@ -245,8 +230,9 @@
                     },
                 },
             },
-        });
+        }); {{-- FIM DO GRAFICO DAS DIVISOES --}}
 
+        {{-- INICIO DA FUNCIONALIDADE DE IMAGENS DOS QUADROS --}}
         var images = [
             '{{ asset('./img/cards-bg/card-bg1.png') }}',
             '{{ asset('./img/cards-bg/card-bg3.webp') }}',
@@ -294,6 +280,37 @@
 
         setInterval(changeBackground_{{$itemId}}, 4000);
         @endforeach
+        {{-- FIM DA FUNCIONALIDADE DE IMAGENS DOS QUADROS --}}
 
+        {{-- INICIO DA FUNCIONALIDADE DE EXPANDIR MENU DE MÉTRICAS --}}
+        function toggleMenu() {
+            $(".sidebarTasks").slideToggle(); // Alterna a exibição do menu lateral
+        }
+
+        // Verifica o tamanho da janela ao carregar a página
+        window.onload = function () {
+            checkWindowSize();
+        };
+
+        // Verifica o tamanho da janela ao redimensionar
+        window.onresize = function () {
+            checkWindowSize();
+        };
+
+        // Verifica o tamanho da janela e exibe/oculta o menu lateral conforme necessário
+        function checkWindowSize() {
+            var sidebarTasks = document.getElementById("sidebarTasks");
+            var mobileMenuIcon = document.querySelector(".mobile-menu-icon");
+
+            if (window.innerWidth <= 768) {
+                // Dispositivo móvel
+                sidebarTasks.style.display = "none"; // Oculta o menu lateral
+                mobileMenuIcon.style.display = "block"; // Exibe o ícone do menu
+            } else {
+                // Tela maior
+                sidebarTasks.style.display = "block"; // Exibe o menu lateral
+                mobileMenuIcon.style.display = "none"; // Oculta o ícone do menu
+            }
+        } {{-- FIM DA FUNCIONALIDADE DE EXPANDIR MENU DE MÉTRICAS --}}
     </script>
 @endpush

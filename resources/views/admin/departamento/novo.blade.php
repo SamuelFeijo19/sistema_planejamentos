@@ -2,12 +2,12 @@
 
 @section('content')
     <style>
-        h3{
+        h3 {
             color: #2d91cb;
             font-weight: bold;
         }
 
-        .input-group{
+        .input-group {
             display: block;
             color: #e2e3e8;
             font-size: 16px;
@@ -21,7 +21,7 @@
         }
     </style>
 
-    <main class="container" id="ajuste">
+    <main class="container">
         <div class="row">
             <div class="col col-12">
                 <h3>Cadastro de Departamento</h3>
@@ -45,7 +45,8 @@
                                 <div class="row">
                                     <div class="col">
                                         <div class="form-group">
-                                            <input type="text" class="text-dark input-group" name="nomeDepartamento" id="nomeDepartamento"
+                                            <input type="text" class="text-dark input-group" name="nomeDepartamento"
+                                                   id="nomeDepartamento"
                                                    placeholder="NOME DO DEPARTAMENTO:" value="">
                                         </div>
                                         @error('nomeDepartamento')
@@ -58,12 +59,16 @@
                                     <div class="col">
                                         <div class=" mb-3">
                                             <div class="input-group-prepend">
-                                                <label class="text-dark" for="inputGroupSelect01">SECRETARIA QUE O DEPARTAMENTO PERCENTE</label>
+                                                <label class="text-dark" for="inputGroupSelect01">SECRETARIA QUE O
+                                                    DEPARTAMENTO PERCENTE</label>
                                             </div>
-                                            <select name="secretaria_id" for="secretaria_id" class="js-example-basic-single custom-select" id="inputGroupSelect01" required>
+                                            <select name="secretaria_id" for="secretaria_id"
+                                                    class="js-example-basic-single custom-select"
+                                                    id="inputGroupSelect01" required>
                                                 <option value="">Selecione a Secretaria</option>
                                                 @foreach ($secretarias as $secretaria)
-                                                    <option value="{{ $secretaria->id }}">{{ mb_strtoupper($secretaria->nomeSecretaria) }}</option>
+                                                    <option
+                                                        value="{{ $secretaria->id }}">{{ mb_strtoupper($secretaria->nomeSecretaria) }}</option>
                                                 @endforeach
                                             </select>
                                         </div>
@@ -74,12 +79,16 @@
                                     <div class="col">
                                         <div class=" mb-3">
                                             <div class="input-group-prepend">
-                                                <label class="text-dark" for="inputGroupSelect01">CHEFE DO DEPARTAMENTO (OPCIONAL)</label>
+                                                <label class="text-dark" for="inputGroupSelect01">CHEFE DO DEPARTAMENTO
+                                                    (OPCIONAL)</label>
                                             </div>
-                                            <select name="administrador_id" for="administrador_id" class="js-example-basic-single custom-select" id="inputGroupSelect01">
+                                            <select name="administrador_id" for="administrador_id"
+                                                    class="js-example-basic-single custom-select"
+                                                    id="inputGroupSelect01">
                                                 <option value="">Selecione o Servidor</option>
                                                 @foreach ($servidores as $servidor)
-                                                    <option value="{{ $servidor->id }}">{{ mb_strtoupper($servidor->user->name) }}</option>
+                                                    <option
+                                                        value="{{ $servidor->id }}">{{ mb_strtoupper($servidor->user->name) }}</option>
                                                 @endforeach
                                             </select>
                                         </div>
@@ -93,13 +102,10 @@
                                     </div>
                                 </div>
                             </div>
-
                         </div>
+                    </form>
                     </div>
             </div>
-        </div>
-        </form>
-        </div>
         </div>
     </main>
 @endsection
