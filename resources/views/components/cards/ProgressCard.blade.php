@@ -1,4 +1,3 @@
-<div class="">
     <div class="card border-bottom-info shadow h-100 py-2">
         <div class="card-body">
             <div class="row no-gutters align-items-center">
@@ -30,4 +29,3 @@
             </div>
         </div>
     </div>
-</div>

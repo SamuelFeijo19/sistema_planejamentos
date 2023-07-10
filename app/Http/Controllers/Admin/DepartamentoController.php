@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Http\Requests\DepartamentoRequest;
 use App\Models\Departamento;
 use App\Models\DepartamentoServidor;
+use App\Models\DepartamentoTarefa;
 use App\Models\Secretaria;
 use App\Models\Servidor;
 use Exception;
@@ -66,6 +67,17 @@ class DepartamentoController extends Controller
             return view('admin.departamento.novo', compact( 'servidores', 'secretarias'));
         }
             return view('admin.departamento.create', compact('secretaria_id', 'servidores'));
+    }
+
+    public function relatorioDepartamento(Request $request, $departamento_id){
+        $countTarefasAbertas = DepartamentoTarefa::where('situacao', '<>', 3)
+            ->where('departamento_id', $departamento_id)->count();
+
+        $backlogTasks = 30;
+        $doingTasks = 50;
+        $codeReviewTasks = 20;
+
+        return view('admin.departamento.relatorio', compact('countTarefasAbertas', 'backlogTasks', 'doingTasks', 'codeReviewTasks'));
     }
 
     /**

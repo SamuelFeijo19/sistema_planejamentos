@@ -127,4 +127,7 @@ Route::prefix('')->middleware('autenticacao')->group(function () {
 
     Route::get('/departamentos/by/secretaria/{secretaria}', [\App\Http\Controllers\Admin\DivisaoController::class, 'getBySecretaria'])->name('departamentos.porSecretaria');
 
+    //NOVA ROTA PARA RELATORIOS
+    Route::get('/departamento/{departamento_id}/relatorio', [\App\Http\Controllers\Admin\DepartamentoController::class, 'relatorioDepartamento'])->name('departamento.relatorio');
+
 });
