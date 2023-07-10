@@ -57,7 +57,9 @@ class DivisaoTarefaController extends Controller
                 //  1 = Média prioridade
                 //  2 = Alta Prioridade
 
-                'numeroChamado' => $request->numeroChamado
+                'numeroChamado' => $request->numeroChamado,
+                'data_conclusao_prevista' => $request->data_conclusao_prevista,
+                'data_conclusao' => $request->data_conclusao
             ]);
             DB::commit();
             //resetar csrf token
@@ -126,7 +128,9 @@ class DivisaoTarefaController extends Controller
                 //  1 = Média prioridade
                 //  2 = Alta Prioridade
 
-                'numeroChamado' => $request->numeroChamado
+                'numeroChamado' => $request->numeroChamado,
+                'data_conclusao_prevista' => $request->data_conclusao_prevista,
+                'data_conclusao' => $request->data_conclusao
             ]);
             DB::commit();
             //resetar csrf token
