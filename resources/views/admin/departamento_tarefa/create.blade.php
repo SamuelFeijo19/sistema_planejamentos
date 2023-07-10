@@ -90,6 +90,18 @@
                         <div class="row">
                             <div class="col">
                                 <div class="form-group">
+                                    <label for="data_conclusao_prevista" class="text-dark mb-0">Data Prevista para Conclusão da Tarefa:</label>
+                                    <input type="date" class="text-dark input-group" name="data_conclusao_prevista" id="data_conclusao_prevista">
+                                </div>
+                                @error('data_conclusao_prevista')
+                                <div class="alert alert-danger">{{ $message }}</div>
+                                @enderror
+                            </div>
+                        </div>
+
+                        <div class="row">
+                            <div class="col">
+                                <div class="form-group">
                                     <label for="situacao">Descricao da Tarefa:</label>
                                     <br>
                                     <div class="form-check form-check-inline">

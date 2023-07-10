@@ -18,7 +18,9 @@ class DepartamentoTarefa extends Model
         'descricao',
         'situacao',
         'classificacao',
-        'numeroChamado'
+        'numeroChamado',
+        'data_conclusao_prevista',
+        'data_conclusao'
     ];
 
     public function departamento()

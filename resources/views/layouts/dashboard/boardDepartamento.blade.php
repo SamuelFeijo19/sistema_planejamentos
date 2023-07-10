@@ -139,6 +139,7 @@
                                 modalBody.append('<p><strong>Classificação:</strong> ' + prioridade + '</p>');
                                 modalBody.append('<p><strong>Situação:</strong> ' + situacao + '</p>');
                                 modalBody.append('<p><strong>Número do Chamado:</strong> ' + (response.numeroChamado !== null ? response.numeroChamado : 'Não informado') + '</p>');
+                                modalBody.append('<p><strong>Data Prevista para Conclusão da Tarefa:</strong> ' + (response.data_conclusao_prevista !== null ? response.data_conclusao_prevista : 'Não informado') + '</p>');
 
                                 var editButton = '<a class="" href="{{ route("tarefasDepartamento.edit", ":taskId") }}"><span class="material-symbols-outlined">edit_note</span></a>';
                                 var doneButton = '<a class="" href="{{ route("taskDepartamento.updateStatus", ":taskId") }}"><span class="material-symbols-outlined">check_circle</span></a>';

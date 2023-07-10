@@ -60,7 +60,8 @@ class DepartamentoTarefaController extends Controller
                 //  1 = Média prioridade
                 //  2 = Alta Prioridade
 
-                'numeroChamado' => $request->numeroChamado
+                'numeroChamado' => $request->numeroChamado,
+                'data_conclusao_prevista' => $request->data_conclusao_prevista
             ]);
             DB::commit();
             //resetar csrf token
@@ -80,18 +81,21 @@ class DepartamentoTarefaController extends Controller
             if($task->criador_id == auth()->user()->id || auth()->user()->is_admin) {
 
                 $task->situacao = 3; // Assuming 3 represents the "done" status
+                $task->data_conclusao = date('Y-m-d'); // Set the current date as the completion date
                 $task->save();
 
                 // Optionally, you can return a response or redirect to a specific page
                 return redirect()->back()->with(['type' => 'success', 'message' => 'Tarefa concluída!']);
-            }else
+            } else {
                 return redirect()->back()->with(['type' => 'error', 'message' => 'Você não tem permissão para atualizar esta tarefa.']);
+            }
         } catch (Exception $exception) {
             DB::rollBack();
 
             return redirect()->back()->with(['type' => 'error', 'message' => 'Erro ao atualizar status da tarefa!']);
         }
     }
+
 
     /**
      * Display the specified resource.
@@ -147,7 +151,8 @@ class DepartamentoTarefaController extends Controller
                 //  1 = Média prioridade
                 //  2 = Alta Prioridade
 
-                'numeroChamado' => $request->numeroChamado
+                'numeroChamado' => $request->numeroChamado,
+                'data_conclusao_prevista' => $request->data_conclusao_prevista
             ]);
             DB::commit();
             //resetar csrf token
