@@ -70,14 +70,38 @@ class DepartamentoController extends Controller
     }
 
     public function relatorioDepartamento(Request $request, $departamento_id){
-        $countTarefasAbertas = DepartamentoTarefa::where('situacao', '<>', 3)
-            ->where('departamento_id', $departamento_id)->count();
+        $openTasks = DepartamentoTarefa::where('situacao', '<>', 3)->where('departamento_id', $departamento_id)->count();
 
-        $backlogTasks = 30;
-        $doingTasks = 50;
-        $codeReviewTasks = 20;
+        $totalTasks = DepartamentoTarefa::where('departamento_id', $departamento_id)->count();
 
-        return view('admin.departamento.relatorio', compact('countTarefasAbertas', 'backlogTasks', 'doingTasks', 'codeReviewTasks'));
+        //SITUACOES DAS TAREFAS
+        $backlogTasks = DepartamentoTarefa::where('situacao', 0)->where('departamento_id', $departamento_id)->count();
+        $doingTasks = DepartamentoTarefa::where('situacao', 1)->where('departamento_id', $departamento_id)->count();
+        $codeReviewTasks = DepartamentoTarefa::where('situacao', 2)->where('departamento_id', $departamento_id)->count();
+        $closedTasks = DepartamentoTarefa::where('situacao', 3)->where('departamento_id', $departamento_id)->count();
+
+        //CLASSIFICACAO DAS TAREFAS
+        $baixaPrioridade = DepartamentoTarefa::where('classificacao', 0)->where('departamento_id', $departamento_id)->count();
+        $mediaPrioridade = DepartamentoTarefa::where('classificacao', 1)->where('departamento_id', $departamento_id)->count();
+        $altaPrioridade = DepartamentoTarefa::where('classificacao', 2)->where('departamento_id', $departamento_id)->count();
+
+        //PORCENTAGENS DE SITUACOES DAS TAREFAS
+        if ($totalTasks !== 0) {
+            $porcentBaixaPrioridade = ($baixaPrioridade / $totalTasks) * 100;
+            $porcentMediaPrioridade = ($mediaPrioridade / $totalTasks) * 100;
+            $porcentAltaPrioridade = ($altaPrioridade / $totalTasks) * 100;
+            $porcentTarefasFechadas = ($closedTasks / $totalTasks) * 100;
+        } else {
+            $porcentBaixaPrioridade = 0;
+            $porcentMediaPrioridade = 0;
+            $porcentAltaPrioridade = 0;
+            $porcentTarefasFechadas = 0;
+        }
+
+        $porcentagemAndamento = ($closedTasks / max($closedTasks + $openTasks, 1)) * 100;
+
+        return view('admin.departamento.relatorio', compact('totalTasks','openTasks', 'closedTasks', 'backlogTasks',
+            'doingTasks', 'codeReviewTasks', 'porcentBaixaPrioridade', 'porcentMediaPrioridade', 'porcentAltaPrioridade', 'porcentTarefasFechadas', 'porcentagemAndamento'));
     }
 
     /**

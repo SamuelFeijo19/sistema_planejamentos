@@ -24,7 +24,7 @@
                                 </div>
 
                                 <div class="h5 mb-0 font-weight-bold text-gray-800">
-                                    <div style="float: left;">6 Tarefas</div>
+                                    <div style="float: left;">{{$totalTasks}} Tarefas</div>
                                 </div>
                             </div>
                         </div>
@@ -46,7 +46,7 @@
                                     check_circle
                                 </span>
                                 </div>
-                                <div class="h5 mb-0 font-weight-bold text-gray-800">4 Tarefas</div>
+                                <div class="h5 mb-0 font-weight-bold text-gray-800">{{$closedTasks}} Tarefas</div>
                             </div>
                         </div>
                     </div>
@@ -69,7 +69,7 @@
                                 </div>
 
                                 <div class="h5 mb-0 font-weight-bold text-gray-800">
-                                    <div style="float: left;">3 Tarefas</div>
+                                    <div style="float: left;">{{$openTasks}} Tarefas</div>
                                 </div>
                             </div>
                             <div class="col-auto">
@@ -97,14 +97,14 @@
                                 <div class="row no-gutters align-items-center">
                                     <div class="col-auto">
                                         <div class="h5 mb-0 mr-3 font-weight-bold text-gray-800">
-                                            {{ number_format($porcentagemAndamento=5, 1) }}%
+                                            {{ number_format($porcentagemAndamento, 1) }}%
                                         </div>
                                     </div>
                                     <div class="col">
                                         <div class="progress progress-sm mr-2">
                                             <div class="progress-bar bg-info" role="progressbar"
                                                  style="width: {{ $porcentagemAndamento }}%"
-                                                 aria-valuenow="{{ $porcentagemAndamento=5 }}"
+                                                 aria-valuenow="{{ $porcentagemAndamento }}"
                                                  aria-valuemin="0" aria-valuemax="100"></div>
                                         </div>
                                     </div>
@@ -148,28 +148,32 @@
                 </div>
                 <div class="card-body">
                     <h4 class="small font-weight-bold">Baixa Prioridade<span
-                            class="float-right">20%</span></h4>
+                            class="float-right">{{ number_format($porcentBaixaPrioridade, 1) }}%</span></h4>
                     <div class="progress mb-4">
-                        <div class="progress-bar bg-success" role="progressbar" style="width: 20%"
-                             aria-valuenow="20" aria-valuemin="0" aria-valuemax="100"></div>
+                        <div class="progress-bar bg-success" role="progressbar" style="width: {{ $porcentBaixaPrioridade }}%"
+                             aria-valuenow="{{ $porcentBaixaPrioridade }}"
+                             aria-valuemin="0" aria-valuemax="100"></div>
                     </div>
                     <h4 class="small font-weight-bold">Média Prioridade<span
-                            class="float-right">40%</span></h4>
+                            class="float-right">{{ number_format($porcentMediaPrioridade, 1) }}%</span></h4>
                     <div class="progress mb-4">
-                        <div class="progress-bar bg-warning" role="progressbar" style="width: 40%"
-                             aria-valuenow="40" aria-valuemin="0" aria-valuemax="100"></div>
+                        <div class="progress-bar bg-warning" role="progressbar" style="width: {{ $porcentMediaPrioridade }}%"
+                             aria-valuenow="{{ $porcentMediaPrioridade }}"
+                             aria-valuemin="0" aria-valuemax="100"></div>
                     </div>
                     <h4 class="small font-weight-bold">Alta Prioridade<span
-                            class="float-right">60%</span></h4>
+                            class="float-right">{{ number_format($porcentAltaPrioridade, 1) }}%</span></h4>
                     <div class="progress mb-4">
-                        <div class="progress-bar bg-danger" role="progressbar" style="width: 60%"
-                             aria-valuenow="10" aria-valuemin="0" aria-valuemax="100"></div>
+                        <div class="progress-bar bg-danger" role="progressbar" style="width: {{ $porcentAltaPrioridade }}%"
+                             aria-valuenow="{{ $porcentAltaPrioridade }}"
+                             aria-valuemin="0" aria-valuemax="100"></div>
                     </div>
                     <h4 class="small font-weight-bold">Tarefas Fechadas<span
-                            class="float-right">60%</span></h4>
+                            class="float-right">{{ number_format($porcentTarefasFechadas, 1) }}%</span></h4>
                     <div class="progress mb-4">
-                        <div class="progress-bar" role="progressbar" style="width: 10%"
-                             aria-valuenow="1" aria-valuemin="0" aria-valuemax="100"></div>
+                        <div class="progress-bar" role="progressbar" style="width: {{ $porcentTarefasFechadas }}%"
+                             aria-valuenow="{{ $porcentTarefasFechadas }}"
+                             aria-valuemin="0" aria-valuemax="100"></div>
                     </div>
                 </div>
             </div>
