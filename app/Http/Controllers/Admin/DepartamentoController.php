@@ -11,6 +11,7 @@ use App\Models\Secretaria;
 use App\Models\Servidor;
 use Exception;
 use Illuminate\Http\Request;
+use Illuminate\Support\Carbon;
 use Illuminate\Support\Facades\DB;
 
 class DepartamentoController extends Controller
@@ -70,15 +71,26 @@ class DepartamentoController extends Controller
     }
 
     public function relatorioDepartamento(Request $request, $departamento_id){
-        $openTasks = DepartamentoTarefa::where('situacao', '<>', 3)->where('departamento_id', $departamento_id)->count();
-
         $totalTasks = DepartamentoTarefa::where('departamento_id', $departamento_id)->count();
+
+        $year = Carbon::now()->year;
+        $totalTasksByMonth = [];
+
+        for ($month = 1; $month <= 12; $month++) {
+            $totalTasksMounth = DepartamentoTarefa::where('departamento_id', $departamento_id)
+                ->whereMonth('data_conclusao', $month)
+                ->whereYear('data_conclusao', $year)
+                ->count();
+
+            $totalTasksByMonth[$month] = $totalTasksMounth;
+        }
 
         //SITUACOES DAS TAREFAS
         $backlogTasks = DepartamentoTarefa::where('situacao', 0)->where('departamento_id', $departamento_id)->count();
         $doingTasks = DepartamentoTarefa::where('situacao', 1)->where('departamento_id', $departamento_id)->count();
         $codeReviewTasks = DepartamentoTarefa::where('situacao', 2)->where('departamento_id', $departamento_id)->count();
         $closedTasks = DepartamentoTarefa::where('situacao', 3)->where('departamento_id', $departamento_id)->count();
+        $openTasks = DepartamentoTarefa::where('situacao', '<>', 3)->where('departamento_id', $departamento_id)->count();
 
         //CLASSIFICACAO DAS TAREFAS
         $baixaPrioridade = DepartamentoTarefa::where('classificacao', 0)->where('departamento_id', $departamento_id)->count();
@@ -98,10 +110,16 @@ class DepartamentoController extends Controller
             $porcentTarefasFechadas = 0;
         }
 
+        $tarefasEmAtrasoDepartamento = DepartamentoTarefa::whereDate('data_conclusao_prevista', '<', now())
+            ->where('data_conclusao', '=', null)
+            ->where('departamento_id','=', $departamento_id)
+            ->get();
+
         $porcentagemAndamento = ($closedTasks / max($closedTasks + $openTasks, 1)) * 100;
 
         return view('admin.departamento.relatorio', compact('totalTasks','openTasks', 'closedTasks', 'backlogTasks',
-            'doingTasks', 'codeReviewTasks', 'porcentBaixaPrioridade', 'porcentMediaPrioridade', 'porcentAltaPrioridade', 'porcentTarefasFechadas', 'porcentagemAndamento'));
+            'doingTasks', 'codeReviewTasks', 'porcentBaixaPrioridade', 'porcentMediaPrioridade', 'porcentAltaPrioridade',
+            'porcentTarefasFechadas', 'porcentagemAndamento', 'totalTasksByMonth', 'tarefasEmAtrasoDepartamento'));
     }
 
     /**

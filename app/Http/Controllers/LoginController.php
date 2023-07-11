@@ -28,10 +28,7 @@ class LoginController extends Controller
         ]);
 
         if (Auth::attempt($credentials)) {
-            $servidorId = auth()->user()->id;
-            $lotacoes = DepartamentoServidor::where('servidor_id', $servidorId)->get();
-
-            return redirect()->route('dashboard.content', compact('lotacoes'));
+            return redirect()->route('dashboard.content');
         } else {
             return back()->withErrors([
                 'email' => 'As credenciais fornecidas não correspondem aos nossos registros.',

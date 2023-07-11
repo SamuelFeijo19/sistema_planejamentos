@@ -121,7 +121,7 @@
         <div class="row">
             <div class="card" style="width: 60%;">
                 <div class="card-header py-3">
-                    <h6 class="m-0 font-weight-bold text-primary">Relatório Mensal de tarefas</h6>
+                    <h6 class="m-0 font-weight-bold text-primary">Relatório Mensal de Tarefas Fechadas</h6>
                 </div>
                 <canvas id="lineChart"></canvas>
             </div>
@@ -139,7 +139,7 @@
     </div>
 
     {{-- GRAFICO --}}
-            <!-- Project Card Example -->
+    <!-- Project Card Example -->
     <div class="container-fluid">
         <div class="row">
             <div class="card shadow " style=" width: 60%;">
@@ -150,21 +150,24 @@
                     <h4 class="small font-weight-bold">Baixa Prioridade<span
                             class="float-right">{{ number_format($porcentBaixaPrioridade, 1) }}%</span></h4>
                     <div class="progress mb-4">
-                        <div class="progress-bar bg-success" role="progressbar" style="width: {{ $porcentBaixaPrioridade }}%"
+                        <div class="progress-bar bg-success" role="progressbar"
+                             style="width: {{ $porcentBaixaPrioridade }}%"
                              aria-valuenow="{{ $porcentBaixaPrioridade }}"
                              aria-valuemin="0" aria-valuemax="100"></div>
                     </div>
                     <h4 class="small font-weight-bold">Média Prioridade<span
                             class="float-right">{{ number_format($porcentMediaPrioridade, 1) }}%</span></h4>
                     <div class="progress mb-4">
-                        <div class="progress-bar bg-warning" role="progressbar" style="width: {{ $porcentMediaPrioridade }}%"
+                        <div class="progress-bar bg-warning" role="progressbar"
+                             style="width: {{ $porcentMediaPrioridade }}%"
                              aria-valuenow="{{ $porcentMediaPrioridade }}"
                              aria-valuemin="0" aria-valuemax="100"></div>
                     </div>
                     <h4 class="small font-weight-bold">Alta Prioridade<span
                             class="float-right">{{ number_format($porcentAltaPrioridade, 1) }}%</span></h4>
                     <div class="progress mb-4">
-                        <div class="progress-bar bg-danger" role="progressbar" style="width: {{ $porcentAltaPrioridade }}%"
+                        <div class="progress-bar bg-danger" role="progressbar"
+                             style="width: {{ $porcentAltaPrioridade }}%"
                              aria-valuenow="{{ $porcentAltaPrioridade }}"
                              aria-valuemin="0" aria-valuemax="100"></div>
                     </div>
@@ -180,91 +183,107 @@
 
             <div class="card" style="width: 38%; margin-left: 10px;">
                 <div class="card-header py-3">
-                    <h6 class="m-0 font-weight-bold text-primary">AREA EXPAND</h6>
+                    <h6 class="m-0 font-weight-bold text-primary">Tarefas em Atraso</h6>
                 </div>
-                <br><br>
-                <div class="">
-
-                    {{--                    <canvas class="" id=""></canvas>--}}
+                <div style="max-height: 400px; overflow-y: auto; overflow-x: hidden;">
+                    <div class="list-group" style="width: 100%;">
+                        @foreach($tarefasEmAtrasoDepartamento as $tarefa)
+                            <div class="list-group-item shadow-sm m-3 border-left-{{ $tarefa->classificacao == 0 ? 'primary' : ($tarefa->classificacao == 1 ? 'warning' : 'danger') }}">
+                                <div class="row">
+                                    <div class="col">
+                                        <p class="mb-1"><b>Nome: </b>{{ucwords(mb_strtolower($tarefa->nomeTarefa))}}</p>
+                                        <p class="mb-1"><b>Descrição: </b>{{ucwords(mb_strtolower($tarefa->descricao))}}</p>
+                                        <p class="mb-1"><b>Data Prevista para Conclusão: </b>
+                                            {{date('d/m/Y', strtotime($tarefa->data_conclusao_prevista))}}
+                                        </p>
+                                        <p class="mb-1"><b>Criador da Tarefa: </b>{{ ucwords(mb_strtolower($tarefa->criador->name)) }}</p>
+                                    </div>
+                                </div>
+                            </div>
+                        @endforeach
+                    </div>
                 </div>
             </div>
+
         </div>
-    </div>
 
-@endsection
+        @endsection
 
-@push('js')
-    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
-    <script>
-        // Dados do gráfico
-        var data = {
-            labels: ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'],
-            datasets: [{
-                label: 'Relatórios Mensais de Tarefas',
-                data: [10, 20, 15, 30, 25, 40, 35, 50, 45, 60, 55, 70],
-                borderColor: '#36a2eb',
-                backgroundColor: '#b5e8e1',
-                fill: true,
-            }]
-        };
+        @push('js')
+            <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+            <script>
+                // Dados do gráfico
+                var data = {
+                    labels: ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'],
+                    datasets: [{
+                        label: 'Relatórios Mensais de Tarefas Fechadas',
+                        data:
+                            [{{$totalTasksByMonth[1]}}, {{$totalTasksByMonth[2]}}, {{$totalTasksByMonth[3]}}, {{$totalTasksByMonth[4]}},
+                                {{$totalTasksByMonth[5]}}, {{$totalTasksByMonth[6]}}, {{$totalTasksByMonth[7]}}, {{$totalTasksByMonth[8]}},
+                                {{$totalTasksByMonth[9]}}, {{$totalTasksByMonth[10]}}, {{$totalTasksByMonth[11]}}, {{$totalTasksByMonth[12]}}],
+                        borderColor: '#36a2eb',
+                        backgroundColor: '#b5e8e1',
+                        fill: true,
+                    }]
+                };
 
-        // Opções do gráfico
-        var options = {
-            responsive: true,
-            maintainAspectRatio: true,
-            scales: {
-                y: {
-                    beginAtZero: true,
-                    max: 100,
-                    title: {
-                        display: true,
-                        text: 'Relatórios'
+                // Opções do gráfico
+                var options = {
+                    responsive: true,
+                    maintainAspectRatio: true,
+                    scales: {
+                        y: {
+                            beginAtZero: true,
+                            max: 10,
+                            title: {
+                                display: true,
+                                text: 'Relatórios'
+                            }
+                        },
+                        x: {
+                            title: {
+                                display: true,
+                                text: 'Mês'
+                            }
+                        }
                     }
-                },
-                x: {
-                    title: {
-                        display: true,
-                        text: 'Mês'
-                    }
-                }
-            }
-        };
+                };
 
-        // Criar o gráfico de linhas
-        var ctx = document.getElementById('lineChart').getContext('2d');
-        var lineChart = new Chart(ctx, {
-            type: 'line',
-            data: data,
-            options: options
-        });
+                // Criar o gráfico de linhas
+                var ctx = document.getElementById('lineChart').getContext('2d');
+                var lineChart = new Chart(ctx, {
+                    type: 'line',
+                    data: data,
+                    options: options
+                });
 
 
-        // Dados do gráfico
-        var data = {
-            labels: ['Backlog', 'Doing', 'Code Review'],
-            datasets: [{
-                data: [
-                    {{ $backlogTasks }},
-                    {{ $doingTasks }},
-                    {{ $codeReviewTasks }}
-                ],
-                backgroundColor: ['#ff6384', '#ffce56', '#36a2eb']
-            }]
-        };
+                // Dados do gráfico
+                var data = {
+                    labels: ['Backlog', 'Doing', 'Code Review'],
+                    datasets: [{
+                        data: [
+                            {{ $backlogTasks }},
+                            {{ $doingTasks }},
+                            {{ $codeReviewTasks }}
+                        ],
+                        backgroundColor: ['#ff6384', '#ffce56', '#36a2eb']
+                    }]
+                };
 
-        // Opções do gráfico
-        var options = {
-            responsive: true,
-            maintainAspectRatio: false
-        };
+                // Opções do gráfico
+                var options = {
+                    responsive: true,
+                    maintainAspectRatio: false
+                };
 
-        // Criar o gráfico de donuts
-        var ctx = document.getElementById('donutChart').getContext('2d');
-        var donutChart = new Chart(ctx, {
-            type: 'doughnut',
-            data: data,
-            options: options
-        });
-    </script>
-@endpush
+                // Criar o gráfico de donuts
+                var ctx = document.getElementById('donutChart').getContext('2d');
+                var donutChart = new Chart(ctx, {
+                    type: 'doughnut',
+                    data: data,
+                    options: options
+                });
+            </script>
+    @endpush
 

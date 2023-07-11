@@ -20,7 +20,8 @@
     <link
         href="https://fonts.googleapis.com/css?family=Nunito:200,200i,300,300i,400,400i,600,600i,700,700i,800,800i,900,900i"
         rel="stylesheet">
-    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@48,400,0,0" />
+    <link rel="stylesheet"
+          href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@48,400,0,0"/>
     <!-- Custom styles for this template-->
     <link rel="stylesheet" href="{{asset('./css/dashboard/sb-admin-2.min.css')}}">
     <style>
@@ -37,21 +38,23 @@
                 column-count: 3;
             }
         }
-        @media(max-width: 767px) {
+
+        @media (max-width: 767px) {
             .card-columns {
                 column-count: 1;
             }
         }
-        .ajuste{
+
+        .ajuste {
             padding-left: 0 !important;
         }
 
-        h3{
+        h3 {
             font-weight: bold;
             color: #2d91cb;
         }
 
-        .list-group-item{
+        .list-group-item {
             border-radius: 5px;
         }
 
@@ -95,87 +98,89 @@ background: linear-gradient(187deg, rgba(26,122,178,1) 15%, rgba(26,122,178,1) 7
         <hr class="sidebar-divider">
 
         @if(auth()->user()->is_admin == 1)
-        <!-- Heading -->
-        <div class="sidebar-heading">
-            Unidades Adiministrativas
-        </div>
+            <!-- Heading -->
+            <div class="sidebar-heading">
+                Unidades Adiministrativas
+            </div>
 
-        <!-- Nav Item - Pages Collapse Menu -->
-        <li class="nav-item">
-            <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseTwo1"
-               aria-expanded="true" aria-controls="collapseTwo">
+            <!-- Nav Item - Pages Collapse Menu -->
+            <li class="nav-item">
+                <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseTwo1"
+                   aria-expanded="true" aria-controls="collapseTwo">
             <span class="material-symbols-outlined">
                 apartment
             </span>
-                <span>Secretarias</span>
-            </a>
-            <div id="collapseTwo1" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
-                <div class="bg-white py-2 collapse-inner rounded">
-                    <a class="collapse-item" href="{{route('secretarias.index')}}">Secretarias</a>
-                    <a class="collapse-item" href="{{route('secretarias.create')}}">Nova Secretaria</a>
+                    <span>Secretarias</span>
+                </a>
+                <div id="collapseTwo1" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
+                    <div class="bg-white py-2 collapse-inner rounded">
+                        <a class="collapse-item" href="{{route('secretarias.index')}}">Secretarias</a>
+                        <a class="collapse-item" href="{{route('secretarias.create')}}">Nova Secretaria</a>
+                    </div>
                 </div>
-            </div>
-        </li>
+            </li>
 
-        <li class="nav-item">
-            <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseTwo0"
-               aria-expanded="true" aria-controls="collapseTwo0">
+            <li class="nav-item">
+                <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseTwo0"
+                   aria-expanded="true" aria-controls="collapseTwo0">
                 <span class="material-symbols-outlined">
                     meeting_room
                 </span>
-                <span>Departamentos</span>
-            </a>
-            <div id="collapseTwo0" class="collapse" aria-labelledby="headingTwo0" data-parent="#accordionSidebar">
-                <div class="bg-white py-2 collapse-inner rounded ">
-                    <div style="">
-                        <a class="collapse-item ajuste" href="{{route('departamento.index')}}">Departamentos Cadastrados</a>
-                        <a class="collapse-item ajuste" href="{{route('departamento.create', $secretaria_id=0)}}">Novo Departamento</a>
+                    <span>Departamentos</span>
+                </a>
+                <div id="collapseTwo0" class="collapse" aria-labelledby="headingTwo0" data-parent="#accordionSidebar">
+                    <div class="bg-white py-2 collapse-inner rounded ">
+                        <div style="">
+                            <a class="collapse-item ajuste" href="{{route('departamento.index')}}">Departamentos
+                                Cadastrados</a>
+                            <a class="collapse-item ajuste" href="{{route('departamento.create', $secretaria_id=0)}}">Novo
+                                Departamento</a>
+                        </div>
                     </div>
                 </div>
-            </div>
-        </li>
+            </li>
 
-        <!-- Nav Item - Utilities Collapse Menu -->
-        <li class="nav-item">
-            <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseUtilities"
-               aria-expanded="true" aria-controls="collapseUtilities">
+            <!-- Nav Item - Utilities Collapse Menu -->
+            <li class="nav-item">
+                <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseUtilities"
+                   aria-expanded="true" aria-controls="collapseUtilities">
                 <span class="material-symbols-outlined">
                     groups
                 </span>
-                <span>Divisões</span>
-            </a>
-            <div id="collapseUtilities" class="collapse" aria-labelledby="headingUtilities"
-                 data-parent="#accordionSidebar">
-                <div class="bg-white py-2 collapse-inner rounded">
-                    <a class="collapse-item" href="{{route('divisao.index')}}">Divisões Cadastradas</a>
-                    <a class="collapse-item" href="{{route('divisao.create', $departamento_id=0)}}">Nova Divisão</a>
+                    <span>Divisões</span>
+                </a>
+                <div id="collapseUtilities" class="collapse" aria-labelledby="headingUtilities"
+                     data-parent="#accordionSidebar">
+                    <div class="bg-white py-2 collapse-inner rounded">
+                        <a class="collapse-item" href="{{route('divisao.index')}}">Divisões Cadastradas</a>
+                        <a class="collapse-item" href="{{route('divisao.create', $departamento_id=0)}}">Nova Divisão</a>
+                    </div>
                 </div>
+            </li>
+
+            <!-- Divider -->
+            <hr class="sidebar-divider">
+
+            <!-- Heading -->
+            <div class="sidebar-heading">
+                usuários
             </div>
-        </li>
 
-        <!-- Divider -->
-        <hr class="sidebar-divider">
-
-        <!-- Heading -->
-        <div class="sidebar-heading">
-            usuários
-        </div>
-
-        <li class="nav-item">
-            <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseTwo2"
-               aria-expanded="true" aria-controls="collapseTwo">
+            <li class="nav-item">
+                <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseTwo2"
+                   aria-expanded="true" aria-controls="collapseTwo">
                 <span class="material-symbols-outlined">
                     person
                 </span>
-                <span>Servidores</span>
-            </a>
-            <div id="collapseTwo2" class="collapse" aria-labelledby="headingTwo2" data-parent="#accordionSidebar">
-                <div class="bg-white py-2 collapse-inner rounded">
-                    <a class="collapse-item" href="{{route('servidores.index')}}">Servidores Cadastrados</a>
-                    <a class="collapse-item" href="{{route('servidores.create')}}">Novo Servidor</a>
+                    <span>Servidores</span>
+                </a>
+                <div id="collapseTwo2" class="collapse" aria-labelledby="headingTwo2" data-parent="#accordionSidebar">
+                    <div class="bg-white py-2 collapse-inner rounded">
+                        <a class="collapse-item" href="{{route('servidores.index')}}">Servidores Cadastrados</a>
+                        <a class="collapse-item" href="{{route('servidores.create')}}">Novo Servidor</a>
+                    </div>
                 </div>
-            </div>
-        </li>
+            </li>
         @endif
 
         @if(auth()->user()->is_admin == 0)
@@ -212,6 +217,45 @@ background: linear-gradient(187deg, rgba(26,122,178,1) 15%, rgba(26,122,178,1) 7
 
                 <!-- Topbar Navbar -->
                 <ul class="navbar-nav ml-auto">
+                    <!-- Nav Item - Alerts -->
+                    <li class="nav-item dropdown no-arrow mx-1">
+                        <a class="nav-link dropdown-toggle" href="#" id="alertsDropdown" role="button"
+                           data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                            <i class="fa fa-bell" aria-hidden="true"></i>
+                            <!-- Counter - Alerts -->
+                            <span class="badge badge-danger badge-counter">{{$tarefasEmAtraso->count()}}</span>
+                        </a>
+                        <!-- Dropdown - Alerts -->
+                        <div class="dropdown-list dropdown-menu dropdown-menu-right shadow animated--grow-in"
+                             aria-labelledby="alertsDropdown">
+                            <h6 class="dropdown-header">
+                                Tarefas em Atraso
+                            </h6>
+                            @foreach($tarefasEmAtraso as $tarefa)
+                                <a class="dropdown-item d-flex align-items-center" href="#">
+                                    <div class="mr-3">
+                                        <div class="icon-circle bg-warning">
+                                            <i class="fa fa-exclamation-triangle text-white"></i>
+                                        </div>
+                                    </div>
+                                    <div>
+                                        <div class="small text-gray-500">
+                                            {{ \Carbon\Carbon::parse($tarefa->data_conclusao_prevista)->addDay()->format('d/m/Y') }}
+                                        </div>
+                                        <span class="font-weight-bold">A Tarefa "{{ucwords(mb_strtolower($tarefa->nomeTarefa))}}" de
+                                            {{ ucwords(mb_strtolower($tarefa instanceof \App\Models\DepartamentoTarefa ?
+                                            $tarefa->departamento->nomeDepartamento : $tarefa->divisao->nomeDivisao)) }} está em atraso!
+                                        </span>
+                                    </div>
+                                </a>
+                            @endforeach
+                        @if($tarefasEmAtraso->isEmpty())
+                                <a class="dropdown-item text-center small text-gray-500" href="#">Nenhuma Tarefa em Atraso</a>
+                            @else
+                                <a class="dropdown-item text-center small text-gray-500" href="#">*A Notificação Sumirá Assim que a Tarefa for Concluída</a>
+                            @endif
+                        </div>
+                    </li>
                     <div class="topbar-divider d-none d-sm-block"></div>
 
                     <!-- Nav Item - User Information -->
@@ -226,13 +270,13 @@ background: linear-gradient(187deg, rgba(26,122,178,1) 15%, rgba(26,122,178,1) 7
                         <div class="dropdown-menu dropdown-menu-right shadow animated--grow-in"
                              aria-labelledby="userDropdown">
                             <a class="dropdown-item text-dark" href="{{ route('perfil.show', auth()->user()->id) }}">
-                                <i class="fas fa-user fa-sm fa-fw mr-2 text-gray-400"></i>
+                                <i class="fa fa-user fa-sm fa-fw mr-2 text-gray-400"></i>
                                 Perfil
                             </a>
 
                             <div class="dropdown-divider"></div>
                             <a class="dropdown-item" href="#" data-toggle="modal" data-target="#logoutModal">
-                                <i class="fas fa-sign-out-alt fa-sm fa-fw mr-2 text-gray-400"></i>
+                                <i class="fa fa-sign-out fa-sm fa-fw mr-2 text-gray-400"></i>
                                 Sair
                             </a>
                         </div>
@@ -249,7 +293,8 @@ background: linear-gradient(187deg, rgba(26,122,178,1) 15%, rgba(26,122,178,1) 7
         <footer class="sticky-footer bg-white">
             <div class="container my-auto">
                 <div class="copyright text-center my-auto">
-                    &copy; Direito Autoral <strong><span>Prefeitura de Rio Branco</span></strong>. Todos os Direitos Reservados.
+                    &copy; Direito Autoral <strong><span>Prefeitura de Rio Branco</span></strong>. Todos os Direitos
+                    Reservados.
                 </div>
             </div>
         </footer>

@@ -55,8 +55,8 @@ class HomeController extends Controller
 
         // PORCENTAGEM DO ANDAMENTO DAS TAREFAS
         $porcentagemAndamento = ($countTarefasfechadas / max($countTarefasfechadas + $countTarefasAbertas, 1)) * 100;
-
-        return view('layouts.dashboard.home', compact('departamentos', 'divisoes', 'countTarefasAbertas', 'countTarefasfechadas', 'porcentagemAndamento', 'countTarefasUrgentes'));
+        return view('layouts.dashboard.home', compact('departamentos', 'divisoes', 'countTarefasAbertas',
+            'countTarefasfechadas', 'porcentagemAndamento', 'countTarefasUrgentes'));
     }
 
 }

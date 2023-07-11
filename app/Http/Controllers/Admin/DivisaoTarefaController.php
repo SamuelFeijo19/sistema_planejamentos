@@ -149,6 +149,7 @@ class DivisaoTarefaController extends Controller
             if($task->criador_id == auth()->user()->id || auth()->user()->is_admin) {
 
                 $task->situacao = 3; // Assuming 3 represents the "done" status
+                $task->data_conclusao = date('Y-m-d'); // Set the current date as the completion date
                 $task->save();
 
                 // Optionally, you can return a response or redirect to a specific page

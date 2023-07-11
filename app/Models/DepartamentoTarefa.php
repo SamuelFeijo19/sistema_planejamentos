@@ -28,4 +28,9 @@ class DepartamentoTarefa extends Model
         return $this->belongsTo(Departamento::class, 'departamento_id', 'id');
     }
 
+    public function criador()
+    {
+        return $this->belongsTo(User::class, 'criador_id', 'id');
+    }
+
 }
