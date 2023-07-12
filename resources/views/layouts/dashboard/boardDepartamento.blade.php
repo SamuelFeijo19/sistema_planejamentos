@@ -13,14 +13,17 @@
             border-radius: 7px;">
         <div class="clearfix">
             <div class="float-left">
-                <h3 style="padding-left:30px; color: #2d91cb;">
+                <h3>
                     <b>{{ucwords(strtolower($departamento->nomeDepartamento))}}</b></h3>
             </div>
+            <br><br>
 
             {{--Componente do Botão de Adicionar--}}
             <x-adicionar.adicionar-button link-route="{{route('tarefasDepartamento.create', $departamento->id)}}"
                                           text-button="Nova Tarefa"/>
 
+            {{--Componente do Botão de Relatórios--}}
+            <x-adicionar.relatorio-button link-route="{{route('departamento.relatorio', $departamento->id)}}"/>
         </div>
 
         <div class="container col-sm-12 ">

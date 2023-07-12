@@ -28,4 +28,9 @@ class DivisaoTarefa extends Model
         return $this->belongsTo(Divisao::class, 'divisao_id', 'id');
     }
 
+    public function criador()
+    {
+        return $this->belongsTo(User::class, 'criador_id', 'id');
+    }
+
 }

@@ -187,7 +187,7 @@
                 </div>
                 <div style="max-height: 400px; overflow-y: auto; overflow-x: hidden;">
                     <div class="list-group" style="width: 100%;">
-                        @foreach($tarefasEmAtrasoDepartamento as $tarefa)
+                        @foreach($tarefasEmAtraso as $tarefa)
                             <div class="list-group-item shadow-sm m-3 border-left-{{ $tarefa->classificacao == 0 ? 'primary' : ($tarefa->classificacao == 1 ? 'warning' : 'danger') }}">
                                 <div class="row">
                                     <div class="col">
