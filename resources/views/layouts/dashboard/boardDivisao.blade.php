@@ -6,15 +6,22 @@
 
     <div class="container-fluid shadow" style="
            background: white;
-            padding-top: 20px;
-            padding-bottom: 20px;
-            width: 98%;
-            min-height: 90%;
-            border-radius: 7px;">
+            width: 100%;
+            /*min-height: 90%;*/
+            background: url({{ asset('img/cards-bg/card-bg7.webp') }}) no-repeat center center fixed;
+            background-color: rgba(0,0,0,0.4);
+            background-blend-mode: color;
+            max-height: 100vh;
+            overflow-y: auto;
+            overflow-x: hidden;
+            background-size: cover;
+            background-position: center;
+            ">
 
         <div class="clearfix">
             <div class="float-left">
-                <h3 class="ml-2">
+                <br>
+                <h3 class="text-white">
                     <b>{{ucwords(strtolower($divisao->nomeDivisao))}}</b></h3>
             </div><br><br>
             {{--Componente do Botão de Adicionar--}}
@@ -30,8 +37,8 @@
         <div class="container col-sm-12 ">
             <div class="row">
                 @foreach($servidores as $servidor)
-                    <div class="servidor-container shadow col-sm-5">
-                        <h4 style="padding: 5px; margin-left: 10px;">{{$servidor->user->name}}</h4>
+                    <div class="servidor-container shadow col-sm-5 bg-gradient-light text-primary" style="border-radius: 5px;">
+                        <h4 style="padding: 5px;">{{$servidor->user->name}}</h4>
                         <div class="board">
 
                             {{-- TAREFAS EM BACKLOG --}}

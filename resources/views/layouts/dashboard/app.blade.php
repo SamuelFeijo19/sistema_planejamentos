@@ -50,6 +50,7 @@
         }
 
         h3 {
+            margin-top: 20px;
             font-weight: bold;
             color: #2d91cb;
         }
@@ -70,6 +71,7 @@
     <ul class="navbar-nav bg-gradient-info sidebar sidebar-dark accordion" id="accordionSidebar"
         style="background: rgb(26,122,178);
 background: linear-gradient(187deg, rgba(26,122,178,1) 15%, rgba(26,122,178,1) 76%, rgba(54,151,212,1) 92%, rgba(90,188,255,1) 100%);
+
 "
     >
 
@@ -213,7 +215,7 @@ background: linear-gradient(187deg, rgba(26,122,178,1) 15%, rgba(26,122,178,1) 7
         <div id="content">
 
             <!-- Topbar -->
-            <nav class="navbar navbar-expand navbar-light bg-white topbar mb-4 static-top shadow">
+            <nav class="navbar navbar-expand navbar-light bg-white topbar static-top shadow">
 
                 <!-- Topbar Navbar -->
                 <ul class="navbar-nav ml-auto">
@@ -249,7 +251,7 @@ background: linear-gradient(187deg, rgba(26,122,178,1) 15%, rgba(26,122,178,1) 7
                                     </div>
                                 </a>
                             @endforeach
-                        @if($tarefasEmAtraso->isEmpty())
+                            @if($tarefasEmAtraso->isEmpty())
                                 <a class="dropdown-item text-center small text-gray-500" href="#">Nenhuma Tarefa em Atraso</a>
                             @else
                                 <a class="dropdown-item text-center small text-gray-500" href="#">*A Notificação Sumirá Assim que a Tarefa for Concluída</a>
