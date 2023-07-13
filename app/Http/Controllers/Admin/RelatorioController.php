@@ -43,48 +43,45 @@ class RelatorioController extends Controller
 
     public function relatorioDepartamento(Request $request, $departamento_id)
     {
-        return $this->generateRelatorio($departamento_id, 'departamento');
+        return $this->generateRelatorio($departamento_id, new DepartamentoTarefa());
     }
 
     public function relatorioDivisao(Request $request, $divisao_id)
     {
-        return $this->generateRelatorio($divisao_id, 'divisao');
+        return $this->generateRelatorio($divisao_id, new DivisaoTarefa());
     }
 
-    private function generateRelatorio($id, $type)
+    private function generateRelatorio($id, $model)
     {
-        $model = $type == 'departamento' ? 'DepartamentoTarefa' : 'DivisaoTarefa';
-
-        if ($model == "DepartamentoTarefa")
-            $model = new DepartamentoTarefa;
-        else
-            $model = new DivisaoTarefa;
-
-        $totalTasks = $model::where($type . '_id', $id)->count();
+        $tabela = $model::where(function ($query) use ($id, $model) {
+            $query->where($model == new DepartamentoTarefa() ? 'departamento_id' : 'divisao_id', $id);
+        })->get();
+        $totalTasks = $tabela->count();
 
         $year = Carbon::now()->year;
         $totalTasksByMonth = [];
 
         for ($month = 1; $month <= 12; $month++) {
-            $totalTasksMonth = $model::where($type . '_id', $id)
-                ->whereMonth('data_conclusao', $month)
-                ->whereYear('data_conclusao', $year)
-                ->count();
+            $totalTasksMonth = $model->where(function ($query) use ($id, $model, $month, $year) {
+                $query->where($model == new DepartamentoTarefa() ? 'departamento_id' : 'divisao_id', $id)
+                    ->whereMonth('data_conclusao', $month)
+                    ->whereYear('data_conclusao', $year);
+            })->count();
 
             $totalTasksByMonth[$month] = $totalTasksMonth;
         }
 
         //SITUACOES DAS TAREFAS
-        $backlogTasks = $model::where('situacao', 0)->where($type . '_id', $id)->count();
-        $doingTasks = $model::where('situacao', 1)->where($type . '_id', $id)->count();
-        $codeReviewTasks = $model::where('situacao', 2)->where($type . '_id', $id)->count();
-        $closedTasks = $model::where('situacao', 3)->where($type . '_id', $id)->count();
-        $openTasks = $model::where('situacao', '<>', 3)->where($type . '_id', $id)->count();
+        $backlogTasks = $tabela->where('situacao', 0)->count();
+        $doingTasks = $tabela->where('situacao', 1)->count();
+        $codeReviewTasks = $tabela->where('situacao', 2)->count();
+      $closedTasks = $tabela->where('situacao', '=', 3)->count();
+        $openTasks = $tabela->where('situacao', '<>', 3)->count();
 
         //CLASSIFICACAO DAS TAREFAS
-        $baixaPrioridade = $model::where('classificacao', 0)->where($type . '_id', $id)->count();
-        $mediaPrioridade = $model::where('classificacao', 1)->where($type . '_id', $id)->count();
-        $altaPrioridade = $model::where('classificacao', 2)->where($type . '_id', $id)->count();
+        $baixaPrioridade = $tabela->where('classificacao', 0)->count();
+        $mediaPrioridade = $tabela->where('classificacao', 1)->count();
+        $altaPrioridade = $tabela->where('classificacao', 2)->count();
 
         //PORCENTAGENS DE SITUACOES DAS TAREFAS
         if ($totalTasks !== 0) {
@@ -99,30 +96,28 @@ class RelatorioController extends Controller
             $porcentTarefasFechadas = 0;
         }
 
-        $tarefasEmAtraso = $model::whereDate('data_conclusao_prevista', '<', now())
-            ->where('data_conclusao', '=', null)
-            ->where($type . '_id', '=', $id)
-            ->get();
+        $tarefasEmAtraso = $tabela->where('data_conclusao_prevista', '<', now())
+            ->whereNull('data_conclusao');
+
 
         $porcentagemAndamento = ($closedTasks / max($closedTasks + $openTasks, 1)) * 100;
 
-        return view('admin.departamento.relatorio', compact('totalTasks','openTasks', 'closedTasks', 'backlogTasks',
+        return view('admin.departamento.relatorio', compact('totalTasks', 'openTasks', 'closedTasks', 'backlogTasks',
             'doingTasks', 'codeReviewTasks', 'porcentBaixaPrioridade', 'porcentMediaPrioridade', 'porcentAltaPrioridade',
             'porcentTarefasFechadas', 'porcentagemAndamento', 'totalTasksByMonth', 'tarefasEmAtraso'));
     }
 
 
-
     /**
      * Show the form for creating a new resource.
      *
-     * @param  int  $id
+     * @param int $id
+     * @param \Illuminate\Http\Request $request
      * @return \Illuminate\Http\Response
-
-    /**
+     *
+     * /**
      * Store a newly created resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
     public function store()
@@ -133,7 +128,7 @@ class RelatorioController extends Controller
     /**
      * Display the specified resource.
      *
-     * @param  int  $id
+     * @param int $id
      * @return \Illuminate\Http\Response
      */
     public function show()
@@ -144,7 +139,7 @@ class RelatorioController extends Controller
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  int  $id
+     * @param int $id
      * @return \Illuminate\Http\Response
      */
     public function edit()
@@ -155,8 +150,8 @@ class RelatorioController extends Controller
     /**
      * Update the specified resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
+     * @param \Illuminate\Http\Request $request
+     * @param int $id
      * @return \Illuminate\Http\Response
      */
     public function update()
@@ -167,7 +162,7 @@ class RelatorioController extends Controller
     /**
      * Remove the specified resource from storage.
      *
-     * @param  int  $id
+     * @param int $id
      * @return \Illuminate\Http\Response
      */
     public function destroy()
