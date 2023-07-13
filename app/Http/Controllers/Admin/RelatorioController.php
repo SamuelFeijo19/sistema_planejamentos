@@ -54,7 +54,7 @@ class RelatorioController extends Controller
     private function generateRelatorio($id, $model)
     {
         $tabela = $model::where(function ($query) use ($id, $model) {
-            $query->where($model === 'departamento_tarefa' ? 'departamento_id' : 'divisao_id', $id);
+            $query->where($model == new DepartamentoTarefa() ? 'departamento_id' : 'divisao_id', $id);
         });
         $totalTasks = $tabela->count();
 
@@ -62,10 +62,11 @@ class RelatorioController extends Controller
         $totalTasksByMonth = [];
 
         for ($month = 1; $month <= 12; $month++) {
-            $totalTasksMonth = $tabela
-                ->whereMonth('data_conclusao', $month)
-                ->whereYear('data_conclusao', $year)
-                ->count();
+            $totalTasksMonth = $model->where(function ($query) use ($id, $model, $month, $year) {
+                $query->where($model == new DepartamentoTarefa() ? 'departamento_id' : 'divisao_id', $id)
+                    ->whereMonth('data_conclusao', $month)
+                    ->whereYear('data_conclusao', $year);
+            })->count();
 
             $totalTasksByMonth[$month] = $totalTasksMonth;
         }
