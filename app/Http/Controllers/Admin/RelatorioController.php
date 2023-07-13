@@ -55,7 +55,7 @@ class RelatorioController extends Controller
     {
         $tabela = $model::where(function ($query) use ($id, $model) {
             $query->where($model == new DepartamentoTarefa() ? 'departamento_id' : 'divisao_id', $id);
-        });
+        })->get();
         $totalTasks = $tabela->count();
 
         $year = Carbon::now()->year;
@@ -75,7 +75,7 @@ class RelatorioController extends Controller
         $backlogTasks = $tabela->where('situacao', 0)->count();
         $doingTasks = $tabela->where('situacao', 1)->count();
         $codeReviewTasks = $tabela->where('situacao', 2)->count();
-        $closedTasks = $tabela->where('situacao', 3)->count();
+      $closedTasks = $tabela->where('situacao', '=', 3)->count();
         $openTasks = $tabela->where('situacao', '<>', 3)->count();
 
         //CLASSIFICACAO DAS TAREFAS
@@ -96,9 +96,9 @@ class RelatorioController extends Controller
             $porcentTarefasFechadas = 0;
         }
 
-        $tarefasEmAtraso = $tabela->whereDate('data_conclusao_prevista', '<', now())
-            ->where('data_conclusao', '=', null)
-            ->get();
+        $tarefasEmAtraso = $tabela->where('data_conclusao_prevista', '<', now())
+            ->whereNull('data_conclusao');
+
 
         $porcentagemAndamento = ($closedTasks / max($closedTasks + $openTasks, 1)) * 100;
 
