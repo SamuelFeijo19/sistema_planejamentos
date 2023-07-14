@@ -2,13 +2,6 @@
 
 @section('content')
     <style>
-        h3{
-            color: #2d91cb;
-            font-weight: bold;
-        }
-        .container-fluid{
-            /*background: #eeeeee;*/
-        }
         .input-group{
             display: block;
             color: #e2e3e8;

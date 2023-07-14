@@ -23,7 +23,7 @@
             <div class="w-100">
                 <div class="list-group">
                     @foreach ($lotacoesDepartamento as $lotacao)
-                        <div class="list-group-item shadow-sm">
+                        <div class="list-group-item shadow-sm border-left-info">
                             <div class="row">
                                 <div class="col">
                                     <p class="mb-1"><b>Nome do Servidor:</b> {{ ucwords(mb_strtolower($lotacao->servidor->user->name)) }}</p>
@@ -40,9 +40,6 @@
                                     <div class="text-right">
                                         <a href="#" class="delete" data-route="{{ route('departamentoServidor.destroy', $lotacao->id) }}">
                                             <span class="material-symbols-outlined text-danger">delete</span>
-                                        </a>
-                                        <a href="{{ route('departamentoServidor.edit', $lotacao->id) }}">
-                                            <span class="material-symbols-outlined">edit_note</span>
                                         </a>
                                     </div>
                                 </div>

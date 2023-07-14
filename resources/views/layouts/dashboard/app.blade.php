@@ -116,7 +116,7 @@ background: linear-gradient(187deg, rgba(26,122,178,1) 15%, rgba(26,122,178,1) 7
                 </a>
                 <div id="collapseTwo1" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
                     <div class="bg-white py-2 collapse-inner rounded">
-                        <a class="collapse-item" href="{{route('secretarias.index')}}">Secretarias</a>
+                        <a class="collapse-item" href="{{route('secretarias.index')}}">Secretarias Cadastradas</a>
                         <a class="collapse-item" href="{{route('secretarias.create')}}">Nova Secretaria</a>
                     </div>
                 </div>

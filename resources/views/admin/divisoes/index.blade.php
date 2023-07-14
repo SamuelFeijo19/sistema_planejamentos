@@ -28,7 +28,7 @@
             <div class="w-100">
                 <div class="list-group">
                     @foreach ($divisoes as $divisao)
-                        <div class="list-group-item shadow-sm">
+                        <div class="list-group-item shadow-sm border-left-info">
                             <div class="row">
                                 <div class="col">
                                     <p class="mb-1"><b>Nome da Divisao:</b> {{ucwords(mb_strtolower($divisao->nomeDivisao))}}</p>

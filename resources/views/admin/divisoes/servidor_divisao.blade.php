@@ -5,7 +5,7 @@
     <div class="container-fluid">
         <div style="width: 100%">
             <div class="col col-12">
-                <h3>Servidores Cadastrados</h3>
+                <h3>Servidores Cadastrados </h3>
                 {{-- <h4 class="alert alert-warning">Preencha corretamente todos os dados referentes ao evento que será cadastrado</h4> --}}
                 <hr>
             </div>
@@ -19,7 +19,7 @@
             <div class="w-100">
                 <div class="list-group">
                     @foreach ($lotacoesDivisao as $lotacao)
-                        <div class="list-group-item shadow-sm">
+                        <div class="list-group-item shadow-sm border-left-info">
                             <div class="row">
                                 <div class="col">
                                     <p class="mb-1"><b>Nome do Servidor:</b> {{ucwords(mb_strtolower($lotacao->servidor->user->name))}}</p>
@@ -40,9 +40,6 @@
                                     <div class="text-right">
                                         <a href="#" class="delete" data-route="{{route('divisaoServidor.destroy', $lotacao->id)}}">
                                             <span class="material-symbols-outlined text-danger">delete</span>
-                                        </a>
-                                        <a href="{{route('divisaoServidor.edit', $lotacao->id)}}">
-                                            <span class="material-symbols-outlined">edit_note</span>
                                         </a>
                                     </div>
                                 </div>

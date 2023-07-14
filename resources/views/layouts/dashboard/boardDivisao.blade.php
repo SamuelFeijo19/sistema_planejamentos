@@ -20,7 +20,6 @@
 
         <div class="clearfix">
             <div class="float-left">
-                <br>
                 <h3 class="text-white">
                     <b>{{ucwords(strtolower($divisao->nomeDivisao))}}</b></h3>
             </div><br><br>
