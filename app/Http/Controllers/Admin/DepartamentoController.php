@@ -152,7 +152,9 @@ class DepartamentoController extends Controller
     public function edit($id)
     {
         $departamento = Departamento::findOrFail($id);
-        $servidores = Servidor::all();
+        $servidores = Servidor::whereHas('lotacaoDepartamento', function ($query) use ($id) {
+            $query->where('departamento_id', $id);
+        })->get();
         return view('admin.departamento.edit', compact('departamento', 'servidores'));
     }
 

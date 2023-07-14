@@ -2,7 +2,7 @@
 
 @section('content')
     <div class="col col-12">
-        <h3>Relatórios para o Departamento Teste</h3>
+        <h3>Relatórios para {{ucwords(mb_strtolower($nomeUnidadeAdministrativa))}}</h3>
         <hr>
     </div>
     <!-- Begin Page Content -->

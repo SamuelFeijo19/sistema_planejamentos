@@ -7,6 +7,7 @@ use App\Http\Requests\DepartamentoRequest;
 use App\Models\Departamento;
 use App\Models\DepartamentoServidor;
 use App\Models\DepartamentoTarefa;
+use App\Models\Divisao;
 use App\Models\DivisaoTarefa;
 use App\Models\Secretaria;
 use App\Models\Servidor;
@@ -51,8 +52,27 @@ class RelatorioController extends Controller
         return $this->generateRelatorio($divisao_id, new DivisaoTarefa());
     }
 
+    private function getNomeUnidadeAdministrativa($id, $model)
+    {
+        if ($model == new DepartamentoTarefa()) {
+            $departamento = Departamento::find($id);
+            if ($departamento) {
+                return $departamento->nomeDepartamento;
+            }
+        } elseif ($model == new DivisaoTarefa()) {
+            $divisao = Divisao::find($id);
+            if ($divisao) {
+                return $divisao->nomeDivisao;
+            }
+        }
+
+        return null;
+    }
+
     private function generateRelatorio($id, $model)
     {
+        $nomeUnidadeAdministrativa = $this->getNomeUnidadeAdministrativa($id, $model);
+
         $tabela = $model::where(function ($query) use ($id, $model) {
             $query->where($model == new DepartamentoTarefa() ? 'departamento_id' : 'divisao_id', $id);
         })->get();
@@ -102,7 +122,7 @@ class RelatorioController extends Controller
 
         $porcentagemAndamento = ($closedTasks / max($closedTasks + $openTasks, 1)) * 100;
 
-        return view('admin.departamento.relatorio', compact('totalTasks', 'openTasks', 'closedTasks', 'backlogTasks',
+        return view('layouts.dashboard.relatorio', compact('nomeUnidadeAdministrativa', 'totalTasks', 'openTasks', 'closedTasks', 'backlogTasks',
             'doingTasks', 'codeReviewTasks', 'porcentBaixaPrioridade', 'porcentMediaPrioridade', 'porcentAltaPrioridade',
             'porcentTarefasFechadas', 'porcentagemAndamento', 'totalTasksByMonth', 'tarefasEmAtraso'));
     }
