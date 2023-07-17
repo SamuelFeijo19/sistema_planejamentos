@@ -50,9 +50,9 @@
                     <br>
                 @endforeach
             </div>
-{{--            <div class="d-flex justify-content-center my-4">--}}
-{{--                {{ $participantes->links('vendor.pagination.bootstrap-4') }}--}}
-{{--            </div>--}}
+            <div class="d-flex justify-content-center my-4">
+                {{ $servidores->links('vendor.pagination.bootstrap-4') }}
+            </div>
      </div>
     </div>
     </div>

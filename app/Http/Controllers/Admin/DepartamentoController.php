@@ -108,6 +108,14 @@ class DepartamentoController extends Controller
                 'administrador_id' => $request->administrador_id
             ]);
 
+            //LOTAR ADMINISTRADOR AUTOMATICAMENTE NO DEPARTAMENTO
+            if($request->administrador_id != null){
+                $departamentoServidor = DepartamentoServidor::create([
+                    'servidor_id' => $request->administrador_id,
+                    'departamento_id' => $departamento->id,
+                ]);
+            }
+
             DB::commit();
 
             // Reset CSRF token

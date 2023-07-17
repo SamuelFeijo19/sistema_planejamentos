@@ -33,4 +33,9 @@ class Divisao extends Model
         return $this->belongsTo(Servidor::class, 'administrador_id', 'id');
     }
 
+    public function servidores()
+    {
+        return $this->belongsToMany(Servidor::class, 'departamento_servidor', 'departamento_id', 'servidor_id');
+    }
+
 }

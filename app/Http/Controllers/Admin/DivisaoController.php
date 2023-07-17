@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Http\Requests\DivisaoRequest;
 use App\Models\Departamento;
 use App\Models\Divisao;
+use App\Models\DivisaoServidor;
 use App\Models\Secretaria;
 use App\Models\Servidor;
 use Exception;
@@ -90,6 +91,14 @@ class DivisaoController extends Controller
                 'nomeDivisao' => mb_strtoupper($request->nomeDivisao),
                 'administrador_id' => $request->administrador_id
             ]);
+
+            //LOTAR ADMINISTRADOR AUTOMATICAMENTE NO DEPARTAMENTO
+            if($request->administrador_id != null){
+                $divisaoServidor = DivisaoServidor::create([
+                    'servidor_id' => $request->administrador_id,
+                    'divisao_id' => $divisao->id,
+                ]);
+            }
 
             DB::commit();
 
