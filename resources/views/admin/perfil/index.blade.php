@@ -1,21 +1,6 @@
 @extends('layouts.dashboard.app')
-@push('css')
-    <link rel="stylesheet"
-          href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@48,400,0,0"/>
-    <link rel="stylesheet"
-          href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@48,400,0,0"/>
-    <link rel="stylesheet"
-          href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@48,400,0,0"/>
-    <link rel="stylesheet" href="{{asset('css/dataTables.min.css')}}">
-@endpush
-@section('content')
-    <style>
-        h3{
-            color: #2d91cb;
-            font-weight: bold;
-        }
-    </style>
 
+@section('content')
     <main class="container" id="ajuste">
         <div class="row">
             <div class="col col-12">

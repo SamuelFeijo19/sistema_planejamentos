@@ -1,22 +1,9 @@
 @extends('layouts.dashboard.app')
-
+@push('css')
+    <link rel="stylesheet" href="{{asset('css/forms/create.css')}}">
+@endpush
 @section('content')
-    <style>
-        .input-group{
-            display: block;
-            color: #e2e3e8;
-            font-size: 16px;
-            width: 100%;
-            background-color: transparent;
-            border: none;
-            border-bottom: 1px solid #6e707e;
-            padding: 8px 0;
-            appearance: none;
-            outline: none;
-        }
-    </style>
-
-    <div class="container-fluid">
+ <div class="container-fluid">
         <div class="row">
             <div class="col col-12">
                 <h3>Edição de Secretaria</h3>

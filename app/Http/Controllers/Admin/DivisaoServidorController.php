@@ -21,9 +21,7 @@ class DivisaoServidorController extends Controller
      */
     public function index(Request $request)
     {
-        $lotacaoDivisao = DivisaoServidor::query();
-
-        return view('admin.divisoes.servidor_divisao', compact('lotacaoDivisao'));
+        //
     }
 
     public function show(Request $request, $divisao_id)
@@ -43,23 +41,27 @@ class DivisaoServidorController extends Controller
 
         if ($lotacoesDivisao->isEmpty()) {
             $mensagem = "Nenhum servidor encontrao";
-            return view('admin.divisoes.servidor_divisao', compact('lotacoesDivisao', 'divisao_id', 'mensagem'));
+            return view('admin.divisao_servidor.index', compact('lotacoesDivisao', 'divisao_id', 'mensagem'));
         }
 
-        return view('admin.divisoes.servidor_divisao', compact('lotacoesDivisao', 'divisao_id'));
+        return view('admin.divisao_servidor.index', compact('lotacoesDivisao', 'divisao_id'));
     }
 
     public function create($divisao_id)
     {
         $divisao = Divisao::findOrFail($divisao_id);
 
-        //RETORNA SOMENTE SERVIDORES QUE NÃO ESTÃO ASSOCIADOS AO DEPARTAMENTO
         $servidores = Servidor::whereNotIn('id', function ($query) use ($divisao_id) {
             $query->select('servidor_id')
                 ->from('divisao_servidor')
                 ->where('divisao_id', $divisao_id);
-        })->get();
-        return view('admin.divisao_servidor.create', compact('divisao', 'servidores'));
+        })
+            ->whereHas('lotacaoDepartamento', function ($query) use ($divisao) {
+                $query->where('departamento_id', $divisao->departamento->id);
+            })
+            ->get();
+
+        return view('admin.divisao_servidor.create', compact('servidores', 'divisao'));
     }
 
     public function store(Request $request)
@@ -88,20 +90,7 @@ class DivisaoServidorController extends Controller
 
     public function update(Request $request, $id)
     {
-        try {
-            DB::beginTransaction();
-            $lotacaoDivisao = DivisaoServidor::findOrFail($id);
-            $lotacaoDivisao->update([
-                'servidor_id' => mb_strtoupper($request->servidor_id),
-                'divisao_id' => $request->divisao_id,
-            ]);
-            DB::commit();
-            $request->session()->regenerateToken();
-            return redirect()->back()->with(['type' => 'success', 'message' => 'Lotação do servidor na divisão atualizada com sucesso!']);
-        } catch (Exception $exception) {
-            DB::rollBack();
-            return redirect()->back()->with(['type' => 'error', 'message' => 'Falha na atualização do servidor na divisão!']);
-        }
+       //
     }
 
     public function destroy($id)

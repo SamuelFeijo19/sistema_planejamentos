@@ -20,11 +20,7 @@ class DepartamentoServidorController extends Controller
      */
     public function index(Request $request)
     {
-        $departamento_id = $request->input('departamento_id');
-
-        $lotacoesDepartamento = DepartamentoServidor::where('departamento_id', $departamento_id)->get();
-
-        return view('admin.departamento.servidor_departamento', compact('lotacoesDepartamento'));
+        //
     }
 
     public function show(Request $request, $departamento_id)
@@ -44,10 +40,10 @@ class DepartamentoServidorController extends Controller
 
         if ($lotacoesDepartamento->isEmpty()) {
             $mensagem = "Nenhum servidor encontrao";
-            return view('admin.departamento.servidor_departamento', compact('lotacoesDepartamento', 'departamento_id', 'mensagem'));
+            return view('admin.departamento_servidor.index', compact('lotacoesDepartamento', 'departamento_id', 'mensagem'));
         }
 
-        return view('admin.departamento.servidor_departamento', compact('lotacoesDepartamento', 'departamento_id'));
+        return view('admin.departamento_servidor.index', compact('lotacoesDepartamento', 'departamento_id'));
     }
 
     public function create($departamento_id)
@@ -60,6 +56,7 @@ class DepartamentoServidorController extends Controller
                 ->from('departamento_servidor')
                 ->where('departamento_id', $departamento_id);
         })->get();
+
         return view('admin.departamento_servidor.create', compact('departamento', 'servidores'));
     }
 
@@ -88,20 +85,7 @@ class DepartamentoServidorController extends Controller
 
     public function update(Request $request, $id)
     {
-        try {
-            DB::beginTransaction();
-            $lotacaoDepartamento = DepartamentoServidor::findOrFail($id);
-            $lotacaoDepartamento->update([
-                'servidor_id' => mb_strtoupper($request->servidor_id),
-                'departamento_id' => $request->departamento_id,
-            ]);
-            DB::commit();
-            $request->session()->regenerateToken();
-            return redirect()->back()->with(['type' => 'success', 'message' => 'Lotação atualizada com sucesso!']);
-        } catch (Exception $exception) {
-            DB::rollBack();
-            return redirect()->back()->with(['type' => 'error', 'message' => 'Falha na atualização!']);
-        }
+        //
     }
 
     public function destroy($id)

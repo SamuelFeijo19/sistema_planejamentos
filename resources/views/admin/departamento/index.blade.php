@@ -1,13 +1,6 @@
 @extends('layouts.dashboard.app')
 
 @section('content')
-    <style>
-        h3 {
-            color: #2d91cb;
-            font-weight: bold;
-        }
-    </style>
-
     <div class="container-fluid">
         <div style="width: 100%;">
             <div class="col col-12">
@@ -16,9 +9,11 @@
             </div>
 
             {{--Componente do Botão de Adicionar--}}
-            <x-adicionar.adicionar-button link-route="{{ route('departamento.create', $secretaria_id) }}" text-button="Novo Departamento" />
+            <x-adicionar.adicionar-button link-route="{{ route('departamento.create', $secretaria_id) }}"
+                                          text-button="Novo Departamento"/>
             {{--Componente do Botão de Pesquisa--}}
-            <x-search.search-button placeholder="Busque por Departamentos" form-action="{{ route('departamento.index', $secretaria_id) }}" />
+            <x-search.search-button placeholder="Busque por Departamentos"
+                                    form-action="{{ route('departamento.index', $secretaria_id) }}"/>
 
             @if(isset($mensagem))
                 <div class="alert alert-warning" style="width: 300px;">{{ $mensagem }}</div>
@@ -30,16 +25,22 @@
                         <div class="list-group-item shadow-sm border-left-info">
                             <div class="row">
                                 <div class="col">
-                                    <p class="mb-1"><b>Nome do Departamento:</b> {{ucwords(mb_strtolower($departamento->nomeDepartamento))}}</p>
-                                    <p class="mb-1"><b>Chefe do Departamento:</b> {{ $departamento->administrador ? ucwords(mb_strtolower($departamento->administrador->user->name)) : "Nenhum chefe" }}</p>
+                                    <p class="mb-1"><b>Nome do
+                                            Departamento:</b> {{ucwords(mb_strtolower($departamento->nomeDepartamento))}}
+                                    </p>
+                                    <p class="mb-1"><b>Chefe do
+                                            Departamento:</b> {{ $departamento->administrador ? ucwords(mb_strtolower($departamento->administrador->user->name)) : "Nenhum chefe" }}
+                                    </p>
                                 </div>
                                 <div class="col d-flex justify-content-center align-items-center">
                                     <div class="text-right">
-                                        <a href="{{route('departamentos.servidor.create', $departamento->id)}}" title="ADICIONAR SERVIDOR">
+                                        <a href="{{route('departamentoServidor.create', $departamento->id)}}"
+                                           title="ADICIONAR SERVIDOR">
                                             <span class="material-symbols-outlined text-success">person_add</span>
                                         </a>
 
-                                        <a href="{{route('departamentoServidor.show', $departamento->id)}}" title="LISTAR SERVIDORES">
+                                        <a href="{{route('departamentoServidor.show', $departamento->id)}}"
+                                           title="LISTAR SERVIDORES">
                                             <span class="material-symbols-outlined text-primary">person</span>
                                         </a>
 

@@ -76,19 +76,6 @@ class DepartamentoController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function createServidor($id)
-    {
-        $departamento = Departamento::findOrFail($id);
-
-        //RETORNA SOMENTE SERVIDORES QUE NÃO ESTÃO ASSOCIADOS AO DEPARTAMENTO
-        $servidores = Servidor::whereNotIn('id', function ($query) use ($id) {
-            $query->select('servidor_id')
-                ->from('departamento_servidor')
-                ->where('departamento_id', $id);
-        })->get();
-
-        return view('admin.departamento.servidor', compact('servidores', 'departamento'));
-    }
 
     /**
      * Store a newly created resource in storage.

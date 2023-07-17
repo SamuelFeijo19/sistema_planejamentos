@@ -234,7 +234,7 @@
                     scales: {
                         y: {
                             beginAtZero: true,
-                            max: 10,
+                            max: 100,
                             title: {
                                 display: true,
                                 text: 'Relatórios'

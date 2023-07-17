@@ -1,37 +1,8 @@
 @extends('layouts.dashboard.app')
-
+@push('css')
+    <link rel="stylesheet" href="{{asset('css/forms/create.css')}}">
+@endpush
 @section('content')
-    <style>
-        h3{
-            color: #2d91cb;
-            font-weight: bold;
-        }
-        .container-fluid{
-            /*background: #eeeeee;*/
-        }
-        .input-group{
-            display: block;
-            color: #e2e3e8;
-            font-size: 16px;
-            width: 100%;
-            background-color: transparent;
-            border: none;
-            border-bottom: 1px solid #6e707e;
-            padding: 8px 0;
-            appearance: none;
-            outline: none;
-        }
-
-        .submit {
-            background: #4e73df;
-            color: white;
-            border-radius: 8px;
-        }
-        .submit:hover {
-            background: #5a81f8;
-        }
-    </style>
-
     <main class="container" id="ajuste">
         <div class="row">
             <div class="col col-12">

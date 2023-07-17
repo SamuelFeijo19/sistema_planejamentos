@@ -1,7 +1,5 @@
 @extends('layouts.dashboard.app')
-@push('css')
-    <link href="{{asset('css/select2.css')}}" rel="stylesheet" />
-@endpush
+
 @section('content')
     <main class="container" id="ajuste">
         <div class="row">
@@ -9,44 +7,36 @@
                 <h3>Adicionar Servidor</h3>
                 <hr>
             </div>
-{{--            @dd($departamento);--}}
             <div id="accordion" style="width: 80%; margin:0 auto;">
                 <form id="formulario_registro" method="post" action="{{ route('departamentoServidor.store') }}">
+                    {{-- <input type="hidden" name="'id" value="{{ $matricula->id ?? ''}}"> --}}
                     @csrf
-                    <div class="card">
+                    <div class="card shadow">
                         <div class="card-header text-center bg-primary" id="headingOne">
                             <h5 class="mb-0">
                                 <input type="" class="btn btn-link text-white font-weight-bold" value="LOTAÇÃO">
                             </h5>
                         </div>
 
-                        <div id="collapseOne" class="collapse multi-collapse show" aria-labelledby="headingOne" data-parent="#accordion" >
+                        <div id="collapseOne" class="csollapse multi-collapse show" aria-labelledby="headingOne"
+                             data-parent="#accordion">
                             <div class="card-body">
-{{--                                <input type="hidden" name="departamento_id" value="{{$departamento->id}}">--}}
+                                <input type="hidden" name="departamento_id" value="{{$departamento->id}}">
 
                                 <div class="row">
                                     <div class="col">
                                         <div class="input-group mb-3">
                                             <div class="input-group-prepend">
-                                                <label class="input-group-text" for="inputGroupSelect01">Departamento</label>
+                                                <label class="input-group-text"
+                                                       for="inputGroupSelect01">Servidores</label>
                                             </div>
-                                            <select name="departamento_id" for="departamento_id" class="js-example-basic-single custom-select" id="inputGroupSelect01" required>
-                                                <option value="{{ $departamento->id }}" selected>{{ mb_strtoupper($departamento->nomeDepartamento) }}</option>
-                                            </select>
-                                        </div>
-                                    </div>
-                                </div>
-
-                                <div class="row">
-                                    <div class="col">
-                                        <div class="input-group mb-3">
-                                            <div class="input-group-prepend">
-                                                <label class="input-group-text" for="inputGroupSelect01">Servidores</label>
-                                            </div>
-                                            <select name="servidor_id" for="servidor_id" class="js-example-basic-single custom-select" id="inputGroupSelect01" required>
+                                            <select name="servidor_id" for="servidor_id"
+                                                    class="js-example-basic-single custom-select"
+                                                    id="inputGroupSelect01" required>
                                                 <option value="">Selecione o Servidor</option>
                                                 @foreach ($servidores as $servidor)
-                                                    <option value="{{ $servidor->id }}">{{ mb_strtoupper($servidor->user->name) }}</option>
+                                                    <option
+                                                        value="{{ $servidor->id }}">{{ mb_strtoupper($servidor->user->name) }}</option>
                                                 @endforeach
                                             </select>
                                         </div>
@@ -55,7 +45,8 @@
 
                                 <div class="row">
                                     <div class="col col-12 text-right">
-                                        <input type="submit" class="btn btn-outline-dark font-weight-bold" value="Adicionar Servidor">
+                                        <input type="submit" class="btn btn-primary font-weight-bold"
+                                               value="Adicionar Servidor">
                                     </div>
                                 </div>
                             </div>
@@ -69,7 +60,7 @@
 @push('js')
     <script src="{{asset('js/select2.js')}}"></script>
     <script>
-        $(document).ready(function() {
+        $(document).ready(function () {
             $('.js-example-basic-single').select2();
         });
     </script>

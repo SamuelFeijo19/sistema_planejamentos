@@ -11,10 +11,11 @@
             </div>
 
             {{--Componente do Botão de Adicionar--}}
-            <x-adicionar.adicionar-button link-route="{{route('divisaoServidor.create', $divisao_id)}}" text-button="Novo Servidor" />
+            <x-adicionar.adicionar-button link-route="{{route('divisaoServidor.create', $divisao_id)}}"
+                                          text-button="Novo Servidor"/>
 
             {{--Componente do Botão de Pesquisa--}}
-            <x-search.search-button placeholder="Busque por Servidores ..." form-action="#" />
+            <x-search.search-button placeholder="Busque por Servidores ..." form-action="#"/>
 
             <div class="w-100">
                 <div class="list-group">
@@ -22,7 +23,8 @@
                         <div class="list-group-item shadow-sm border-left-info">
                             <div class="row">
                                 <div class="col">
-                                    <p class="mb-1"><b>Nome do Servidor:</b> {{ucwords(mb_strtolower($lotacao->servidor->user->name))}}</p>
+                                    <p class="mb-1"><b>Nome do
+                                            Servidor:</b> {{ucwords(mb_strtolower($lotacao->servidor->user->name))}}</p>
                                     <small class="text-muted"><b>CPF:
                                         </b> {{$lotacao->servidor->cpf}}
                                     </small>
@@ -36,13 +38,14 @@
                                     </small>
                                 </div>
                                 @if(auth()->user()->is_admin)
-                                <div class="col d-flex justify-content-center align-items-center">
-                                    <div class="text-right">
-                                        <a href="#" class="delete" data-route="{{route('divisaoServidor.destroy', $lotacao->id)}}">
-                                            <span class="material-symbols-outlined text-danger">delete</span>
-                                        </a>
+                                    <div class="col d-flex justify-content-center align-items-center">
+                                        <div class="text-right">
+                                            <a href="#" class="delete"
+                                               data-route="{{route('divisaoServidor.destroy', $lotacao->id)}}">
+                                                <span class="material-symbols-outlined text-danger">delete</span>
+                                            </a>
+                                        </div>
                                     </div>
-                                </div>
                                 @endif
                             </div>
                         </div>

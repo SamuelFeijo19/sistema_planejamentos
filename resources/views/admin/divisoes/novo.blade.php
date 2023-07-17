@@ -1,26 +1,8 @@
 @extends('layouts.dashboard.app')
-
+@push('css')
+    <link rel="stylesheet" href="{{asset('css/forms/create.css')}}">
+@endpush
 @section('content')
-    <style>
-        h3 {
-            color: #2d91cb;
-            font-weight: bold;
-        }
-
-        .input-group {
-            display: block;
-            color: #e2e3e8;
-            font-size: 16px;
-            width: 100%;
-            background-color: transparent;
-            border: none;
-            border-bottom: 1px solid #6e707e;
-            padding: 8px 0;
-            appearance: none;
-            outline: none;
-        }
-    </style>
-
     <main class="container" id="ajuste">
         <div class="row">
             <div class="col col-12">
@@ -59,14 +41,17 @@
                                     <div class="col">
                                         <div class=" mb-3">
                                             <div class="input-group-prepend">
-                                                <label class="text-dark" for="inputGroupSelect">SECRETARIA QUE A DIVISÃO PERCENTE</label>
+                                                <label class="text-dark" for="inputGroupSelect">SECRETARIA QUE A DIVISÃO
+                                                    PERCENTE</label>
                                             </div>
                                             <select name="secretaria_id" for="secretaria_id"
-                                                    class="js-example-basic-single custom-select" id="inputGroupSelect01"
+                                                    class="js-example-basic-single custom-select"
+                                                    id="inputGroupSelect01"
                                                     required>
                                                 <option value="">Selecione a Secretaria</option>
                                                 @foreach ($secretarias as $secretaria)
-                                                    <option value="{{ $secretaria->id }}">{{ mb_strtoupper($secretaria->nomeSecretaria) }}</option>
+                                                    <option
+                                                        value="{{ $secretaria->id }}">{{ mb_strtoupper($secretaria->nomeSecretaria) }}</option>
                                                 @endforeach
                                             </select>
                                         </div>
@@ -78,7 +63,8 @@
                                         <div class=" mb-3">
                                             <div class="input-group-prepend">
                                                 <label class="text-dark"
-                                                       for="departamentoSelectDivisao">DEPARTAMENTO QUE A DIVISÃO PERTENCE</label>
+                                                       for="departamentoSelectDivisao">DEPARTAMENTO QUE A DIVISÃO
+                                                    PERTENCE</label>
                                             </div>
                                             <select name="departamento_id" for="departamento_id"
                                                     class="js-example-basic-single custom-select departamentoSelect"
@@ -93,12 +79,16 @@
                                     <div class="col">
                                         <div class=" mb-3">
                                             <div class="input-group-prepend">
-                                                <label class="text-dark" for="inputGroupSelect01">CHEFE DO DEPARTAMENTO (OPCIONAL)</label>
+                                                <label class="text-dark" for="inputGroupSelect01">CHEFE DO DEPARTAMENTO
+                                                    (OPCIONAL)</label>
                                             </div>
-                                            <select name="administrador_id" for="administrador_id" class="js-example-basic-single custom-select" id="inputGroupSelect01">
+                                            <select name="administrador_id" for="administrador_id"
+                                                    class="js-example-basic-single custom-select"
+                                                    id="inputGroupSelect01">
                                                 <option value="">Selecione o Servidor</option>
                                                 @foreach ($servidores as $servidor)
-                                                    <option value="{{ $servidor->id }}">{{ mb_strtoupper($servidor->user->name) }}</option>
+                                                    <option
+                                                        value="{{ $servidor->id }}">{{ mb_strtoupper($servidor->user->name) }}</option>
                                                 @endforeach
                                             </select>
                                         </div>

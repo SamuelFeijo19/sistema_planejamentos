@@ -44,7 +44,6 @@ Route::prefix('')->middleware('autenticacao')->group(function () {
         Route::resource('departamentoServidor', \App\Http\Controllers\Admin\DepartamentoServidorController::class)->except(['create', 'show']);
 
         Route::resource('divisaoServidor', \App\Http\Controllers\Admin\DivisaoServidorController::class)->except(['create', 'show']);
-        Route::get('/DivisaoServidor/create/{divisao_id}', [\App\Http\Controllers\Admin\DivisaoServidorController::class, 'create'])->name('divisaoServidor.create');
 
         // TAREFAS DEPARTAMENTO
         Route::get('tarefasDepartamento/{tarefa_id}/destroy', [\App\Http\Controllers\Admin\DepartamentoTarefaController::class, 'destroy'])->name('tarefasDepartamento.destroy');
@@ -64,14 +63,12 @@ Route::prefix('')->middleware('autenticacao')->group(function () {
     //ROTAS QUE SÓ PODEM SER ACESADAS PELO CHEFE DO DEPARTAMENTO E PELO ADM DO SISTEMA
     Route::middleware('adminDpt')->group(function () {
         //LOTACAO DO SERVIDOR NO DEPARTAMENTO
-        Route::get('departamentos/{departamento_id}/servidor', [\App\Http\Controllers\Admin\DepartamentoController::class, 'createServidor'])->name('departamentos.servidor.create');
         Route::get('/departamentoServidor/create/{departamento_id}', [\App\Http\Controllers\Admin\DepartamentoServidorController::class, 'create'])->name('departamentoServidor.create');
     });
 
     //ROTAS QUE SÓ PODEM SER ACESSADAS PELO CHEFE DA DIVISÃO, CHEFE DO DEPARTAMENTO QUE A DIVISAO ESTA LOTADA E PELO ADM DO SISTEMA
     Route::middleware(['adminDivisao'])->group(function () {
-        Route::get('divisao/{divisao_id}/servidor', [\App\Http\Controllers\Admin\DivisaoController::class, 'createServidor'])
-            ->name('divisao.servidor.create');
+        Route::get('/DivisaoServidor/create/{divisao_id}', [\App\Http\Controllers\Admin\DivisaoServidorController::class, 'create'])->name('divisaoServidor.create');
     });
 
     //DEPARTAMENTOS
