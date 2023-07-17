@@ -8,6 +8,7 @@ use App\Models\Departamento;
 use App\Models\DepartamentoServidor;
 use App\Models\DepartamentoTarefa;
 use App\Models\Divisao;
+use App\Models\DivisaoServidor;
 use App\Models\DivisaoTarefa;
 use App\Models\Secretaria;
 use App\Models\Servidor;
@@ -44,11 +45,33 @@ class RelatorioController extends Controller
 
     public function relatorioDepartamento(Request $request, $departamento_id)
     {
+        $servidorId= auth()->user()->servidor->id;
+
+        // Verificar se o usuário tem uma entrada na tabela departamento_servidor com o servidor_id correspondente
+        $departamentoServidor = DepartamentoServidor::where('servidor_id', $servidorId)
+            ->where('departamento_id', $departamento_id)
+            ->first();
+
+        if (!$departamentoServidor) {
+            return redirect()->back()->with(['type' => 'error', 'message' => 'Você não faz parte deste departamento!']);
+        }
+
         return $this->generateRelatorio($departamento_id, new DepartamentoTarefa());
     }
 
     public function relatorioDivisao(Request $request, $divisao_id)
     {
+        $servidorId= auth()->user()->servidor->id;
+
+        // Verificar se o usuário tem uma entrada na tabela departamento_servidor com o servidor_id correspondente
+        $divisaoServidor = DivisaoServidor::where('servidor_id', $servidorId)
+            ->where('divisao_id', $divisao_id)
+            ->first();
+
+        if (!$divisaoServidor) {
+            return redirect()->back()->with(['type' => 'error', 'message' => 'Você não faz parte desta divisão!']);
+        }
+
         return $this->generateRelatorio($divisao_id, new DivisaoTarefa());
     }
 

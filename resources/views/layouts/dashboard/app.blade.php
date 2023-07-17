@@ -233,8 +233,10 @@ background: linear-gradient(187deg, rgba(26,122,178,1) 15%, rgba(26,122,178,1) 7
                             <h6 class="dropdown-header">
                                 Tarefas em Atraso
                             </h6>
+                            </h6>
                             @foreach($tarefasEmAtraso as $tarefa)
-                                <a class="dropdown-item d-flex align-items-center" href="#">
+                                <a class="dropdown-item d-flex align-items-center" href="{{$tarefa instanceof \App\Models\DepartamentoTarefa ?
+                                    route('boardDepartamento.index', $tarefa->departamento->id) : route('boardDivisao.index', $tarefa->divisao->id)}}">
                                     <div class="mr-3">
                                         <div class="icon-circle bg-warning">
                                             <i class="fa fa-exclamation-triangle text-white"></i>
