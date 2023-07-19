@@ -116,6 +116,9 @@ Route::prefix('')->middleware('autenticacao')->group(function () {
     Route::post('taskDepartamento/move-situacao', [\App\Http\Controllers\Admin\DepartamentoTarefaController::class, 'moveSituacao'])->name('task.moveSituacao');
     Route::post('task/move-situacao', [\App\Http\Controllers\Admin\DivisaoTarefaController::class, 'moveSituacao'])->name('task.moveSituacaoDivisao');
 
+    Route::get('/alternarQuadroDepartamento', [\App\Http\Controllers\Admin\BoardController::class, 'alternarQuadroDpt'])->name('quadro.alternar.departamento');
+    Route::get('/alternarQuadroDivisao', [\App\Http\Controllers\Admin\BoardDivisaoController::class, 'alternarQuadroDiv'])->name('quadro.alternar.divisao');
+
     //FECHAR TAREFA DO DEPARTAMENTO
     Route::get('taskDepartamento/{task_id}/update-status', [\App\Http\Controllers\Admin\DepartamentoTarefaController::class, 'updateStatus'])->name('taskDepartamento.updateStatus');
 

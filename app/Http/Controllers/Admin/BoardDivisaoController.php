@@ -52,6 +52,17 @@ class BoardDivisaoController extends Controller
         return response()->json($task);
     }
 
+    public function alternarQuadroDiv()
+    {
+        if (session('mostrarApenasMeuQuadro')) {
+            session(['mostrarApenasMeuQuadro' => false]);
+        } else {
+            session(['mostrarApenasMeuQuadro' => true]);
+        }
+
+        return redirect()->back();
+    }
+
     /**
      * Show the form for creating a new resource.
      *

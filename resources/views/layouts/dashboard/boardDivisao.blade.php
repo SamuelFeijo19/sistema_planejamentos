@@ -17,7 +17,6 @@
             background-size: cover;
             background-position: center;
             ">
-
         <div class="clearfix">
             <div class="float-left">
                 <h3 class="text-white">
@@ -29,13 +28,17 @@
 
             {{--Componente do Botão de Relatórios--}}
             <x-adicionar.relatorio-button link-route="{{route('divisao.relatorio', $divisao->id)}}"/>
-
-
         </div>
+
+        {{--Componente do Botão 'Mostrar apenas meu quadro'--}}
+        <x-adicionar.on_off link-route="{{route('quadro.alternar.divisao', $divisao->id)}}"/>
 
         <div class="container col-sm-12 ">
             <div class="row">
                 @foreach($servidores as $servidor)
+                    @if(session('mostrarApenasMeuQuadro') && $servidor->user->id !== auth()->user()->id)
+                        @continue
+                    @endif
                     <div class="servidor-container shadow col-sm-5 bg-gradient-light text-primary" style="border-radius: 5px;">
                         <h4 style="padding: 5px;">{{$servidor->user->name}}</h4>
                         <div class="board">

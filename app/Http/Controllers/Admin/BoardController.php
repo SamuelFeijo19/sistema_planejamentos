@@ -48,6 +48,18 @@ class BoardController extends Controller
         return response()->json($task);
     }
 
+    public function alternarQuadroDpt()
+    {
+        if (session('mostrarApenasMeuQuadro')) {
+            session(['mostrarApenasMeuQuadro' => false]);
+        } else {
+            session(['mostrarApenasMeuQuadro' => true]);
+        }
+
+        return redirect()->back();
+    }
+
+
     public function create($id)
     {
         //
