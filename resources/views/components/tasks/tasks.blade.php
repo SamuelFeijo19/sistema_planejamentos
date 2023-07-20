@@ -22,7 +22,7 @@
         </a>
     </div>
 @elseif($tarefa->situacao == 2)
-    <div class="card-item row{{ $tarefa->classificacao == 0 ? ' h-25' : '' }}" data-task-id="{{ $tarefa->id }}">
+    <div class="card-item row" data-task-id="{{ $tarefa->id }}">
         <a class="{{ $tarefa->classificacao == 0 ? 'text-success' : ($tarefa->classificacao == 1 ? 'text-warning' : 'text-danger') }} text-dark task-link"
            href="#"
            draggable="true"

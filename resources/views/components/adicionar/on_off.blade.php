@@ -9,6 +9,7 @@
         width: 60px;
         height: 32px;
         border-radius: 20px;
+        border: 1px solid #ccc;
         padding: 3px;
     }
 
