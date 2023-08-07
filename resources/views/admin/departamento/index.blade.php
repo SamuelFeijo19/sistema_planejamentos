@@ -41,20 +41,20 @@
 
                                         <a href="{{route('departamentoServidor.show', $departamento->id)}}"
                                            title="LISTAR SERVIDORES">
-                                            <span class="material-symbols-outlined text-primary">person</span>
+                                            <span class="material-symbols-outlined text-primary">groups</span>
                                         </a>
 
                                         <a href="#" class="delete"
-                                           data-route="{{route('departamento.destroy', $departamento->id)}}">
+                                           data-route="{{route('departamento.destroy', $departamento->id)}}" title="EXCLUIR DEPARTAMENTO">
                                             <span class="material-symbols-outlined text-danger">delete</span>
                                         </a>
-                                        <a href="{{route('departamento.edit', $departamento->id)}}">
+                                        <a href="{{route('departamento.edit', $departamento->id)}}" title="EDITAR DEPARTAMENTO">
                                             <span class="material-symbols-outlined">edit_note</span>
                                         </a>
-                                        <a href="{{route('divisao.show', $departamento->id)}}" title="LISTAR DIVISOES">
-                                            <span class="material-symbols-outlined text-primary">groups</span>
+                                        <a href="{{route('divisao.show', $departamento->id)}}" title="LISTAR DIVISÕES">
+                                            <span class="material-symbols-outlined text-primary">moving_ministry</span>
                                         </a>
-                                        <a href="{{route('boardDepartamento.index', $departamento->id)}}">
+                                        <a href="{{route('boardDepartamento.index', $departamento->id)}}" title="ACESSAR QUADRO DE TAREFAS">
                                             <span class="material-symbols-outlined">grid_view</span>
                                         </a>
                                     </div>

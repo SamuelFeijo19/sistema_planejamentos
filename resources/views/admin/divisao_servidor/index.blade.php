@@ -5,7 +5,7 @@
     <div class="container-fluid">
         <div style="width: 100%">
             <div class="col col-12">
-                <h3>Servidores Cadastrados </h3>
+                <h3>Servidores Cadastrados na {{ucwords(mb_strtolower($divisao->nomeDivisao))}}</h3>
                 {{-- <h4 class="alert alert-warning">Preencha corretamente todos os dados referentes ao evento que será cadastrado</h4> --}}
                 <hr>
             </div>
@@ -41,7 +41,7 @@
                                     <div class="col d-flex justify-content-center align-items-center">
                                         <div class="text-right">
                                             <a href="#" class="delete"
-                                               data-route="{{route('divisaoServidor.destroy', $lotacao->id)}}">
+                                               data-route="{{route('divisaoServidor.destroy', $lotacao->id)}}" title="EXCLUIR LOTAÇÃO DO SERVIDOR">
                                                 <span class="material-symbols-outlined text-danger">delete</span>
                                             </a>
                                         </div>

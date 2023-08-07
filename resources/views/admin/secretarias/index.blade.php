@@ -34,10 +34,10 @@
                                 <div class="col d-flex justify-content-center align-items-center">
                                     <div class="text-right">
                                         <a href="#" class="delete"
-                                           data-route="{{route('secretarias.destroy', $secretaria->id)}}">
+                                           data-route="{{route('secretarias.destroy', $secretaria->id)}}" title="EXCLUIR SECRETARIA">
                                             <span class="material-symbols-outlined text-danger">delete</span>
                                         </a>
-                                        <a href="{{route('secretarias.edit', $secretaria->id)}}">
+                                        <a href="{{route('secretarias.edit', $secretaria->id)}}" title="EDITAR SECRETARIA">
                                             <span class="material-symbols-outlined">edit_note</span>
                                         </a>
                                         <a href="{{route('departamento.show', $secretaria->id)}}" title="DEPARTAMENTOS">

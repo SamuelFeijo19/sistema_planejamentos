@@ -27,7 +27,7 @@ class DivisaoServidorController extends Controller
     public function show(Request $request, $divisao_id)
     {
         $lotacoesDivisao = DivisaoServidor::query();
-
+        $divisao = Divisao::findOrFail($divisao_id);
         if ($request->has('search')) {
             $search = $request->search;
             $lotacoesDivisao->whereHas('servidor.user', function ($query) use ($search) {
@@ -41,10 +41,10 @@ class DivisaoServidorController extends Controller
 
         if ($lotacoesDivisao->isEmpty()) {
             $mensagem = "Nenhum servidor encontrao";
-            return view('admin.divisao_servidor.index', compact('lotacoesDivisao', 'divisao_id', 'mensagem'));
+            return view('admin.divisao_servidor.index', compact('lotacoesDivisao', 'divisao_id', 'mensagem', 'divisao'));
         }
 
-        return view('admin.divisao_servidor.index', compact('lotacoesDivisao', 'divisao_id'));
+        return view('admin.divisao_servidor.index', compact('lotacoesDivisao', 'divisao_id', 'divisao'));
     }
 
     public function create($divisao_id)

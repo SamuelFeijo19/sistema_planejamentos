@@ -7,6 +7,7 @@ use App\Http\Requests\Usuario\UsuarioStoreRequest;
 use App\Models\Servidor;
 use App\Models\User;
 use Illuminate\Http\Response;
+use Illuminate\Http\Request;
 use Exception;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Hash;
@@ -34,10 +35,10 @@ class RegistroController extends Controller
             $servidor->save();
             DB::commit();
             $request->session()->regenerateToken();
-            return response()->json(['message' => 'Cadastro realizado com sucesso'], Response::HTTP_CREATED);
+            return redirect()->back()->with(['type' => 'success', 'message' => 'Cadastro realizado com sucesso!']);
         } catch (Exception $exception) {
             DB::rollBack();
-            return response()->json(['message' => 'Não foi possível realizar o cadastro'], Response::HTTP_INTERNAL_SERVER_ERROR);
+            return redirect()->back()->with(['type' => 'error', 'message' => 'Não foi possível realizar o cadastro!']);
         }
     }
 }

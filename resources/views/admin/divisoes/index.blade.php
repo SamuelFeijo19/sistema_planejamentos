@@ -37,20 +37,20 @@
                                            title="ADICIONAR SERVIDOR">
                                             <span class="material-symbols-outlined text-success">person_add</span>
                                         </a>
-                                        @if(auth()->user()->is_admin)
-                                            <a href="#" class="delete"
-                                               data-route="{{route('divisao.destroy', $divisao->id)}}">
-                                                <span class="material-symbols-outlined text-danger">delete</span>
-                                            </a>
-                                            <a href="{{route('divisao.edit', $divisao->id)}}">
-                                                <span class="material-symbols-outlined">edit_note</span>
-                                            </a>
-                                        @endif
                                         <a href="{{route('divisaoServidor.show', $divisao->id)}}"
                                            title="LISTAR SERVIDORES">
                                             <span class="material-symbols-outlined text-primary">groups</span>
                                         </a>
-                                        <a href="{{route('boardDivisao.index', $divisao->id)}}">
+                                        @if(auth()->user()->is_admin)
+                                            <a href="#" class="delete"
+                                               data-route="{{route('divisao.destroy', $divisao->id)}}" title="EXCLUIR DIVISÃO">
+                                                <span class="material-symbols-outlined text-danger">delete</span>
+                                            </a>
+                                            <a href="{{route('divisao.edit', $divisao->id)}}" title="EDITAR DIVISÃO">
+                                                <span class="material-symbols-outlined">edit_note</span>
+                                            </a>
+                                        @endif
+                                        <a href="{{route('boardDivisao.index', $divisao->id)}}" title="ACESSAR QUADRO DE TAREFAS">
                                             <span class="material-symbols-outlined">grid_view</span>
                                         </a>
                                     </div>

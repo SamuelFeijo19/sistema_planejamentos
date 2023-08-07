@@ -29,7 +29,8 @@
                 @csrf
                 <span class="login100-form-title">Nova Conta</span>
                 <div class="wrap-input100 validate-input">
-                    <input class="input100" type="text" name="name" placeholder="Nome" value="{{$errors->first('name') == "" ? old('name') : null}}" required>
+                    <input class="input100" type="text" name="name" placeholder="Nome"
+                           value="{{$errors->first('name') == "" ? old('name') : null}}" required>
                     <span class="focus-input100"></span>
                     <span class="symbol-input100">
                         <span class="material-symbols-outlined">badge</span>
@@ -40,7 +41,8 @@
                 @enderror
 
                 <div class="wrap-input100 validate-input">
-                    <input class="input100" type="text" name="cpf" id="cpf" placeholder="CPF" value="{{$errors->first('cpf') == "" ? old('cpf') : null}}" required>
+                    <input class="input100" type="text" name="cpf" id="cpf" placeholder="CPF"
+                           value="{{$errors->first('cpf') == "" ? old('cpf') : null}}" required>
                     <span class="focus-input100"></span>
                     <span class="symbol-input100">
                         <span class="material-symbols-outlined">branding_watermark</span>
@@ -62,7 +64,8 @@
                 @enderror
 
                 <div class="wrap-input100 validate-input">
-                    <input class="input100" type="date" name="dataNascimento" value="{{$errors->first('dataNascimento') == "" ? old('dataNascimento') : null}}" required>
+                    <input class="input100" type="date" name="dataNascimento"
+                           value="{{$errors->first('dataNascimento') == "" ? old('dataNascimento') : null}}" required>
                     <span class="focus-input100"></span>
                     <span class="symbol-input100">
                         <span class="material-symbols-outlined">celebration</span>
@@ -73,7 +76,8 @@
                 @enderror
 
                 <div class="wrap-input100 validate-input" data-validate="Valid email is required: ex@abc.xyz">
-                    <input class="input100" type="text" name="email" placeholder="Email" value="{{$errors->first('email') == "" ? old('email') : null}}" required>
+                    <input class="input100" type="text" name="email" placeholder="Email"
+                           value="{{$errors->first('email') == "" ? old('email') : null}}" required>
                     <span class="focus-input100"></span>
                     <span class="symbol-input100"><i class="fa fa-envelope" aria-hidden="true"></i>
                     </span>
@@ -94,7 +98,8 @@
                 @enderror
 
                 <div class="wrap-input100 validate-input" data-validate="Password is required">
-                    <input class="input100" type="password" name="password_confirmation" placeholder="Confirmar Nova Senha" required>
+                    <input class="input100" type="password" name="password_confirmation"
+                           placeholder="Confirmar Nova Senha" required>
                     <span class="focus-input100"></span>
                     <span class="symbol-input100">
 							<i class="fa fa-lock" aria-hidden="true"></i>
@@ -102,11 +107,11 @@
                 </div>
 
                 <div class="container-login100-form-btn">
-                    <input type="submit" class="login100-form-btn" value="Cadastrar" />
+                    <input type="submit" class="login100-form-btn" value="Cadastrar"/>
                 </div>
 
                 <div class="text-center p-t-12">
-				   <a class="login100-form-btn bg-info text-light" href="{{route('login')}}">
+                    <a class="login100-form-btn bg-info text-light" href="{{route('login')}}">
                         Login
                     </a>
                 </div>
@@ -123,8 +128,10 @@
 <script src="{{asset('js/jquery.mask.min.js')}}"></script>
 <script src="{{asset('js/sweetalert.js')}}"></script>
 <script>
-    $(document).ready(function () {
-        $('#cpf').mask('000.000.000-00', {reverse: true});
+    $(function () {
+        $('#cpf').mask('000.000.000-00', {reverse: true}); // Descomente esta linha para aplicar a máscara no campo CPF
+        $('#matricula').mask('000000/0');
+
         @if(session()->get('type'))
         Swal.fire({
             type: '{{ session()->get('type') }}',

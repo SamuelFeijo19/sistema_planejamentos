@@ -38,10 +38,10 @@
                                 <div class="col d-flex justify-content-center align-items-center">
                                     <div class="text-right">
                                         <a href="#" class="delete"
-                                           data-route="{{route('servidores.destroy', $servidor->id)}}">
+                                           data-route="{{route('servidores.destroy', $servidor->id)}}" title="EXLUIR CADASTRO DO SERVIDOR">
                                             <span class="material-symbols-outlined text-danger">delete</span>
                                         </a>
-                                        <a href="{{route('servidores.edit', $servidor->id)}}">
+                                        <a href="{{route('servidores.edit', $servidor->id)}}" title="EDITAR CADASTRO DO SERVIDOR">
                                             <span class="material-symbols-outlined">edit_note</span>
                                         </a>
                                     </div>

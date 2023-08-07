@@ -26,6 +26,7 @@ class DepartamentoServidorController extends Controller
     public function show(Request $request, $departamento_id)
     {
         $lotacoesDepartamento = DepartamentoServidor::query();
+        $departamento = Departamento::findOrFail($departamento_id);
 
         if ($request->has('search')) {
             $search = $request->search;
@@ -40,10 +41,10 @@ class DepartamentoServidorController extends Controller
 
         if ($lotacoesDepartamento->isEmpty()) {
             $mensagem = "Nenhum servidor encontrao";
-            return view('admin.departamento_servidor.index', compact('lotacoesDepartamento', 'departamento_id', 'mensagem'));
+            return view('admin.departamento_servidor.index', compact('lotacoesDepartamento', 'departamento_id', 'mensagem', 'departamento'));
         }
 
-        return view('admin.departamento_servidor.index', compact('lotacoesDepartamento', 'departamento_id'));
+        return view('admin.departamento_servidor.index', compact('lotacoesDepartamento', 'departamento_id', 'departamento'));
     }
 
     public function create($departamento_id)
