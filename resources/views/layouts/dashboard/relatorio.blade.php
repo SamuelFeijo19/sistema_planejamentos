@@ -1,6 +1,23 @@
 @extends('layouts.dashboard.app')
 
 @section('content')
+    <style>
+        .situacaoTarefas,.tarefasAtraso{
+            width: 38%;
+            margin-left: 10px;
+        }
+
+        .relatorioMensal,.statusTarefas{
+            width: 60%;
+        }
+
+        @media (max-width: 650px) {
+            .relatorioMensal, .situacaoTarefas,.statusTarefas, .tarefasAtraso {
+                width: 100%;
+            }
+        }
+    </style>
+
     <div class="col col-12">
         <h3>Relatórios para {{ucwords(mb_strtolower($nomeUnidadeAdministrativa))}}</h3>
         <hr>
@@ -119,14 +136,14 @@
     <br>
     <div class="container-fluid">
         <div class="row">
-            <div class="card" style="width: 60%;">
+            <div class="card relatorioMensal">
                 <div class="card-header py-3">
                     <h6 class="m-0 font-weight-bold text-primary">Relatório Mensal de Tarefas Fechadas</h6>
                 </div>
                 <canvas id="lineChart"></canvas>
             </div>
 
-            <div class="card" style="width: 38%; margin-left: 10px;">
+            <div class="card situacaoTarefas">
                 <div class="card-header py-3">
                     <h6 class="m-0 font-weight-bold text-primary">Situação das Tarefas</h6>
                 </div>
@@ -142,7 +159,7 @@
     <!-- Project Card Example -->
     <div class="container-fluid">
         <div class="row">
-            <div class="card shadow " style=" width: 60%;">
+            <div class="card shadow statusTarefas">
                 <div class="card-header py-3">
                     <h6 class="m-0 font-weight-bold text-primary">Status das Tarefas</h6>
                 </div>
@@ -181,7 +198,7 @@
                 </div>
             </div>
 
-            <div class="card" style="width: 38%; margin-left: 10px;">
+            <div class="card tarefasAtraso">
                 <div class="card-header py-3">
                     <h6 class="m-0 font-weight-bold text-primary">Tarefas em Atraso</h6>
                 </div>
